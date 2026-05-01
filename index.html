@@ -273,6 +273,145 @@
     }
     [lang="es"] .draft-banner { display: block; }
 
+    /* v0.2: branch picker on Step 3 */
+    .branch-picker {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 18px;
+      font-size: 13px;
+    }
+    .branch-picker .label { font-weight: 600; color: var(--navy); }
+    .branch-picker button {
+      background: #fff; color: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 12px; font-size: 12px; font-family: inherit;
+      cursor: pointer;
+    }
+    .branch-picker button:hover { border-color: var(--cyan); }
+    .branch-picker button.active {
+      background: var(--cyan); color: #fff; border-color: var(--cyan);
+    }
+    .branch-picker .desc {
+      font-size: 12px; color: var(--text-muted); margin-left: auto;
+    }
+
+    /* v0.2: branch-conditional sections */
+    .branch-section { display: none; }
+    .branch-section.show { display: block; }
+
+    /* v0.2: ROS preview */
+    .ros-preview {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      margin-bottom: 18px;
+    }
+    .ros-preview h2 { margin-top: 0; }
+    .ros-preview .ros-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding: 8px 0;
+      border-bottom: 1px dotted var(--border); font-size: 14px;
+    }
+    .ros-preview .ros-row:last-child { border-bottom: none; }
+    .ros-preview .ros-row .system { color: var(--navy); font-weight: 500; }
+    .ros-preview .ros-row .toggle { display: flex; gap: 6px; }
+    .ros-preview .ros-row .toggle button {
+      background: #fff; color: var(--text-soft);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 10px; font-size: 12px; font-family: inherit;
+      cursor: pointer;
+    }
+    .ros-preview .ros-row .toggle button.no { color: var(--success); border-color: var(--success); }
+    .ros-preview .ros-row .toggle button.yes { color: var(--danger); border-color: var(--danger); }
+    .ros-preview .ros-note {
+      font-size: 12px; color: var(--text-muted); margin: 8px 0 0;
+    }
+
+    /* v0.2: ack cards */
+    .ack-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .ack-card .ack-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding: 14px 16px;
+      cursor: pointer; user-select: none;
+      background: var(--surface);
+    }
+    .ack-card .ack-head:hover { background: var(--surface-2); }
+    .ack-card .ack-head .ack-title {
+      font-weight: 600; color: var(--navy); font-size: 14px;
+    }
+    .ack-card .ack-head .ack-status {
+      font-size: 12px; color: var(--text-muted);
+    }
+    .ack-card .ack-body {
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+    .ack-card.open .ack-body { display: block; }
+    .ack-card .ack-doc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-size: 13px; color: var(--text-soft);
+      max-height: 160px; overflow-y: auto;
+      margin-bottom: 12px; line-height: 1.5;
+    }
+    .ack-card .ack-doc.placeholder {
+      font-style: italic; color: var(--text-muted);
+    }
+    .ack-card .pending-pill {
+      display: inline-block; background: var(--warn-bg);
+      color: var(--warn-text); border: 1px solid var(--warn-border);
+      padding: 2px 8px; border-radius: 999px;
+      font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .ack-card .ack-sign {
+      display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end;
+    }
+    @media (max-width: 520px) {
+      .ack-card .ack-sign { grid-template-columns: 1fr; }
+    }
+    .ack-card .ack-sig-input {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 18px; color: var(--navy);
+    }
+    .ack-card .ack-checkbox {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 10px; font-size: 13px;
+    }
+    .ack-card .ack-checkbox input { accent-color: var(--cyan); }
+
+    /* v0.2: visit-type echo banner on Step 3 */
+    .visit-echo {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 13px; color: var(--text-soft);
+      margin-bottom: 18px;
+    }
+    .visit-echo strong { color: var(--navy); }
+    .visit-echo .pill {
+      display: inline-block; padding: 2px 10px;
+      background: var(--cyan); color: #fff;
+      border-radius: 999px; font-size: 12px; font-weight: 600;
+      margin-left: 6px;
+    }
+
     /* i18n: hide inactive language for swap-divs (consent body) */
     [data-lang-only="en"] { display: block; }
     [data-lang-only="es"] { display: none; }
@@ -289,8 +428,9 @@
   <button data-screen="inbox">2. Inbox</button>
   <button data-screen="welcome">3. Welcome</button>
   <button data-screen="demographics">4. Demographics</button>
-  <button data-screen="consent">5. Consent</button>
-  <button data-screen="done">6. Submitted</button>
+  <button data-screen="step3">5. Insurance / Claim / Acks</button>
+  <button data-screen="consent">6. Consent</button>
+  <button data-screen="done">7. Submitted</button>
 </nav>
 
 <header class="app-header">
@@ -463,6 +603,22 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="field">
+            <label data-i18n="pref_lang">Preferred language</label>
+            <select>
+              <option data-i18n="lang_en">English</option>
+              <option data-i18n="lang_es">Spanish</option>
+              <option data-i18n="lang_other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-i18n="ssn_last4">SSN (last 4 digits)</label>
+            <input type="text" maxlength="4" placeholder="••••" />
+            <div class="hint" data-i18n="ssn_hint">Optional. Used only for insurance verification.</div>
+          </div>
+        </div>
+
         <h2 data-i18n="address">Address</h2>
         <div class="field">
           <label><span data-i18n="street">Street address</span> <span class="req">*</span></label>
@@ -483,6 +639,72 @@
           </div>
         </div>
 
+        <h2 data-i18n="additional_info">Additional information</h2>
+        <div class="row">
+          <div class="field">
+            <label data-i18n="marital">Marital status</label>
+            <select>
+              <option value="" data-i18n="select_dots">Select...</option>
+              <option data-i18n="marital_single">Single</option>
+              <option data-i18n="marital_married">Married</option>
+              <option data-i18n="marital_divorced">Divorced</option>
+              <option data-i18n="marital_widowed">Widowed</option>
+              <option data-i18n="marital_partnered">Domestic partner</option>
+              <option data-i18n="marital_other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-i18n="ethnicity">Race / Ethnicity</label>
+            <select>
+              <option value="" data-i18n="select_dots">Select...</option>
+              <option data-i18n="eth_decline">Prefer not to say</option>
+              <option data-i18n="eth_white">White or Caucasian</option>
+              <option data-i18n="eth_black">Black or African American</option>
+              <option data-i18n="eth_hispanic">Hispanic or Latino</option>
+              <option data-i18n="eth_asian">Asian</option>
+              <option data-i18n="eth_native">American Indian or Alaska Native</option>
+              <option data-i18n="eth_pacific">Native Hawaiian or Pacific Islander</option>
+              <option data-i18n="eth_multi">Two or more races</option>
+              <option data-i18n="eth_other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label data-i18n="employment">Employment status</label>
+            <select>
+              <option value="" data-i18n="select_dots">Select...</option>
+              <option data-i18n="emp_employed">Employed</option>
+              <option data-i18n="emp_self">Self-employed</option>
+              <option data-i18n="emp_unemployed">Unemployed</option>
+              <option data-i18n="emp_retired">Retired</option>
+              <option data-i18n="emp_student">Student</option>
+              <option data-i18n="emp_disabled">Unable to work</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-i18n="employer">Employer (if applicable)</label>
+            <input type="text" />
+          </div>
+        </div>
+
+        <h2 data-i18n="emerg_contact">Emergency contact</h2>
+        <div class="row">
+          <div class="field">
+            <label><span data-i18n="emerg_name">Name</span> <span class="req">*</span></label>
+            <input type="text" />
+          </div>
+          <div class="field">
+            <label data-i18n="emerg_rel">Relationship</label>
+            <input type="text" data-i18n-placeholder="emerg_rel_placeholder" placeholder="e.g., Spouse, Parent, Friend" />
+          </div>
+        </div>
+        <div class="field">
+          <label><span data-i18n="emerg_phone">Phone</span> <span class="req">*</span></label>
+          <input type="tel" placeholder="(555) 123-4567" />
+        </div>
+
         <div class="actions">
           <button class="btn btn-secondary">&larr; <span data-i18n="back">Back</span></button>
           <button class="btn btn-primary"><span data-i18n="continue">Continue</span> &rarr;</button>
@@ -490,7 +712,300 @@
       </div>
     </section>
 
-    <!-- ============ SCREEN 5: CONSENT FOR TREATMENT ============ -->
+    <!-- ============ SCREEN 5 (NEW): STEP 3 — INSURANCE / CLAIM / ROS / ACKS ============ -->
+    <section id="screen-step3" class="screen">
+      <div class="progress">
+        <span><span data-i18n="step">Step</span> 3 <span data-i18n="of">of</span> 4</span>
+        <div class="bar"><span style="width: 75%"></span></div>
+      </div>
+
+      <div class="branch-picker">
+        <span class="label" data-i18n="branch_picker_label">Demo: view as</span>
+        <button data-branch="standard" class="active" data-i18n="visit_standard">Standard appointment</button>
+        <button data-branch="wc" data-i18n="visit_wc">Workers' Compensation</button>
+        <button data-branch="nf" data-i18n="visit_nf">No-Fault / Auto</button>
+        <span class="desc" data-i18n="branch_picker_desc">Real patients see only what matches their selection on Step 1.</span>
+      </div>
+
+      <div class="visit-echo">
+        <span data-i18n="visit_echo_prefix">You're completing intake for:</span>
+        <strong id="visit-echo-name" data-i18n="visit_standard">Standard appointment</strong>
+        <span class="pill" id="visit-echo-pill" data-i18n="visit_echo_pill_std">Standard</span>
+      </div>
+
+      <div class="card">
+        <h1 data-i18n="step3_h1">Insurance &amp; visit details</h1>
+        <p class="lead" data-i18n="step3_lead">A few questions about your insurance and visit. Required fields adjust based on the type of visit you selected.</p>
+
+        <h2 data-i18n="insurance_h">Insurance</h2>
+        <div class="row">
+          <div class="field">
+            <label><span data-i18n="ins_carrier">Insurance carrier</span> <span class="req">*</span></label>
+            <input type="text" data-i18n-placeholder="ins_carrier_placeholder" placeholder="e.g., Aetna, Empire BCBS, United HC" />
+          </div>
+          <div class="field">
+            <label data-i18n="ins_plan">Plan / group name</label>
+            <input type="text" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label><span data-i18n="ins_member">Member ID</span> <span class="req">*</span></label>
+            <input type="text" />
+          </div>
+          <div class="field">
+            <label data-i18n="ins_group">Group #</label>
+            <input type="text" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label data-i18n="ins_holder">Policy holder</label>
+            <select>
+              <option data-i18n="ins_holder_self">Self</option>
+              <option data-i18n="ins_holder_spouse">Spouse</option>
+              <option data-i18n="ins_holder_parent">Parent</option>
+              <option data-i18n="ins_holder_other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-i18n="ins_holder_dob">Policy holder DOB (if not self)</label>
+            <input type="date" />
+          </div>
+        </div>
+
+        <div class="branch-section" data-branch-show="wc">
+          <h2 data-i18n="wc_h">Workers' Compensation claim</h2>
+          <div class="row">
+            <div class="field">
+              <label><span data-i18n="wc_employer">Employer at time of injury</span> <span class="req">*</span></label>
+              <input type="text" />
+            </div>
+            <div class="field">
+              <label><span data-i18n="wc_doi">Date of injury</span> <span class="req">*</span></label>
+              <input type="date" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label><span data-i18n="wc_carrier">WC carrier</span> <span class="req">*</span></label>
+              <input type="text" data-i18n-placeholder="wc_carrier_placeholder" placeholder="e.g., NYSIF, Travelers WC" />
+            </div>
+            <div class="field">
+              <label data-i18n="wc_claim">Claim number</label>
+              <input type="text" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label data-i18n="wc_adjuster">Adjuster name</label>
+              <input type="text" />
+            </div>
+            <div class="field">
+              <label data-i18n="wc_adjuster_phone">Adjuster phone</label>
+              <input type="tel" />
+            </div>
+          </div>
+          <div class="field">
+            <label data-i18n="wc_body_part">Body part(s) injured</label>
+            <input type="text" data-i18n-placeholder="wc_body_part_placeholder" placeholder="e.g., lower back, right shoulder" />
+          </div>
+        </div>
+
+        <div class="branch-section" data-branch-show="nf">
+          <h2 data-i18n="nf_h">No-Fault / Auto accident details</h2>
+          <div class="row">
+            <div class="field">
+              <label><span data-i18n="nf_doa">Date of accident</span> <span class="req">*</span></label>
+              <input type="date" />
+            </div>
+            <div class="field">
+              <label><span data-i18n="nf_carrier">Auto insurance carrier</span> <span class="req">*</span></label>
+              <input type="text" data-i18n-placeholder="nf_carrier_placeholder" placeholder="e.g., GEICO, Allstate, State Farm" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label data-i18n="nf_claim">Claim number</label>
+              <input type="text" />
+            </div>
+            <div class="field">
+              <label data-i18n="nf_adjuster">Adjuster name &amp; phone</label>
+              <input type="text" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label data-i18n="nf_police">Police report #</label>
+              <input type="text" />
+            </div>
+            <div class="field">
+              <label data-i18n="nf_attorney">Attorney (if represented)</label>
+              <input type="text" />
+            </div>
+          </div>
+          <div class="field">
+            <label data-i18n="nf_attorney_contact">Attorney contact (if applicable)</label>
+            <input type="text" data-i18n-placeholder="nf_attorney_placeholder" placeholder="Phone or email" />
+          </div>
+        </div>
+
+        <h2 data-i18n="ref_h">Referring &amp; primary care</h2>
+        <div class="row">
+          <div class="field">
+            <label data-i18n="ref_doc">Referring physician (if any)</label>
+            <input type="text" />
+          </div>
+          <div class="field">
+            <label data-i18n="pcp">Primary care provider</label>
+            <input type="text" />
+          </div>
+        </div>
+
+        <h2 data-i18n="ros_h">Review of systems</h2>
+        <p class="muted" data-i18n="ros_lead">A short health screening. Mark "yes" for anything you're currently experiencing.</p>
+        <div class="ros-preview">
+          <div class="ros-row">
+            <span class="system" data-i18n="ros_pain">Persistent pain (back, neck, joints)</span>
+            <div class="toggle">
+              <button class="no" data-i18n="ros_no">No</button>
+              <button class="yes" data-i18n="ros_yes">Yes</button>
+            </div>
+          </div>
+          <div class="ros-row">
+            <span class="system" data-i18n="ros_numbness">Numbness or tingling</span>
+            <div class="toggle">
+              <button class="no" data-i18n="ros_no">No</button>
+              <button class="yes" data-i18n="ros_yes">Yes</button>
+            </div>
+          </div>
+          <div class="ros-row">
+            <span class="system" data-i18n="ros_weakness">Weakness in arms or legs</span>
+            <div class="toggle">
+              <button class="no" data-i18n="ros_no">No</button>
+              <button class="yes" data-i18n="ros_yes">Yes</button>
+            </div>
+          </div>
+          <div class="ros-row">
+            <span class="system" data-i18n="ros_sleep">Sleep affected by pain</span>
+            <div class="toggle">
+              <button class="no" data-i18n="ros_no">No</button>
+              <button class="yes" data-i18n="ros_yes">Yes</button>
+            </div>
+          </div>
+          <div class="ros-row">
+            <span class="system" data-i18n="ros_chest">Chest pain or shortness of breath</span>
+            <div class="toggle">
+              <button class="no" data-i18n="ros_no">No</button>
+              <button class="yes" data-i18n="ros_yes">Yes</button>
+            </div>
+          </div>
+          <p class="ros-note" data-i18n="ros_note">Preview only. The final list will cover the full body-system review from your paper PDF, pending NYBSJ confirmation that ROS belongs in the digital intake.</p>
+        </div>
+
+        <h2 data-i18n="acks_h">Acknowledgments &amp; signatures</h2>
+        <p class="muted" data-i18n="acks_lead">Tap each item to read the policy and sign. The Consent for Treatment is on the next step.</p>
+
+        <div class="ack-card">
+          <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
+            <div>
+              <div class="ack-title" data-i18n="ack_aob_title">Assignment of Benefits</div>
+              <div class="ack-status">
+                <span class="pending-pill" data-i18n="ack_pending">Content pending NYBSJ</span>
+              </div>
+            </div>
+            <span class="muted">▾</span>
+          </div>
+          <div class="ack-body">
+            <div class="ack-doc placeholder" data-i18n="ack_aob_body">[Assignment of Benefits text from NYBSJ will appear here. This authorizes NYBSJ to bill your insurance directly and accept payment on your behalf, including for the NYSDOH Patients' Bill of Rights acknowledgment.]</div>
+            <div class="ack-checkbox">
+              <input type="checkbox" id="ack-aob" />
+              <label for="ack-aob" data-i18n="ack_aob_check">I have read and agree to the Assignment of Benefits.</label>
+            </div>
+            <div class="ack-sign">
+              <input type="text" class="ack-sig-input" data-i18n-placeholder="signature_placeholder" placeholder="Type to sign" />
+              <input type="date" />
+            </div>
+          </div>
+        </div>
+
+        <div class="ack-card">
+          <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
+            <div>
+              <div class="ack-title" data-i18n="ack_gop_title">Guarantee of Payment</div>
+              <div class="ack-status">
+                <span class="pending-pill" data-i18n="ack_pending">Content pending NYBSJ</span>
+              </div>
+            </div>
+            <span class="muted">▾</span>
+          </div>
+          <div class="ack-body">
+            <div class="ack-doc placeholder" data-i18n="ack_gop_body">[Guarantee of Payment text from NYBSJ will appear here. Patient agrees to be financially responsible for any balance not paid by insurance.]</div>
+            <div class="ack-checkbox">
+              <input type="checkbox" id="ack-gop" />
+              <label for="ack-gop" data-i18n="ack_gop_check">I have read and agree to the Guarantee of Payment.</label>
+            </div>
+            <div class="ack-sign">
+              <input type="text" class="ack-sig-input" data-i18n-placeholder="signature_placeholder" placeholder="Type to sign" />
+              <input type="date" />
+            </div>
+          </div>
+        </div>
+
+        <div class="ack-card">
+          <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
+            <div>
+              <div class="ack-title" data-i18n="ack_noshow_title">No-Show / Cancellation Policy</div>
+              <div class="ack-status">
+                <span class="pending-pill" data-i18n="ack_pending">Content pending NYBSJ</span>
+              </div>
+            </div>
+            <span class="muted">▾</span>
+          </div>
+          <div class="ack-body">
+            <div class="ack-doc placeholder" data-i18n="ack_noshow_body">[No-Show / Cancellation Policy text from NYBSJ will appear here. Typically includes the cancellation window and any fee charged for missed appointments.]</div>
+            <div class="ack-checkbox">
+              <input type="checkbox" id="ack-noshow" />
+              <label for="ack-noshow" data-i18n="ack_noshow_check">I have read and agree to the No-Show / Cancellation Policy.</label>
+            </div>
+            <div class="ack-sign">
+              <input type="text" class="ack-sig-input" data-i18n-placeholder="signature_placeholder" placeholder="Type to sign" />
+              <input type="date" />
+            </div>
+          </div>
+        </div>
+
+        <div class="ack-card">
+          <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
+            <div>
+              <div class="ack-title" data-i18n="ack_npp_title">Notice of Privacy Practices (HIPAA)</div>
+              <div class="ack-status">
+                <span class="pending-pill" data-i18n="ack_pending">Content pending NYBSJ</span>
+              </div>
+            </div>
+            <span class="muted">▾</span>
+          </div>
+          <div class="ack-body">
+            <div class="ack-doc placeholder" data-i18n="ack_npp_body">[Notice of Privacy Practices (English &amp; Spanish) from NYBSJ will appear here. Acknowledges that you have been offered a copy of the practice's HIPAA Notice.]</div>
+            <div class="ack-checkbox">
+              <input type="checkbox" id="ack-npp" />
+              <label for="ack-npp" data-i18n="ack_npp_check">I acknowledge receipt of the Notice of Privacy Practices.</label>
+            </div>
+            <div class="ack-sign">
+              <input type="text" class="ack-sig-input" data-i18n-placeholder="signature_placeholder" placeholder="Type to sign" />
+              <input type="date" />
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-secondary">&larr; <span data-i18n="back">Back</span></button>
+          <button class="btn btn-primary"><span data-i18n="continue">Continue</span> &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN 6: CONSENT FOR TREATMENT ============ -->
     <section id="screen-consent" class="screen">
       <div class="progress">
         <span><span data-i18n="step">Step</span> 4 <span data-i18n="of">of</span> 4</span>
@@ -679,8 +1194,115 @@
       city: "City",
       state: "State",
       zip: "ZIP",
+      pref_lang: "Preferred language",
+      lang_en: "English",
+      lang_es: "Spanish",
+      lang_other: "Other",
+      ssn_last4: "SSN (last 4 digits)",
+      ssn_hint: "Optional. Used only for insurance verification.",
+      additional_info: "Additional information",
+      marital: "Marital status",
+      marital_single: "Single",
+      marital_married: "Married",
+      marital_divorced: "Divorced",
+      marital_widowed: "Widowed",
+      marital_partnered: "Domestic partner",
+      marital_other: "Other",
+      ethnicity: "Race / Ethnicity",
+      eth_decline: "Prefer not to say",
+      eth_white: "White or Caucasian",
+      eth_black: "Black or African American",
+      eth_hispanic: "Hispanic or Latino",
+      eth_asian: "Asian",
+      eth_native: "American Indian or Alaska Native",
+      eth_pacific: "Native Hawaiian or Pacific Islander",
+      eth_multi: "Two or more races",
+      eth_other: "Other",
+      employment: "Employment status",
+      emp_employed: "Employed",
+      emp_self: "Self-employed",
+      emp_unemployed: "Unemployed",
+      emp_retired: "Retired",
+      emp_student: "Student",
+      emp_disabled: "Unable to work",
+      employer: "Employer (if applicable)",
+      emerg_contact: "Emergency contact",
+      emerg_name: "Name",
+      emerg_rel: "Relationship",
+      emerg_rel_placeholder: "e.g., Spouse, Parent, Friend",
+      emerg_phone: "Phone",
 
-      // Screen 5: consent
+      // Screen 5 (NEW): Step 3
+      branch_picker_label: "Demo: view as",
+      branch_picker_desc: "Real patients see only what matches their selection on Step 1.",
+      visit_echo_prefix: "You're completing intake for:",
+      visit_echo_pill_std: "Standard",
+      visit_echo_pill_wc: "Workers' Comp",
+      visit_echo_pill_nf: "No-Fault",
+      step3_h1: "Insurance & visit details",
+      step3_lead: "A few questions about your insurance and visit. Required fields adjust based on the type of visit you selected.",
+      insurance_h: "Insurance",
+      ins_carrier: "Insurance carrier",
+      ins_carrier_placeholder: "e.g., Aetna, Empire BCBS, United HC",
+      ins_plan: "Plan / group name",
+      ins_member: "Member ID",
+      ins_group: "Group #",
+      ins_holder: "Policy holder",
+      ins_holder_self: "Self",
+      ins_holder_spouse: "Spouse",
+      ins_holder_parent: "Parent",
+      ins_holder_other: "Other",
+      ins_holder_dob: "Policy holder DOB (if not self)",
+      wc_h: "Workers' Compensation claim",
+      wc_employer: "Employer at time of injury",
+      wc_doi: "Date of injury",
+      wc_carrier: "WC carrier",
+      wc_carrier_placeholder: "e.g., NYSIF, Travelers WC",
+      wc_claim: "Claim number",
+      wc_adjuster: "Adjuster name",
+      wc_adjuster_phone: "Adjuster phone",
+      wc_body_part: "Body part(s) injured",
+      wc_body_part_placeholder: "e.g., lower back, right shoulder",
+      nf_h: "No-Fault / Auto accident details",
+      nf_doa: "Date of accident",
+      nf_carrier: "Auto insurance carrier",
+      nf_carrier_placeholder: "e.g., GEICO, Allstate, State Farm",
+      nf_claim: "Claim number",
+      nf_adjuster: "Adjuster name & phone",
+      nf_police: "Police report #",
+      nf_attorney: "Attorney (if represented)",
+      nf_attorney_contact: "Attorney contact (if applicable)",
+      nf_attorney_placeholder: "Phone or email",
+      ref_h: "Referring & primary care",
+      ref_doc: "Referring physician (if any)",
+      pcp: "Primary care provider",
+      ros_h: "Review of systems",
+      ros_lead: "A short health screening. Mark \"yes\" for anything you're currently experiencing.",
+      ros_pain: "Persistent pain (back, neck, joints)",
+      ros_numbness: "Numbness or tingling",
+      ros_weakness: "Weakness in arms or legs",
+      ros_sleep: "Sleep affected by pain",
+      ros_chest: "Chest pain or shortness of breath",
+      ros_yes: "Yes",
+      ros_no: "No",
+      ros_note: "Preview only. The final list will cover the full body-system review from your paper PDF, pending NYBSJ confirmation that ROS belongs in the digital intake.",
+      acks_h: "Acknowledgments & signatures",
+      acks_lead: "Tap each item to read the policy and sign. The Consent for Treatment is on the next step.",
+      ack_pending: "Content pending NYBSJ",
+      ack_aob_title: "Assignment of Benefits",
+      ack_aob_body: "[Assignment of Benefits text from NYBSJ will appear here. This authorizes NYBSJ to bill your insurance directly and accept payment on your behalf, including for the NYSDOH Patients' Bill of Rights acknowledgment.]",
+      ack_aob_check: "I have read and agree to the Assignment of Benefits.",
+      ack_gop_title: "Guarantee of Payment",
+      ack_gop_body: "[Guarantee of Payment text from NYBSJ will appear here. Patient agrees to be financially responsible for any balance not paid by insurance.]",
+      ack_gop_check: "I have read and agree to the Guarantee of Payment.",
+      ack_noshow_title: "No-Show / Cancellation Policy",
+      ack_noshow_body: "[No-Show / Cancellation Policy text from NYBSJ will appear here. Typically includes the cancellation window and any fee charged for missed appointments.]",
+      ack_noshow_check: "I have read and agree to the No-Show / Cancellation Policy.",
+      ack_npp_title: "Notice of Privacy Practices (HIPAA)",
+      ack_npp_body: "[Notice of Privacy Practices (English & Spanish) from NYBSJ will appear here. Acknowledges that you have been offered a copy of the practice's HIPAA Notice.]",
+      ack_npp_check: "I acknowledge receipt of the Notice of Privacy Practices.",
+
+      // Screen 6: consent
       consent_h1: "Consent for Treatment",
       consent_lead: "Please read carefully. By signing, you confirm you've read and agree to the terms below.",
       consent_agree: "I have read and agree to the Consent for Treatment above.",
@@ -753,8 +1375,115 @@
       city: "Ciudad",
       state: "Estado",
       zip: "Código postal",
+      pref_lang: "Idioma preferido",
+      lang_en: "Inglés",
+      lang_es: "Español",
+      lang_other: "Otro",
+      ssn_last4: "SSN (últimos 4 dígitos)",
+      ssn_hint: "Opcional. Se usa solo para verificación de seguro.",
+      additional_info: "Información adicional",
+      marital: "Estado civil",
+      marital_single: "Soltero(a)",
+      marital_married: "Casado(a)",
+      marital_divorced: "Divorciado(a)",
+      marital_widowed: "Viudo(a)",
+      marital_partnered: "Pareja de hecho",
+      marital_other: "Otro",
+      ethnicity: "Raza / Origen étnico",
+      eth_decline: "Prefiero no decir",
+      eth_white: "Blanco o caucásico",
+      eth_black: "Negro o afroamericano",
+      eth_hispanic: "Hispano o Latino",
+      eth_asian: "Asiático",
+      eth_native: "Indígena americano o nativo de Alaska",
+      eth_pacific: "Nativo de Hawái o de las Islas del Pacífico",
+      eth_multi: "Dos o más razas",
+      eth_other: "Otro",
+      employment: "Situación laboral",
+      emp_employed: "Empleado(a)",
+      emp_self: "Trabajador(a) por cuenta propia",
+      emp_unemployed: "Desempleado(a)",
+      emp_retired: "Jubilado(a)",
+      emp_student: "Estudiante",
+      emp_disabled: "No puede trabajar",
+      employer: "Empleador (si aplica)",
+      emerg_contact: "Contacto de emergencia",
+      emerg_name: "Nombre",
+      emerg_rel: "Relación",
+      emerg_rel_placeholder: "p. ej., Cónyuge, Padre/Madre, Amigo(a)",
+      emerg_phone: "Teléfono",
 
-      // Screen 5: consent
+      // Screen 5 (NEW): Step 3
+      branch_picker_label: "Demo: ver como",
+      branch_picker_desc: "Los pacientes reales solo ven lo que coincide con su selección en el Paso 1.",
+      visit_echo_prefix: "Está completando la admisión para:",
+      visit_echo_pill_std: "Estándar",
+      visit_echo_pill_wc: "Comp. Laboral",
+      visit_echo_pill_nf: "Sin Culpa",
+      step3_h1: "Detalles del seguro y la visita",
+      step3_lead: "Algunas preguntas sobre su seguro y su visita. Los campos requeridos cambian según el tipo de visita que seleccionó.",
+      insurance_h: "Seguro",
+      ins_carrier: "Compañía de seguros",
+      ins_carrier_placeholder: "p. ej., Aetna, Empire BCBS, United HC",
+      ins_plan: "Plan / nombre del grupo",
+      ins_member: "Número de miembro",
+      ins_group: "N.° de grupo",
+      ins_holder: "Titular de la póliza",
+      ins_holder_self: "Yo mismo",
+      ins_holder_spouse: "Cónyuge",
+      ins_holder_parent: "Padre/Madre",
+      ins_holder_other: "Otro",
+      ins_holder_dob: "Fecha de nacimiento del titular (si no es usted)",
+      wc_h: "Reclamo de Compensación Laboral",
+      wc_employer: "Empleador al momento de la lesión",
+      wc_doi: "Fecha de la lesión",
+      wc_carrier: "Compañía de WC",
+      wc_carrier_placeholder: "p. ej., NYSIF, Travelers WC",
+      wc_claim: "Número de reclamo",
+      wc_adjuster: "Nombre del ajustador",
+      wc_adjuster_phone: "Teléfono del ajustador",
+      wc_body_part: "Parte(s) del cuerpo lesionada(s)",
+      wc_body_part_placeholder: "p. ej., espalda baja, hombro derecho",
+      nf_h: "Detalles del accidente automovilístico (Sin Culpa)",
+      nf_doa: "Fecha del accidente",
+      nf_carrier: "Compañía de seguro de auto",
+      nf_carrier_placeholder: "p. ej., GEICO, Allstate, State Farm",
+      nf_claim: "Número de reclamo",
+      nf_adjuster: "Nombre y teléfono del ajustador",
+      nf_police: "N.° de reporte policial",
+      nf_attorney: "Abogado (si está representado)",
+      nf_attorney_contact: "Contacto del abogado (si aplica)",
+      nf_attorney_placeholder: "Teléfono o correo",
+      ref_h: "Médico que refiere y atención primaria",
+      ref_doc: "Médico que refiere (si aplica)",
+      pcp: "Médico de atención primaria",
+      ros_h: "Revisión de sistemas",
+      ros_lead: "Una breve evaluación de salud. Marque \"Sí\" para cualquier síntoma que tenga actualmente.",
+      ros_pain: "Dolor persistente (espalda, cuello, articulaciones)",
+      ros_numbness: "Entumecimiento u hormigueo",
+      ros_weakness: "Debilidad en brazos o piernas",
+      ros_sleep: "Sueño afectado por el dolor",
+      ros_chest: "Dolor de pecho o falta de aire",
+      ros_yes: "Sí",
+      ros_no: "No",
+      ros_note: "Vista previa únicamente. La lista final cubrirá la revisión completa por sistemas del PDF en papel, pendiente de confirmación por parte de NYBSJ.",
+      acks_h: "Reconocimientos y firmas",
+      acks_lead: "Toque cada elemento para leer la política y firmar. El Consentimiento para Tratamiento está en el siguiente paso.",
+      ack_pending: "Contenido pendiente de NYBSJ",
+      ack_aob_title: "Asignación de Beneficios",
+      ack_aob_body: "[El texto de Asignación de Beneficios de NYBSJ aparecerá aquí. Esto autoriza a NYBSJ a facturar a su seguro directamente y aceptar pagos en su nombre, incluyendo el reconocimiento de la Carta de Derechos del Paciente del NYSDOH.]",
+      ack_aob_check: "He leído y acepto la Asignación de Beneficios.",
+      ack_gop_title: "Garantía de Pago",
+      ack_gop_body: "[El texto de Garantía de Pago de NYBSJ aparecerá aquí. El paciente acepta ser financieramente responsable por cualquier saldo no pagado por el seguro.]",
+      ack_gop_check: "He leído y acepto la Garantía de Pago.",
+      ack_noshow_title: "Política de No Presentarse / Cancelación",
+      ack_noshow_body: "[El texto de la Política de No Presentarse / Cancelación de NYBSJ aparecerá aquí. Generalmente incluye la ventana de cancelación y cualquier cargo por citas perdidas.]",
+      ack_noshow_check: "He leído y acepto la Política de No Presentarse / Cancelación.",
+      ack_npp_title: "Aviso de Prácticas de Privacidad (HIPAA)",
+      ack_npp_body: "[El Aviso de Prácticas de Privacidad de NYBSJ (Inglés y Español) aparecerá aquí. Reconoce que se le ha ofrecido una copia del Aviso HIPAA de la práctica.]",
+      ack_npp_check: "Reconozco que recibí el Aviso de Prácticas de Privacidad.",
+
+      // Screen 6: consent
       consent_h1: "Consentimiento para Tratamiento",
       consent_lead: "Por favor lea con atención. Al firmar, usted confirma que ha leído y acepta los términos a continuación.",
       consent_agree: "He leído y acepto el Consentimiento para Tratamiento anterior.",
@@ -775,6 +1504,8 @@
     }
   };
 
+  let currentBranch = 'standard';
+
   function applyLang(lang) {
     document.documentElement.lang = lang;
     const dict = I18N[lang];
@@ -791,6 +1522,33 @@
     document.querySelectorAll('.lang-toggle button').forEach(function (b) {
       b.classList.toggle('active', b.dataset.lang === lang);
     });
+
+    applyBranch(currentBranch);
+  }
+
+  function applyBranch(branch) {
+    currentBranch = branch;
+    document.querySelectorAll('.branch-picker button[data-branch]').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.branch === branch);
+    });
+    document.querySelectorAll('.branch-section').forEach(function (s) {
+      s.classList.toggle('show', s.dataset.branchShow === branch);
+    });
+    var nameEl = document.getElementById('visit-echo-name');
+    var pillEl = document.getElementById('visit-echo-pill');
+    if (!nameEl || !pillEl) return;
+    var lang = document.documentElement.lang || 'en';
+    var dict = I18N[lang] || I18N.en;
+    if (branch === 'wc') {
+      nameEl.innerHTML = dict.visit_wc;
+      pillEl.innerHTML = dict.visit_echo_pill_wc;
+    } else if (branch === 'nf') {
+      nameEl.innerHTML = dict.visit_nf;
+      pillEl.innerHTML = dict.visit_echo_pill_nf;
+    } else {
+      nameEl.innerHTML = dict.visit_standard;
+      pillEl.innerHTML = dict.visit_echo_pill_std;
+    }
   }
 
   // Mockup screen nav
@@ -811,8 +1569,16 @@
     });
   });
 
+  // Step 3 demo branch picker
+  document.querySelectorAll('.branch-picker button[data-branch]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      applyBranch(btn.dataset.branch);
+    });
+  });
+
   // Init
   applyLang('en');
+  applyBranch('standard');
 </script>
 
 </body>
