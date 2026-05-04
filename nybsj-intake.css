@@ -1,0 +1,151 @@
+/* ============================================================
+   NYBSJ Patient Intake — Brand Override Stylesheet
+   Apply AFTER the developer's own inline <style> block.
+
+   Strategy: override only the CSS custom properties and the
+   two specific selectors (h1, .btn-primary) that need to
+   shift from the developer's defaults to nybsj.com brand.
+   Everything else — layout, spacing, card structure — is
+   left exactly as the developer built it.
+
+   Fonts:    Poppins (headings) + Lato (body) — nybsj.com
+   Accent:   #1265a8  rgb(18, 101, 168)       — nybsj.com blue
+   Navy:     #1a2d45                           — nybsj.com dark
+   ============================================================ */
+
+/* ── 1. Load nybsj.com fonts ──────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap');
+
+/* ── 2. Override the developer's CSS variables ────────────── */
+/*
+   The developer's file declares all colors as custom properties
+   on :root. Redefining them here (in a stylesheet loaded after
+   the inline <style>) replaces every downstream usage at once —
+   no need to touch individual component selectors.
+*/
+:root {
+  /* Replace developer's --navy with nybsj.com's verified dark */
+  --navy:      #1a2d45;
+  --navy-soft: #152338;   /* hover state for navy buttons    */
+
+  /* Replace developer's --cyan with nybsj.com's blue accent  */
+  /* rgb(18, 101, 168) — used on nybsj.com for links/buttons  */
+  --cyan:        #1265a8;
+  --cyan-bright: #0f5490;
+
+  /* Page background — matches DevDraft1.jpg exactly */
+  --surface:   #f0f2f5;
+  --surface-2: #e8edf3;
+}
+
+/* ── 3. Fonts ─────────────────────────────────────────────── */
+html, body {
+  font-family: 'Lato', 'Segoe UI', Arial, sans-serif;
+}
+
+/* Headings: Poppins semibold — nybsj.com heading style */
+h1, h2, h3,
+.ack-card .ack-head .ack-title,
+.branch-picker .label {
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+}
+
+/* ── 4. H1 color — nybsj.com blue (the specific ask) ──────── */
+/*
+   On nybsj.com, section/page headings use the blue accent
+   (#1265a8) not the dark navy. Apply that here.
+   h2, h3 stay navy — they are structural labels inside forms.
+*/
+h1 {
+  color: #1265a8;
+}
+
+/* ── 5. Primary buttons — nybsj.com blue ──────────────────── */
+/*
+   "Continue" and "Submit intake" should use the nybsj.com blue.
+   The developer defined .btn-primary as --navy filled; we
+   override just these two properties.
+*/
+.btn-primary {
+  background: #1265a8;
+  border-color: #1265a8;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: #0f5490;
+  border-color: #0f5490;
+}
+
+/* ── 6. Collateral blue-accent elements ───────────────────── */
+/*
+   These all used --cyan in the developer's code. Because we
+   already replaced --cyan above via :root, most update
+   automatically. The explicit rules below handle the few
+   places where the color was hardcoded rather than via var().
+*/
+
+/* Progress bar fill */
+.progress .bar > span {
+  background: #1265a8;
+}
+
+/* Input focus ring */
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #1265a8;
+  box-shadow: 0 0 0 3px rgba(18, 101, 168, 0.18);
+}
+
+/* Radio hover border */
+.radio-group label:hover {
+  border-color: #1265a8;
+}
+
+/* Radio input dot */
+.radio-group input,
+.checkbox-row input,
+.ack-card .ack-checkbox input {
+  accent-color: #1265a8;
+}
+
+/* Visit-type echo pill on Step 3 */
+.visit-echo .pill {
+  background: #1265a8;
+}
+
+/* Branch picker active button */
+.branch-picker button.active {
+  background: #1265a8;
+  border-color: #1265a8;
+}
+
+.branch-picker button:hover {
+  border-color: #1265a8;
+}
+
+/* Icon circle (inbox / success screens) */
+.icon-circle {
+  color: #1265a8;
+}
+
+/* Inline links */
+a[style*="var(--cyan)"] {
+  color: #1265a8 !important;
+}
+
+/* ── 7. App header — match DevDraft1 (white bar, no changes) ─ */
+/*
+   The developer already built a white header with a bottom
+   border. No override needed — left as-is.
+*/
+
+/* ── 8. Mockup nav — suppress in production ───────────────── */
+/*
+   The #mockup-nav bar is a developer tool for switching
+   screens. On the real subdomain, hide it entirely.
+   Remove this rule if you still want it during staging.
+*/
+/* #mockup-nav { display: none; } */
+
