@@ -820,7 +820,7 @@
         <h1 data-i18n="step3_h1">Insurance &amp; visit details</h1>
         <p class="lead" data-i18n="step3_lead">A few questions about your insurance and visit. Required fields adjust based on the type of visit you selected.</p>
 
-        <h2 data-i18n="insurance_h">Insurance</h2>
+        <h2 data-i18n="insurance_primary_h">Primary insurance</h2>
         <div class="row">
           <div class="field">
             <label><span data-i18n="ins_carrier">Insurance carrier</span> <span class="req">*</span></label>
@@ -839,6 +839,64 @@
           <div class="field">
             <label data-i18n="ins_group">Group #</label>
             <input type="text" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label data-i18n="ins_phone">Insurance phone</label>
+            <input type="tel" placeholder="(555) 123-4567" />
+          </div>
+          <div class="field">
+            <label data-i18n="ins_effective">Effective date</label>
+            <input type="date" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label data-i18n="ins_holder">Policy holder</label>
+            <select>
+              <option data-i18n="ins_holder_self">Self</option>
+              <option data-i18n="ins_holder_spouse">Spouse</option>
+              <option data-i18n="ins_holder_parent">Parent</option>
+              <option data-i18n="ins_holder_other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-i18n="ins_holder_dob">Policy holder DOB (if not self)</label>
+            <input type="date" />
+          </div>
+        </div>
+
+        <h2 data-i18n="insurance_secondary_h">Secondary insurance (if any)</h2>
+        <p class="muted" data-i18n="insurance_secondary_lead">Skip this section if you don't have a secondary plan.</p>
+        <div class="row">
+          <div class="field">
+            <label data-i18n="ins_carrier">Insurance carrier</label>
+            <input type="text" data-i18n-placeholder="ins_carrier_placeholder" placeholder="e.g., Aetna, Empire BCBS, United HC" />
+          </div>
+          <div class="field">
+            <label data-i18n="ins_plan">Plan / group name</label>
+            <input type="text" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label data-i18n="ins_member">Member ID</label>
+            <input type="text" />
+          </div>
+          <div class="field">
+            <label data-i18n="ins_group">Group #</label>
+            <input type="text" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label data-i18n="ins_phone">Insurance phone</label>
+            <input type="tel" placeholder="(555) 123-4567" />
+          </div>
+          <div class="field">
+            <label data-i18n="ins_effective">Effective date</label>
+            <input type="date" />
           </div>
         </div>
         <div class="row">
@@ -881,6 +939,20 @@
           </div>
           <div class="row">
             <div class="field">
+              <label data-i18n="wc_case_no">Carrier case #</label>
+              <input type="text" />
+            </div>
+            <div class="field">
+              <label data-i18n="wc_carrier_fax">Carrier fax</label>
+              <input type="tel" />
+            </div>
+          </div>
+          <div class="field">
+            <label data-i18n="wc_submission_addr">Claims submission address</label>
+            <input type="text" data-i18n-placeholder="wc_submission_addr_placeholder" placeholder="Street, City, State, ZIP" />
+          </div>
+          <div class="row">
+            <div class="field">
               <label data-i18n="wc_adjuster">Adjuster name</label>
               <input type="text" />
             </div>
@@ -909,26 +981,41 @@
           </div>
           <div class="row">
             <div class="field">
-              <label data-i18n="nf_claim">Claim number</label>
+              <label data-i18n="nf_policy">Policy number</label>
               <input type="text" />
             </div>
             <div class="field">
-              <label data-i18n="nf_adjuster">Adjuster name &amp; phone</label>
+              <label data-i18n="nf_claim">Claim number</label>
               <input type="text" />
             </div>
           </div>
           <div class="row">
             <div class="field">
-              <label data-i18n="nf_police">Police report #</label>
+              <label data-i18n="nf_adjuster">Adjuster name &amp; phone</label>
               <input type="text" />
             </div>
             <div class="field">
-              <label data-i18n="nf_attorney">Attorney (if represented)</label>
+              <label data-i18n="nf_police">Police report #</label>
               <input type="text" />
             </div>
           </div>
           <div class="field">
-            <label data-i18n="nf_attorney_contact">Attorney contact (if applicable)</label>
+            <label data-i18n="nf_submission_addr">Claims submission address</label>
+            <input type="text" data-i18n-placeholder="nf_submission_addr_placeholder" placeholder="Street, City, State, ZIP" />
+          </div>
+          <h3 class="subsection-h" data-i18n="nf_attorney_h">Attorney (if represented)</h3>
+          <div class="row">
+            <div class="field">
+              <label data-i18n="nf_attorney_firm">Firm name</label>
+              <input type="text" />
+            </div>
+            <div class="field">
+              <label data-i18n="nf_attorney">Attorney name</label>
+              <input type="text" />
+            </div>
+          </div>
+          <div class="field">
+            <label data-i18n="nf_attorney_contact">Attorney phone / email</label>
             <input type="text" data-i18n-placeholder="nf_attorney_placeholder" placeholder="Phone or email" />
           </div>
         </div>
@@ -940,8 +1027,18 @@
             <input type="text" />
           </div>
           <div class="field">
+            <label data-i18n="ref_doc_fax">Referring physician fax</label>
+            <input type="tel" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
             <label data-i18n="pcp">Primary care provider</label>
             <input type="text" />
+          </div>
+          <div class="field">
+            <label data-i18n="pcp_fax">Primary care provider fax</label>
+            <input type="tel" />
           </div>
         </div>
 
@@ -1344,11 +1441,16 @@
       step3_h1: "Insurance & visit details",
       step3_lead: "A few questions about your insurance and visit. Required fields adjust based on the type of visit you selected.",
       insurance_h: "Insurance",
+      insurance_primary_h: "Primary insurance",
+      insurance_secondary_h: "Secondary insurance (if any)",
+      insurance_secondary_lead: "Skip this section if you don't have a secondary plan.",
       ins_carrier: "Insurance carrier",
       ins_carrier_placeholder: "e.g., Aetna, Empire BCBS, United HC",
       ins_plan: "Plan / group name",
       ins_member: "Member ID",
       ins_group: "Group #",
+      ins_phone: "Insurance phone",
+      ins_effective: "Effective date",
       ins_holder: "Policy holder",
       ins_holder_self: "Self",
       ins_holder_spouse: "Spouse",
@@ -1361,6 +1463,10 @@
       wc_carrier: "WC carrier",
       wc_carrier_placeholder: "e.g., NYSIF, Travelers WC",
       wc_claim: "Claim number",
+      wc_case_no: "Carrier case #",
+      wc_carrier_fax: "Carrier fax",
+      wc_submission_addr: "Claims submission address",
+      wc_submission_addr_placeholder: "Street, City, State, ZIP",
       wc_adjuster: "Adjuster name",
       wc_adjuster_phone: "Adjuster phone",
       wc_body_part: "Body part(s) injured",
@@ -1369,15 +1475,22 @@
       nf_doa: "Date of accident",
       nf_carrier: "Auto insurance carrier",
       nf_carrier_placeholder: "e.g., GEICO, Allstate, State Farm",
+      nf_policy: "Policy number",
       nf_claim: "Claim number",
       nf_adjuster: "Adjuster name & phone",
       nf_police: "Police report #",
-      nf_attorney: "Attorney (if represented)",
-      nf_attorney_contact: "Attorney contact (if applicable)",
+      nf_submission_addr: "Claims submission address",
+      nf_submission_addr_placeholder: "Street, City, State, ZIP",
+      nf_attorney_h: "Attorney (if represented)",
+      nf_attorney_firm: "Firm name",
+      nf_attorney: "Attorney name",
+      nf_attorney_contact: "Attorney phone / email",
       nf_attorney_placeholder: "Phone or email",
       ref_h: "Referring & primary care",
       ref_doc: "Referring physician (if any)",
+      ref_doc_fax: "Referring physician fax",
       pcp: "Primary care provider",
+      pcp_fax: "Primary care provider fax",
       ros_h: "Review of systems",
       ros_lead: "A short health screening. Mark \"yes\" for anything you're currently experiencing.",
       ros_pain: "Persistent pain (back, neck, joints)",
@@ -1544,11 +1657,16 @@
       step3_h1: "Detalles del seguro y la visita",
       step3_lead: "Algunas preguntas sobre su seguro y su visita. Los campos requeridos cambian según el tipo de visita que seleccionó.",
       insurance_h: "Seguro",
+      insurance_primary_h: "Seguro primario",
+      insurance_secondary_h: "Seguro secundario (si aplica)",
+      insurance_secondary_lead: "Omita esta sección si no tiene un plan secundario.",
       ins_carrier: "Compañía de seguros",
       ins_carrier_placeholder: "p. ej., Aetna, Empire BCBS, United HC",
       ins_plan: "Plan / nombre del grupo",
       ins_member: "Número de miembro",
       ins_group: "N.° de grupo",
+      ins_phone: "Teléfono del seguro",
+      ins_effective: "Fecha efectiva",
       ins_holder: "Titular de la póliza",
       ins_holder_self: "Yo mismo",
       ins_holder_spouse: "Cónyuge",
@@ -1561,6 +1679,10 @@
       wc_carrier: "Compañía de WC",
       wc_carrier_placeholder: "p. ej., NYSIF, Travelers WC",
       wc_claim: "Número de reclamo",
+      wc_case_no: "N.° de caso de la compañía",
+      wc_carrier_fax: "Fax de la compañía",
+      wc_submission_addr: "Dirección para envío de reclamos",
+      wc_submission_addr_placeholder: "Calle, Ciudad, Estado, Código postal",
       wc_adjuster: "Nombre del ajustador",
       wc_adjuster_phone: "Teléfono del ajustador",
       wc_body_part: "Parte(s) del cuerpo lesionada(s)",
@@ -1569,15 +1691,22 @@
       nf_doa: "Fecha del accidente",
       nf_carrier: "Compañía de seguro de auto",
       nf_carrier_placeholder: "p. ej., GEICO, Allstate, State Farm",
+      nf_policy: "Número de póliza",
       nf_claim: "Número de reclamo",
       nf_adjuster: "Nombre y teléfono del ajustador",
       nf_police: "N.° de reporte policial",
-      nf_attorney: "Abogado (si está representado)",
-      nf_attorney_contact: "Contacto del abogado (si aplica)",
+      nf_submission_addr: "Dirección para envío de reclamos",
+      nf_submission_addr_placeholder: "Calle, Ciudad, Estado, Código postal",
+      nf_attorney_h: "Abogado (si está representado)",
+      nf_attorney_firm: "Nombre del bufete",
+      nf_attorney: "Nombre del abogado",
+      nf_attorney_contact: "Teléfono / correo del abogado",
       nf_attorney_placeholder: "Teléfono o correo",
       ref_h: "Médico que refiere y atención primaria",
       ref_doc: "Médico que refiere (si aplica)",
+      ref_doc_fax: "Fax del médico que refiere",
       pcp: "Médico de atención primaria",
+      pcp_fax: "Fax del médico de atención primaria",
       ros_h: "Revisión de sistemas",
       ros_lead: "Una breve evaluación de salud. Marque \"Sí\" para cualquier síntoma que tenga actualmente.",
       ros_pain: "Dolor persistente (espalda, cuello, articulaciones)",
