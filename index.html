@@ -238,6 +238,14 @@
     .checkbox-row input { margin-top: 3px; accent-color: var(--cyan); width: 16px; height: 16px; }
     .checkbox-row label { font-size: 14px; color: var(--text); cursor: pointer; }
 
+    .inline-check {
+      display: flex; align-items: center; gap: 8px;
+      margin-top: 6px;
+      font-size: 13px; color: var(--text-muted);
+      cursor: pointer;
+    }
+    .inline-check input { accent-color: var(--cyan); width: 14px; height: 14px; }
+
     .signature-block {
       border: 1px dashed var(--border);
       border-radius: var(--radius-sm);
@@ -562,9 +570,13 @@
         <h1 data-i18n="demo_h1">About you</h1>
         <p class="lead" data-i18n="demo_lead">Tell us a bit about yourself. All fields with <span class="req">*</span> are required.</p>
 
-        <div class="row">
+        <div class="row-3">
           <div class="field">
             <label><span data-i18n="first_name">First name</span> <span class="req">*</span></label>
+            <input type="text" />
+          </div>
+          <div class="field">
+            <label data-i18n="middle_name">Middle name</label>
             <input type="text" />
           </div>
           <div class="field">
@@ -591,9 +603,24 @@
 
         <div class="row">
           <div class="field">
-            <label><span data-i18n="phone">Phone</span> <span class="req">*</span></label>
+            <label data-i18n="phone_home">Home phone</label>
             <input type="tel" placeholder="(555) 123-4567" />
+            <label class="inline-check">
+              <input type="checkbox" />
+              <span data-i18n="ok_msg_home">OK to leave a message at home</span>
+            </label>
           </div>
+          <div class="field">
+            <label><span data-i18n="phone_cell">Cell phone</span> <span class="req">*</span></label>
+            <input type="tel" placeholder="(555) 123-4567" />
+            <label class="inline-check">
+              <input type="checkbox" />
+              <span data-i18n="ok_msg_cell">OK to leave a message on cell</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="field">
             <label data-i18n="contact_pref">Preferred contact method</label>
             <select>
@@ -602,9 +629,6 @@
               <option data-i18n="email_label">Email</option>
             </select>
           </div>
-        </div>
-
-        <div class="row">
           <div class="field">
             <label data-i18n="pref_lang">Preferred language</label>
             <select>
@@ -613,11 +637,12 @@
               <option data-i18n="lang_other">Other</option>
             </select>
           </div>
-          <div class="field">
-            <label data-i18n="ssn_last4">SSN (last 4 digits)</label>
-            <input type="text" maxlength="4" placeholder="••••" />
-            <div class="hint" data-i18n="ssn_hint">Optional. Used only for insurance verification.</div>
-          </div>
+        </div>
+
+        <div class="field">
+          <label data-i18n="ssn_full">Social Security Number</label>
+          <input type="text" maxlength="11" placeholder="XXX-XX-XXXX" />
+          <div class="hint" data-i18n="ssn_full_hint">Used only for insurance verification and billing.</div>
         </div>
 
         <h2 data-i18n="address">Address</h2>
@@ -640,6 +665,30 @@
           </div>
         </div>
 
+        <h2 data-i18n="mailing_h">Mailing address</h2>
+        <label class="inline-check" style="margin-bottom: 12px;">
+          <input type="checkbox" checked />
+          <span data-i18n="mailing_same">Same as physical address</span>
+        </label>
+        <div class="field">
+          <label data-i18n="street">Street address</label>
+          <input type="text" />
+        </div>
+        <div class="row-3">
+          <div class="field">
+            <label data-i18n="city">City</label>
+            <input type="text" />
+          </div>
+          <div class="field">
+            <label data-i18n="state">State</label>
+            <input type="text" />
+          </div>
+          <div class="field">
+            <label data-i18n="zip">ZIP</label>
+            <input type="text" />
+          </div>
+        </div>
+
         <h2 data-i18n="additional_info">Additional information</h2>
         <div class="row">
           <div class="field">
@@ -648,6 +697,7 @@
               <option value="" data-i18n="select_dots">Select...</option>
               <option data-i18n="marital_single">Single</option>
               <option data-i18n="marital_married">Married</option>
+              <option data-i18n="marital_separated">Separated</option>
               <option data-i18n="marital_divorced">Divorced</option>
               <option data-i18n="marital_widowed">Widowed</option>
               <option data-i18n="marital_partnered">Domestic partner</option>
@@ -671,6 +721,20 @@
           </div>
         </div>
 
+        <div class="field">
+          <label data-i18n="how_heard">How did you hear about us?</label>
+          <select>
+            <option value="" data-i18n="select_dots">Select...</option>
+            <option data-i18n="how_heard_friend">Friend or family</option>
+            <option data-i18n="how_heard_doctor">Referring doctor</option>
+            <option data-i18n="how_heard_insurance">Insurance</option>
+            <option data-i18n="how_heard_online">Online search / website</option>
+            <option data-i18n="how_heard_social">Social media</option>
+            <option data-i18n="how_heard_other">Other</option>
+          </select>
+        </div>
+
+        <h2 data-i18n="employment_h">Employment</h2>
         <div class="row">
           <div class="field">
             <label data-i18n="employment">Employment status</label>
@@ -685,9 +749,17 @@
             </select>
           </div>
           <div class="field">
-            <label data-i18n="employer">Employer (if applicable)</label>
+            <label data-i18n="occupation">Occupation</label>
             <input type="text" />
           </div>
+        </div>
+        <div class="field">
+          <label data-i18n="employer">Employer (if applicable)</label>
+          <input type="text" />
+        </div>
+        <div class="field">
+          <label data-i18n="employer_address">Employer address</label>
+          <input type="text" />
         </div>
 
         <h2 data-i18n="emerg_contact">Emergency contact</h2>
@@ -701,9 +773,19 @@
             <input type="text" data-i18n-placeholder="emerg_rel_placeholder" placeholder="e.g., Spouse, Parent, Friend" />
           </div>
         </div>
-        <div class="field">
-          <label><span data-i18n="emerg_phone">Phone</span> <span class="req">*</span></label>
-          <input type="tel" placeholder="(555) 123-4567" />
+        <div class="row">
+          <div class="field">
+            <label><span data-i18n="emerg_phone">Phone</span> <span class="req">*</span></label>
+            <input type="tel" placeholder="(555) 123-4567" />
+          </div>
+          <div class="field">
+            <label data-i18n="emerg_lang">Preferred language</label>
+            <select>
+              <option data-i18n="lang_en">English</option>
+              <option data-i18n="lang_es">Spanish</option>
+              <option data-i18n="lang_other">Other</option>
+            </select>
+          </div>
         </div>
 
         <div class="actions">
@@ -1180,6 +1262,7 @@
       demo_h1: "About you",
       demo_lead: 'Tell us a bit about yourself. All fields with <span class="req">*</span> are required.',
       first_name: "First name",
+      middle_name: "Middle name",
       last_name: "Last name",
       dob: "Date of birth",
       sex: "Sex",
@@ -1188,6 +1271,10 @@
       sex_male: "Male",
       sex_prefer: "Prefer not to say",
       phone: "Phone",
+      phone_home: "Home phone",
+      phone_cell: "Cell phone",
+      ok_msg_home: "OK to leave a message at home",
+      ok_msg_cell: "OK to leave a message on cell",
       contact_pref: "Preferred contact method",
       text_msg: "Text message",
       address: "Address",
@@ -1195,16 +1282,19 @@
       city: "City",
       state: "State",
       zip: "ZIP",
+      mailing_h: "Mailing address",
+      mailing_same: "Same as physical address",
       pref_lang: "Preferred language",
       lang_en: "English",
       lang_es: "Spanish",
       lang_other: "Other",
-      ssn_last4: "SSN (last 4 digits)",
-      ssn_hint: "Optional. Used only for insurance verification.",
+      ssn_full: "Social Security Number",
+      ssn_full_hint: "Used only for insurance verification and billing.",
       additional_info: "Additional information",
       marital: "Marital status",
       marital_single: "Single",
       marital_married: "Married",
+      marital_separated: "Separated",
       marital_divorced: "Divorced",
       marital_widowed: "Widowed",
       marital_partnered: "Domestic partner",
@@ -1219,6 +1309,14 @@
       eth_pacific: "Native Hawaiian or Pacific Islander",
       eth_multi: "Two or more races",
       eth_other: "Other",
+      how_heard: "How did you hear about us?",
+      how_heard_friend: "Friend or family",
+      how_heard_doctor: "Referring doctor",
+      how_heard_insurance: "Insurance",
+      how_heard_online: "Online search / website",
+      how_heard_social: "Social media",
+      how_heard_other: "Other",
+      employment_h: "Employment",
       employment: "Employment status",
       emp_employed: "Employed",
       emp_self: "Self-employed",
@@ -1227,11 +1325,14 @@
       emp_student: "Student",
       emp_disabled: "Unable to work",
       employer: "Employer (if applicable)",
+      employer_address: "Employer address",
+      occupation: "Occupation",
       emerg_contact: "Emergency contact",
       emerg_name: "Name",
       emerg_rel: "Relationship",
       emerg_rel_placeholder: "e.g., Spouse, Parent, Friend",
       emerg_phone: "Phone",
+      emerg_lang: "Preferred language",
 
       // Screen 5 (NEW): Step 3
       branch_picker_label: "Demo: view as",
@@ -1361,6 +1462,7 @@
       demo_h1: "Sobre usted",
       demo_lead: 'Cuéntenos un poco sobre usted. Todos los campos con <span class="req">*</span> son obligatorios.',
       first_name: "Nombre",
+      middle_name: "Segundo nombre",
       last_name: "Apellido",
       dob: "Fecha de nacimiento",
       sex: "Sexo",
@@ -1369,6 +1471,10 @@
       sex_male: "Masculino",
       sex_prefer: "Prefiero no decir",
       phone: "Teléfono",
+      phone_home: "Teléfono de casa",
+      phone_cell: "Teléfono celular",
+      ok_msg_home: "Puede dejar mensaje en casa",
+      ok_msg_cell: "Puede dejar mensaje en el celular",
       contact_pref: "Método de contacto preferido",
       text_msg: "Mensaje de texto",
       address: "Dirección",
@@ -1376,16 +1482,19 @@
       city: "Ciudad",
       state: "Estado",
       zip: "Código postal",
+      mailing_h: "Dirección postal",
+      mailing_same: "Igual a la dirección física",
       pref_lang: "Idioma preferido",
       lang_en: "Inglés",
       lang_es: "Español",
       lang_other: "Otro",
-      ssn_last4: "SSN (últimos 4 dígitos)",
-      ssn_hint: "Opcional. Se usa solo para verificación de seguro.",
+      ssn_full: "Número de Seguro Social",
+      ssn_full_hint: "Se usa solo para verificación de seguro y facturación.",
       additional_info: "Información adicional",
       marital: "Estado civil",
       marital_single: "Soltero(a)",
       marital_married: "Casado(a)",
+      marital_separated: "Separado(a)",
       marital_divorced: "Divorciado(a)",
       marital_widowed: "Viudo(a)",
       marital_partnered: "Pareja de hecho",
@@ -1400,6 +1509,14 @@
       eth_pacific: "Nativo de Hawái o de las Islas del Pacífico",
       eth_multi: "Dos o más razas",
       eth_other: "Otro",
+      how_heard: "¿Cómo se enteró de nosotros?",
+      how_heard_friend: "Amigo o familiar",
+      how_heard_doctor: "Médico que refiere",
+      how_heard_insurance: "Seguro",
+      how_heard_online: "Búsqueda en línea / sitio web",
+      how_heard_social: "Redes sociales",
+      how_heard_other: "Otro",
+      employment_h: "Empleo",
       employment: "Situación laboral",
       emp_employed: "Empleado(a)",
       emp_self: "Trabajador(a) por cuenta propia",
@@ -1408,11 +1525,14 @@
       emp_student: "Estudiante",
       emp_disabled: "No puede trabajar",
       employer: "Empleador (si aplica)",
+      employer_address: "Dirección del empleador",
+      occupation: "Ocupación",
       emerg_contact: "Contacto de emergencia",
       emerg_name: "Nombre",
       emerg_rel: "Relación",
       emerg_rel_placeholder: "p. ej., Cónyuge, Padre/Madre, Amigo(a)",
       emerg_phone: "Teléfono",
+      emerg_lang: "Idioma preferido",
 
       // Screen 5 (NEW): Step 3
       branch_picker_label: "Demo: ver como",
