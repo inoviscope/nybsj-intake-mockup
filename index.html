@@ -445,6 +445,25 @@
     }
     .ack-card .ack-checkbox input { accent-color: var(--cyan); }
 
+    .ack-doc ol, .ack-doc ul { padding-left: 20px; margin: 8px 0; }
+    .ack-doc li { margin-bottom: 8px; }
+    .ack-doc input[type="text"] {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 13px;
+      margin: 4px 0 8px;
+      background: #fff;
+    }
+    .ack-subform { margin: 8px 0 12px; }
+    .ack-subform .inline-check { margin: 4px 0; color: var(--text-soft); }
+    .pending-pill.warn-malese {
+      background: var(--warn-bg);
+      color: var(--warn-text);
+      border-color: var(--warn-border);
+    }
+
     /* v0.2: visit-type echo banner on Step 3 */
     .visit-echo {
       background: var(--surface-2);
@@ -1306,18 +1325,93 @@
         <h2 data-i18n="acks_h">Acknowledgments &amp; signatures</h2>
         <p class="muted" data-i18n="acks_lead">Tap each item to read the policy and sign. The Consent for Treatment is on the next step.</p>
 
+        <!-- ============ ACK 1: HIPAA Authorization Disclosure (page 4) ============ -->
         <div class="ack-card">
           <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
             <div>
-              <div class="ack-title" data-i18n="ack_aob_title">Assignment of Benefits</div>
-              <div class="ack-status">
-                <span class="pending-pill" data-i18n="ack_pending">Content pending NYBSJ</span>
-              </div>
+              <div class="ack-title" data-i18n="ack_hipaa_disc_title">Authorization to Disclose Protected Health Information</div>
             </div>
             <span class="muted">▾</span>
           </div>
           <div class="ack-body">
-            <div class="ack-doc placeholder" data-i18n="ack_aob_body">[Assignment of Benefits text from NYBSJ will appear here. This authorizes NYBSJ to bill your insurance directly and accept payment on your behalf, including for the NYSDOH Patients' Bill of Rights acknowledgment.]</div>
+            <div class="ack-doc" data-lang-only="en">
+              <p>I hereby authorize the above-named medical practice to use, disclose, or obtain the following protected information:</p>
+              <div class="ack-subform">
+                <label class="inline-check"><input type="checkbox" /> All Medical Records</label>
+                <label class="inline-check"><input type="checkbox" /> Specific Medical Records — specify:</label>
+                <input type="text" placeholder="Specify records" />
+                <label class="inline-check"><input type="checkbox" /> Medical Imaging (CD) — specify:</label>
+                <input type="text" placeholder="Specify imaging" />
+                <label class="inline-check"><input type="checkbox" /> Other — specify:</label>
+                <input type="text" placeholder="Specify other" />
+              </div>
+              <p><strong>These records may be obtained from:</strong></p>
+              <input type="text" placeholder="Provider, facility, address" />
+              <p class="muted"><strong>NYBSJ will receive these records via:</strong><br />
+                1175 Montauk Highway Suite 3, West Islip, NY 11795<br />
+                Fax: 631-500-9444<br />
+                Email: medicalrecords@mneurosurgery.com</p>
+              <p>By signing this form, you consent to our use and disclosure of protected health information about you for treatment, payment, and health care operations. You have the right to revoke this Consent in writing, signed by you. However, such a revocation shall not affect any disclosures we have already made in reliance on your prior Consent. The Practice provides this form to comply with the Health Insurance Portability and Accountability Act of 1996 (HIPAA). I understand that uses and disclosures already made based upon my original permission cannot be taken back. I understand that it is possible that information used or disclosed with my permission may be re-disclosed by the recipient and is no longer protected by the HIPAA Privacy Standards. I understand that treatment by any party may not be conditioned upon my signing of this authorization (unless treatment is sought only to create health information for a third party or to take part in a research study) and that I may have the right to refuse to sign this authorization. I will receive a copy of this authorization after I have signed it. A copy of this authorization is as valid as the original.</p>
+            </div>
+            <div class="ack-doc" data-lang-only="es">
+              <p>Por la presente autorizo al consultorio médico mencionado anteriormente a utilizar, divulgar u obtener la siguiente información protegida:</p>
+              <div class="ack-subform">
+                <label class="inline-check"><input type="checkbox" /> Todos los registros médicos</label>
+                <label class="inline-check"><input type="checkbox" /> Historial Médico Específico — especifique:</label>
+                <input type="text" placeholder="Especificar registros" />
+                <label class="inline-check"><input type="checkbox" /> Imágenes Médicas (CD) — especifique:</label>
+                <input type="text" placeholder="Especificar imágenes" />
+                <label class="inline-check"><input type="checkbox" /> Otro — especifique:</label>
+                <input type="text" placeholder="Especificar otro" />
+              </div>
+              <p><strong>Estos registros pueden obtenerse de:</strong></p>
+              <input type="text" placeholder="Proveedor, centro, dirección" />
+              <p class="muted"><strong>NYBSJ recibirá estos registros por:</strong><br />
+                1175 Montauk Highway Suite 3, West Islip, NY 11795<br />
+                Fax: 631-500-9444<br />
+                Email: medicalrecords@mneurosurgery.com</p>
+              <p>Al firmar este formulario, usted consiente el uso y la divulgación de su información médica protegida para fines de tratamiento, pago y atención médica. Tiene derecho a revocar este consentimiento por escrito, firmado por usted. Sin embargo, dicha revocación no afectará las divulgaciones que ya hayamos realizado con base en su consentimiento previo. El consultorio proporciona este formulario para cumplir con la Ley de Portabilidad y Responsabilidad del Seguro Médico de 1996 (HIPAA). Entiendo que los usos y las divulgaciones ya realizados con base en mi autorización original no pueden revocarse. Entiendo que es posible que la información utilizada o divulgada con mi autorización sea divulgada nuevamente por el destinatario y ya no esté protegida por las Normas de Privacidad de HIPAA. Entiendo que el tratamiento por parte de cualquier parte no puede estar condicionado a mi firma de esta autorización (a menos que el tratamiento se busque únicamente para crear información médica para un tercero o para participar en un estudio de investigación) y que puedo tener derecho a negarme a firmar esta autorización. Recibiré una copia de esta autorización después de firmarla. Una copia de esta autorización es tan válida como el original.</p>
+            </div>
+            <div class="ack-checkbox">
+              <input type="checkbox" id="ack-hipaa-disc" />
+              <label for="ack-hipaa-disc" data-i18n="ack_hipaa_disc_check">I authorize the disclosure as described above.</label>
+            </div>
+            <div class="ack-sign">
+              <input type="text" class="ack-sig-input" data-i18n-placeholder="signature_placeholder" placeholder="Type to sign" />
+              <input type="date" />
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ ACK 2: Assignment of Benefits (page 5) ============ -->
+        <div class="ack-card">
+          <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
+            <div>
+              <div class="ack-title" data-i18n="ack_aob_title">Assignment of Benefits</div>
+            </div>
+            <span class="muted">▾</span>
+          </div>
+          <div class="ack-body">
+            <div class="ack-doc" data-lang-only="en">
+              <ol>
+                <li>I request that payment of authorized insurance benefits, including Medicare if I am a Medicare beneficiary, be made on my behalf to the provider listed below for any services provided to me by that provider.</li>
+                <li>I authorize the release of any medical or other information necessary to determine these benefits or the benefits payable for related services to the provider, CMS, my insurance carrier, or other entity if requested. The original authorization will be kept on file by the provider.</li>
+                <li>I understand that I am financially responsible to the provider for any charges not covered by health care benefits. It is my responsibility to notify the provider of any changes in my health care coverage. In some cases, exact insurance benefits cannot be determined until the insurance company receives the claim. I am responsible for the entire bill or balance of the bill as determined by the provider and/or my health care insurer if the submitted claim/claims or any part of them are denied for payment.</li>
+                <li>I understand that by signing this form I am accepting financial responsibility as explained above for all payments for services received.</li>
+                <li>I hereby authorize my provider to release all information acquired during the medical examination and treatment for insurance claim filing. Photocopies of this authorization shall be considered as effective and valid as the original.</li>
+              </ol>
+              <p><strong>The patient was issued and explained the NYSDOH Patients' Bill of Rights for Diagnostic and Treatment Centers (Clinics) in their preferred language.</strong></p>
+            </div>
+            <div class="ack-doc" data-lang-only="es">
+              <ol>
+                <li>Solicito que el pago de los beneficios del seguro autorizado, incluido Medicare si soy beneficiario de Medicare, se realice en mi nombre al proveedor que se encuentra a continuación, para cualquier servicio que me brinde el proveedor mencionado debajo.</li>
+                <li>Autorizo el acceso a cualquier información médica de otro tipo necesaria para determinar estos beneficios o los beneficios pagaderos por servicios relacionados por el proveedor, CMS, mi compañía de seguros u otra entidad si así lo solicita. El proveedor mantendrá en sus archivos la autorización original.</li>
+                <li>Entiendo que soy financieramente responsable del proveedor por cualquier cargo que no esté cubierto por los beneficios de atención médica. Es mi responsabilidad notificar al proveedor sobre cualquier cambio en mi cobertura de atención médica. En algunos casos, los beneficios exactos del seguro no se pueden determinar hasta que la compañía de seguros reciba el reclamo. Soy responsable de la factura total o del saldo de la factura según lo determine el proveedor y/o mi aseguradora de atención médica si se deniega el pago de las reclamaciones presentadas de cualquier parte de ellas.</li>
+                <li>Entiendo que al firmar este formulario acepto la responsabilidad financiera como se explica arriba para todos los pagos por servicios recibidos.</li>
+                <li>Autorizo a mi proveedor a compartir toda la información adquirida durante el examen médico y tratamiento para la presentación de reclamaciones de seguros. Las fotocopias de esta autorización deben considerarse efectivas y válidas como la original.</li>
+              </ol>
+              <p><strong>El paciente recibió y se le explicó la Declaración de Derechos del Paciente del NYSDOH para Centros de Diagnóstico y Tratamiento (Clínicas) en su idioma preferido.</strong></p>
+            </div>
             <div class="ack-checkbox">
               <input type="checkbox" id="ack-aob" />
               <label for="ack-aob" data-i18n="ack_aob_check">I have read and agree to the Assignment of Benefits.</label>
@@ -1329,18 +1423,65 @@
           </div>
         </div>
 
+        <!-- ============ ACK 3: Lien Assignment Agreement (NF-only) ============ -->
+        <div class="branch-section" data-branch-show="nf">
+          <div class="ack-card">
+            <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
+              <div>
+                <div class="ack-title" data-i18n="ack_lien_title">Lien Assignment Agreement</div>
+                <div class="ack-status">
+                  <span class="pending-pill" data-i18n="ack_lien_branch">Required for No-Fault claims</span>
+                </div>
+              </div>
+              <span class="muted">▾</span>
+            </div>
+            <div class="ack-body">
+              <div class="ack-doc" data-lang-only="en">
+                <p>I hereby enter into the following agreement with New York Brain, Spine &amp; Joint, hereinafter known as "the provider", in order to guarantee payment for services rendered by the provider to me, incidental to the accident.</p>
+                <p><strong>Non-No Fault Claims:</strong> I understand that I am directly and fully responsible to the provider for all medical bills for services rendered to me. I understand that I am directly and fully responsible to the provider for any remaining balance on all medical bills for services rendered to me that were submitted on my behalf to the responsible insurance carrier as applicable. This document further serves to acknowledge my responsibility to repay <strong>all</strong> remaining balances subsequent to all applicable insurance payments. I agree to make myself available to appear or correspond with the provider as often as may be necessary for any collections effort that is undertaken. I have been made aware of the charges for the services rendered under this lien assignment and acknowledge responsibility for the repayment of all outstanding balances. I further direct that my attorney shall not subsequently dispute these amounts and, at my direction, will contact this office to arrange for full payment at the time a settlement, trial or motion proceed becomes ready for disbursement.</p>
+                <p><strong>No Fault Claims:</strong> Provider acknowledges that he may not pursue any balances after partial payments are received from the appropriate No-Fault Carrier pursuant to the statutory language contained in the assignment of benefits form. To the extent applicable, patient agrees to comply with all Insurance Company regulations including, but not limited to examinations under oath and independent medical examinations. I understand that any failure on my part to comply with any condition precedent to insurance coverage, may, at the election of the medical provider, serve to revoke any assignment of No-Fault benefits. The patient herein further acknowledges their responsibility to file a timely notice of claim to the applicable insurance carrier and that any subsequent No-Fault claim denied based on the failure to provide a timely notice, at the election of the provider, may result in recovery efforts in reliance of this lien.</p>
+                <p>The Provider agrees to seek compensation from the appropriate insurance carrier prior to invoking the terms of this lien based on the accuracy of the information the patient has provided and to the extent the information is made available prior to the date of service. The patient shall provide all necessary insurance information, police reports, and any additional documentation or information deemed necessary by the provider for the submission of the aforementioned insurance claim as applicable. Failure to provide accurate insurance information leading to a viable source of coverage may serve to invalidate any executed assignment of No-Fault benefits and result in the reliance on this lien for reimbursement purposes. I am aware that No-Fault coverage is premised on a viable policy that is not exhausted. If a policy exhausts prior to collection by Provider, I acknowledge that this Lien may be invoked as a primary payment method.</p>
+                <p>If patient provides insurance information for a No-Fault claim that indicates a third-party administrator and does not provide the name of the underlying insurer, Provider will submit the claim to the named entity but Patient agrees that any assignment of benefits may be revoked retroactively by provider who will revert to this Lien for payment if no underlying carrier is identified. Patient directs his attorney not to dispute any such revocation in favor of the lien where an entity, such as a third-party administrator cannot be pursued in Court for payment based on jurisdictional issues or where a policy exhausts prior to collection by Provider.</p>
+                <p>I hereby give and grant this lien on my case to the provider against any and all proceeds of any settlement, judgment, verdict, or other disposition of any litigation filed or contemplated on my behalf that may be paid to me or my attorney as a result of the injuries for which I have been treated. I grant the provider the aforesaid lien against such sums of the aforesaid settlement, judgment, verdict, or other disposition of any litigation filed or contemplated on my behalf as may be necessary to adequately reimburse the provider for services rendered to me and towards all outstanding balances. I hereby agree to provide accurate contact information for the attorney pursuing any litigation on my behalf.</p>
+                <p>I hereby <strong>direct</strong> and <strong>authorize</strong> direct payment to the provider, such sums as may be due and owing for medical services rendered to me. I further direct my attorney to honor the aforesaid lien and to withhold such sums from any settlement, judgment, verdict, or other disposition of any litigation filed or contemplated on my behalf as may be necessary to adequately reimburse the provider for services rendered to me towards all outstanding balances. In the event collection efforts are required to enforce or defend this Lien, Patient acknowledges responsibility to pay any legal fees incurred by Provider.</p>
+                <p>I understand that this document may not be rescinded and that my attorney shall not honor any such rescission. I hereby instruct that in the event another attorney is substituted in my case, I direct the substituted attorney to provide the incoming attorney with a copy of this lien and that I direct any incoming attorney to honor this lien as inherent to the settlement, judgment, verdict, or other disposition of any litigation filed or contemplated on my behalf and enforceable upon the case as if it were executed by him/her. I hereby direct and authorize my attorney, on demand, to provide the status of such litigation to the provider or his attorney engaged in any collection efforts. Furthermore, I direct my attorney to contact the provider or the attorney representing the provider prior to disbursement of any funds to ascertain any outstanding balances due to Provider.</p>
+              </div>
+              <div class="ack-doc" data-lang-only="es">
+                <p class="muted"><em>Spanish version available at sign-off — full translation to be transcribed from <code>Lien_Assignment_Agreement_Electronic.pdf</code> Spanish version pending Malese review.</em></p>
+              </div>
+              <div class="ack-checkbox">
+                <input type="checkbox" id="ack-lien" />
+                <label for="ack-lien" data-i18n="ack_lien_check">I have read and agree to the Lien Assignment Agreement.</label>
+              </div>
+              <div class="ack-sign">
+                <input type="text" class="ack-sig-input" data-i18n-placeholder="signature_placeholder" placeholder="Type to sign" />
+                <input type="date" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ ACK 4: Guarantee of Payment (page 7) ============ -->
         <div class="ack-card">
           <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
             <div>
               <div class="ack-title" data-i18n="ack_gop_title">Guarantee of Payment</div>
-              <div class="ack-status">
-                <span class="pending-pill" data-i18n="ack_pending">Content pending NYBSJ</span>
-              </div>
             </div>
             <span class="muted">▾</span>
           </div>
           <div class="ack-body">
-            <div class="ack-doc placeholder" data-i18n="ack_gop_body">[Guarantee of Payment text from NYBSJ will appear here. Patient agrees to be financially responsible for any balance not paid by insurance.]</div>
+            <div class="ack-doc" data-lang-only="en">
+              <p>Many insurance companies, including managed care organizations, require written authorization for treatment and follow-up visits. It is your responsibility as a patient to obtain all necessary authorizations from your insurance company prior to receiving medical services.</p>
+              <p>If you have not received prior approval for the service or authorization has been denied, or if <strong>you do not have out-of-network benefits</strong>, you are fully responsible for all charges. In addition, you will be responsible for all deductibles, co-insurance, co-payments, any service that is not covered by your insurance plan, and any service that your insurance company has determined not to be "medically necessary".</p>
+              <p>Co-payments are collected at the time of service when they can be anticipated. All returned checks will incur a $50.00 service fee in addition to any fees assessed by our banking institution.</p>
+              <p>I understand that failure to pay a bill in a timely manner (after 3 bills have been sent) may result in a further review by a collection agency and I understand that I will be further responsible for any additional fees or legal fees associated with the collection of any balance of the visit and any related procedures will be collected at the time of the services rendered based upon the best information available to the practice.</p>
+            </div>
+            <div class="ack-doc" data-lang-only="es">
+              <p>Muchas compañías de seguros, incluidas las autorizaciones de atención administrada, exigen una autorización por escrito para tratamiento y visitas de seguimiento. Es su responsabilidad como paciente obtener todo lo necesario como autorizaciones de su compañía de seguros antes de recibir servicios médicos.</p>
+              <p>Si no ha recibido aprobación previa para el servicio o se le ha negado la autorización, o si no tiene <strong>beneficios fuera de la red</strong>, usted es totalmente responsable de todos los cargos. Además, usted será responsable de todos los deducibles, coseguros, copagos, cualquier servicio que no esté cubierto por su plan de seguro y cualquier servicio que tenga su compañía de seguros determinada no ser "clínicamente necesaria".</p>
+              <p>Los copagos se cobran en el momento del servicio cuando pueden ser anticipados. Todos los cheques devueltos incurrirán en un cargo de servicio de $50 además de cualquier cargo cobrado por nuestra institución bancaria.</p>
+              <p>Entiendo que no pagar una factura a tiempo (después de haber enviado 3 facturas) puede resultar en una revisión adicional de una agencia de colección y entiendo que seré además responsable de cualquier tarifa adicional o honorarios legales asociado con el cobro de cualquier saldo de la visita y cualquier procedimiento relacionado se recopilarán en el momento de la prestación de los servicios en base a la mejor información disponible para la práctica.</p>
+            </div>
             <div class="ack-checkbox">
               <input type="checkbox" id="ack-gop" />
               <label for="ack-gop" data-i18n="ack_gop_check">I have read and agree to the Guarantee of Payment.</label>
@@ -1352,18 +1493,19 @@
           </div>
         </div>
 
+        <!-- ============ ACK 5: No-Show / Cancellation (pending Malese decision) ============ -->
         <div class="ack-card">
           <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
             <div>
               <div class="ack-title" data-i18n="ack_noshow_title">No-Show / Cancellation Policy</div>
               <div class="ack-status">
-                <span class="pending-pill" data-i18n="ack_pending">Content pending NYBSJ</span>
+                <span class="pending-pill" data-i18n="ack_pending_malese">Pending Malese — version TBD</span>
               </div>
             </div>
             <span class="muted">▾</span>
           </div>
           <div class="ack-body">
-            <div class="ack-doc placeholder" data-i18n="ack_noshow_body">[No-Show / Cancellation Policy text from NYBSJ will appear here. Typically includes the cancellation window and any fee charged for missed appointments.]</div>
+            <div class="ack-doc placeholder" data-i18n="ack_noshow_body">[Cancellation policy text TBD. Two coexisting versions in NYBSJ paper forms (main packet pg 8 vs standalone Cancellation_and_No_Show_Policy.pdf) — flagged in 2026-05-04 decisions email; awaiting Malese's confirmation of which applies.]</div>
             <div class="ack-checkbox">
               <input type="checkbox" id="ack-noshow" />
               <label for="ack-noshow" data-i18n="ack_noshow_check">I have read and agree to the No-Show / Cancellation Policy.</label>
@@ -1375,18 +1517,19 @@
           </div>
         </div>
 
+        <!-- ============ ACK 6: Notice of Privacy Practices (pending Malese) ============ -->
         <div class="ack-card">
           <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
             <div>
               <div class="ack-title" data-i18n="ack_npp_title">Notice of Privacy Practices (HIPAA)</div>
               <div class="ack-status">
-                <span class="pending-pill" data-i18n="ack_pending">Content pending NYBSJ</span>
+                <span class="pending-pill" data-i18n="ack_pending_malese">Pending Malese — content TBD</span>
               </div>
             </div>
             <span class="muted">▾</span>
           </div>
           <div class="ack-body">
-            <div class="ack-doc placeholder" data-i18n="ack_npp_body">[Notice of Privacy Practices (English &amp; Spanish) from NYBSJ will appear here. Acknowledges that you have been offered a copy of the practice's HIPAA Notice.]</div>
+            <div class="ack-doc placeholder" data-i18n="ack_npp_body">[Notice of Privacy Practices (English &amp; Spanish) pending from Malese. Acknowledges that you have been offered a copy of the practice's HIPAA Notice.]</div>
             <div class="ack-checkbox">
               <input type="checkbox" id="ack-npp" />
               <label for="ack-npp" data-i18n="ack_npp_check">I acknowledge receipt of the Notice of Privacy Practices.</label>
@@ -1813,18 +1956,21 @@
       ros_heme_anemia: "Anemia",
       acks_h: "Acknowledgments & signatures",
       acks_lead: "Tap each item to read the policy and sign. The Consent for Treatment is on the next step.",
-      ack_pending: "Content pending NYBSJ",
+      ack_pending_malese: "Pending Malese",
+      ack_hipaa_disc_title: "Authorization to Disclose Protected Health Information",
+      ack_hipaa_disc_check: "I authorize the disclosure as described above.",
       ack_aob_title: "Assignment of Benefits",
-      ack_aob_body: "[Assignment of Benefits text from NYBSJ will appear here. This authorizes NYBSJ to bill your insurance directly and accept payment on your behalf, including for the NYSDOH Patients' Bill of Rights acknowledgment.]",
       ack_aob_check: "I have read and agree to the Assignment of Benefits.",
+      ack_lien_title: "Lien Assignment Agreement",
+      ack_lien_branch: "Required for No-Fault claims",
+      ack_lien_check: "I have read and agree to the Lien Assignment Agreement.",
       ack_gop_title: "Guarantee of Payment",
-      ack_gop_body: "[Guarantee of Payment text from NYBSJ will appear here. Patient agrees to be financially responsible for any balance not paid by insurance.]",
       ack_gop_check: "I have read and agree to the Guarantee of Payment.",
       ack_noshow_title: "No-Show / Cancellation Policy",
-      ack_noshow_body: "[No-Show / Cancellation Policy text from NYBSJ will appear here. Typically includes the cancellation window and any fee charged for missed appointments.]",
+      ack_noshow_body: "[Cancellation policy text TBD. Two coexisting versions in NYBSJ paper forms (main packet pg 8 vs standalone Cancellation_and_No_Show_Policy.pdf) — flagged in 2026-05-04 decisions email; awaiting Malese's confirmation of which applies.]",
       ack_noshow_check: "I have read and agree to the No-Show / Cancellation Policy.",
       ack_npp_title: "Notice of Privacy Practices (HIPAA)",
-      ack_npp_body: "[Notice of Privacy Practices (English & Spanish) from NYBSJ will appear here. Acknowledges that you have been offered a copy of the practice's HIPAA Notice.]",
+      ack_npp_body: "[Notice of Privacy Practices (English & Spanish) pending from Malese. Acknowledges that you have been offered a copy of the practice's HIPAA Notice.]",
       ack_npp_check: "I acknowledge receipt of the Notice of Privacy Practices.",
 
       // Screen 6: consent
@@ -2119,18 +2265,21 @@
       ros_heme_anemia: "Anemia",
       acks_h: "Reconocimientos y firmas",
       acks_lead: "Toque cada elemento para leer la política y firmar. El Consentimiento para Tratamiento está en el siguiente paso.",
-      ack_pending: "Contenido pendiente de NYBSJ",
+      ack_pending_malese: "Pendiente — Malese",
+      ack_hipaa_disc_title: "Autorización de Divulgación de Información Protegida",
+      ack_hipaa_disc_check: "Autorizo la divulgación tal como se describe arriba.",
       ack_aob_title: "Asignación de Beneficios",
-      ack_aob_body: "[El texto de Asignación de Beneficios de NYBSJ aparecerá aquí. Esto autoriza a NYBSJ a facturar a su seguro directamente y aceptar pagos en su nombre, incluyendo el reconocimiento de la Carta de Derechos del Paciente del NYSDOH.]",
       ack_aob_check: "He leído y acepto la Asignación de Beneficios.",
+      ack_lien_title: "Acuerdo de Asignación de Gravamen",
+      ack_lien_branch: "Requerido para reclamos Sin Culpa",
+      ack_lien_check: "He leído y acepto el Acuerdo de Asignación de Gravamen.",
       ack_gop_title: "Garantía de Pago",
-      ack_gop_body: "[El texto de Garantía de Pago de NYBSJ aparecerá aquí. El paciente acepta ser financieramente responsable por cualquier saldo no pagado por el seguro.]",
       ack_gop_check: "He leído y acepto la Garantía de Pago.",
       ack_noshow_title: "Política de No Presentarse / Cancelación",
-      ack_noshow_body: "[El texto de la Política de No Presentarse / Cancelación de NYBSJ aparecerá aquí. Generalmente incluye la ventana de cancelación y cualquier cargo por citas perdidas.]",
+      ack_noshow_body: "[Texto de política de cancelación pendiente. Existen dos versiones coexistentes en los formularios en papel de NYBSJ (paquete principal pg. 8 vs Cancellation_and_No_Show_Policy.pdf independiente) — señalado en el correo de decisiones del 2026-05-04; pendiente confirmación de Malese sobre cuál aplica.]",
       ack_noshow_check: "He leído y acepto la Política de No Presentarse / Cancelación.",
       ack_npp_title: "Aviso de Prácticas de Privacidad (HIPAA)",
-      ack_npp_body: "[El Aviso de Prácticas de Privacidad de NYBSJ (Inglés y Español) aparecerá aquí. Reconoce que se le ha ofrecido una copia del Aviso HIPAA de la práctica.]",
+      ack_npp_body: "[Aviso de Prácticas de Privacidad (Inglés y Español) pendiente de Malese. Reconoce que se le ha ofrecido una copia del Aviso HIPAA de la práctica.]",
       ack_npp_check: "Reconozco que recibí el Aviso de Prácticas de Privacidad.",
 
       // Screen 6: consent
