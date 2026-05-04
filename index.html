@@ -246,6 +246,48 @@
     }
     .inline-check input { accent-color: var(--cyan); width: 14px; height: 14px; }
 
+    .height-row {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .height-row input { flex: 1; min-width: 0; }
+    .height-row .unit { color: var(--text-muted); font-size: 14px; }
+
+    .radio-row {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 4px;
+    }
+    .radio-row label {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 14px; color: var(--text);
+      cursor: pointer;
+    }
+    .radio-row label:hover { border-color: var(--cyan); }
+    .radio-row input { accent-color: var(--cyan); }
+
+    .ros-system {
+      margin-bottom: 18px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .ros-system h3 {
+      margin: 0 0 10px;
+      text-transform: none; letter-spacing: 0;
+      font-size: 14px; font-weight: 600;
+      color: var(--navy);
+    }
+    .ros-symptoms {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 6px 14px;
+    }
+    .ros-symptoms .inline-check { margin-top: 0; color: var(--text); font-size: 14px; }
+
     .signature-block {
       border: 1px dashed var(--border);
       border-radius: var(--radius-sm);
@@ -437,9 +479,10 @@
   <button data-screen="inbox">2. Inbox</button>
   <button data-screen="welcome">3. Welcome</button>
   <button data-screen="demographics">4. Demographics</button>
-  <button data-screen="step3">5. Insurance / Claim / Acks</button>
-  <button data-screen="consent">6. Consent</button>
-  <button data-screen="done">7. Submitted</button>
+  <button data-screen="patient-info">5. Patient Info</button>
+  <button data-screen="step3">6. Insurance / Claim / Acks</button>
+  <button data-screen="consent">7. Consent</button>
+  <button data-screen="done">8. Submitted</button>
 </nav>
 
 <header class="app-header">
@@ -501,8 +544,8 @@
     <!-- ============ SCREEN 3: WELCOME / LOCATION ============ -->
     <section id="screen-welcome" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 1 <span data-i18n="of">of</span> 4</span>
-        <div class="bar"><span style="width: 25%"></span></div>
+        <span><span data-i18n="step">Step</span> 1 <span data-i18n="of">of</span> 5</span>
+        <div class="bar"><span style="width: 20%"></span></div>
       </div>
 
       <div class="card">
@@ -562,8 +605,8 @@
     <!-- ============ SCREEN 4: DEMOGRAPHICS ============ -->
     <section id="screen-demographics" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 2 <span data-i18n="of">of</span> 4</span>
-        <div class="bar"><span style="width: 50%"></span></div>
+        <span><span data-i18n="step">Step</span> 2 <span data-i18n="of">of</span> 5</span>
+        <div class="bar"><span style="width: 40%"></span></div>
       </div>
 
       <div class="card">
@@ -795,11 +838,229 @@
       </div>
     </section>
 
-    <!-- ============ SCREEN 5 (NEW): STEP 3 — INSURANCE / CLAIM / ROS / ACKS ============ -->
+    <!-- ============ SCREEN 5: PATIENT INFO (height, weight, smoking, devices, allergies, ROS) ============ -->
+    <section id="screen-patient-info" class="screen">
+      <div class="progress">
+        <span><span data-i18n="step">Step</span> 3 <span data-i18n="of">of</span> 5</span>
+        <div class="bar"><span style="width: 60%"></span></div>
+      </div>
+
+      <div class="card">
+        <h1 data-i18n="patinfo_h1">Patient information</h1>
+        <p class="lead" data-i18n="patinfo_lead">A few quick health details so your provider has the right context for your visit.</p>
+
+        <div class="row">
+          <div class="field">
+            <label data-i18n="height">Height</label>
+            <div class="height-row">
+              <input type="number" min="0" max="9" placeholder="ft" />
+              <span class="unit" data-i18n="height_ft">ft</span>
+              <input type="number" min="0" max="11" placeholder="in" />
+              <span class="unit" data-i18n="height_in">in</span>
+            </div>
+          </div>
+          <div class="field">
+            <label data-i18n="weight">Weight</label>
+            <div class="height-row">
+              <input type="number" min="0" placeholder="lbs" />
+              <span class="unit" data-i18n="weight_lbs">lbs</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label data-i18n="smoking_h">Smoking status</label>
+          <div class="radio-row">
+            <label><input type="radio" name="smoking" /> <span data-i18n="smoking_never">Never</span></label>
+            <label><input type="radio" name="smoking" /> <span data-i18n="smoking_former">Former</span></label>
+            <label><input type="radio" name="smoking" /> <span data-i18n="smoking_current_every">Current — every day</span></label>
+            <label><input type="radio" name="smoking" /> <span data-i18n="smoking_current_some">Current — some days</span></label>
+            <label><input type="radio" name="smoking" /> <span data-i18n="smoking_unknown">Unknown</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label data-i18n="pacemaker_q">Do you have a pacemaker or defibrillator?</label>
+          <div class="radio-row">
+            <label><input type="radio" name="pacemaker" /> <span data-i18n="ros_yes">Yes</span></label>
+            <label><input type="radio" name="pacemaker" /> <span data-i18n="ros_no">No</span></label>
+          </div>
+          <input type="text" data-i18n-placeholder="pacemaker_mfr_placeholder" placeholder="If yes, manufacturer" style="margin-top: 8px;" />
+        </div>
+
+        <div class="field">
+          <label data-i18n="devices_q">Do you have any other implanted medical devices?</label>
+          <div class="radio-row">
+            <label><input type="radio" name="devices" /> <span data-i18n="ros_yes">Yes</span></label>
+            <label><input type="radio" name="devices" /> <span data-i18n="ros_no">No</span></label>
+          </div>
+          <input type="text" data-i18n-placeholder="devices_list_placeholder" placeholder="If yes, please list" style="margin-top: 8px;" />
+        </div>
+
+        <div class="field">
+          <label data-i18n="allergies_q">Do you have any allergies?</label>
+          <div class="radio-row">
+            <label><input type="radio" name="allergies" /> <span data-i18n="ros_yes">Yes</span></label>
+            <label><input type="radio" name="allergies" /> <span data-i18n="ros_no">No</span></label>
+          </div>
+          <input type="text" data-i18n-placeholder="allergies_list_placeholder" placeholder="If yes, list allergies and reactions" style="margin-top: 8px;" />
+        </div>
+
+        <h2 data-i18n="ros_h">Review of systems</h2>
+        <p class="muted" data-i18n="ros_lead2">Please check all that apply. If none, select "None" for that section.</p>
+
+        <div class="ros-system">
+          <h3 data-i18n="ros_const_h">Constitutional</h3>
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_const_fever">Fever</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_const_chills">Chills</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_const_weightloss">Weight loss</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_const_fatigue">Fatigue</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_const_nightsweats">Night sweats</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_const_malaise">Malaise</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_const_weakness">Weakness</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_none">None</span></label>
+          </div>
+        </div>
+
+        <div class="ros-system">
+          <h3 data-i18n="ros_heent_h">HEENT</h3>
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_heent_headache">Headache</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_heent_vision">Vision changes</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_heent_double">Double vision</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_heent_hearing">Hearing loss</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_heent_tinnitus">Tinnitus</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_heent_nasal">Nasal congestion</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_heent_throat">Sore throat</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_none">None</span></label>
+          </div>
+        </div>
+
+        <div class="ros-system">
+          <h3 data-i18n="ros_resp_h">Respiratory</h3>
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_resp_sob">Shortness of breath</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_resp_cough">Cough</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_resp_wheezing">Wheezing</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_resp_tightness">Chest tightness</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_resp_apnea">Sleep apnea</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_none">None</span></label>
+          </div>
+        </div>
+
+        <div class="ros-system">
+          <h3 data-i18n="ros_cv_h">Cardiovascular</h3>
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_cv_chestpain">Chest pain</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_cv_palpitations">Palpitations</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_cv_legswelling">Leg swelling</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_cv_htn">Hypertension</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_cv_orthopnea">Orthopnea</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_none">None</span></label>
+          </div>
+        </div>
+
+        <div class="ros-system">
+          <h3 data-i18n="ros_gi_h">Gastrointestinal</h3>
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_gi_nausea">Nausea</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_gi_vomiting">Vomiting</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_gi_diarrhea">Diarrhea</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_gi_constipation">Constipation</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_gi_reflux">Acid reflux</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_gi_abdpain">Abdominal pain</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_none">None</span></label>
+          </div>
+        </div>
+
+        <div class="ros-system">
+          <h3 data-i18n="ros_gu_h">Genitourinary</h3>
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_gu_freq">Urinary frequency</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_gu_urgency">Urgency</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_gu_incontinence">Incontinence</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_gu_painful">Painful urination</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_gu_ed">Erectile dysfunction</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_none">None</span></label>
+          </div>
+        </div>
+
+        <div class="ros-system">
+          <h3 data-i18n="ros_msk_h">Musculoskeletal</h3>
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_msk_jointpain">Joint pain</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_msk_muscleaches">Muscle aches</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_msk_stiffness">Stiffness</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_msk_backpain">Back pain</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_msk_neckpain">Neck pain</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_msk_swelling">Swelling</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_none">None</span></label>
+          </div>
+        </div>
+
+        <div class="ros-system">
+          <h3 data-i18n="ros_neuro_h">Neurological</h3>
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_neuro_numbness">Numbness</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_neuro_tingling">Tingling</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_neuro_weakness">Weakness</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_neuro_dizziness">Dizziness</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_neuro_seizures">Seizures</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_neuro_memory">Memory loss</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_neuro_balance">Balance issues</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_neuro_headaches">Headaches</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_none">None</span></label>
+          </div>
+        </div>
+
+        <div class="ros-system">
+          <h3 data-i18n="ros_psych_h">Psychiatric</h3>
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_psych_depression">Depression</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_psych_anxiety">Anxiety</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_psych_mood">Mood swings</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_psych_sleep">Sleep disturbances</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_psych_suicidal">Suicidal ideation</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_none">None</span></label>
+          </div>
+        </div>
+
+        <div class="ros-system">
+          <h3 data-i18n="ros_endo_h">Endocrine</h3>
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_endo_thirst">Excessive thirst</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_endo_urination">Frequent urination</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_endo_heat">Heat intolerance</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_endo_cold">Cold intolerance</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_endo_weight">Weight changes</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_none">None</span></label>
+          </div>
+        </div>
+
+        <div class="ros-system">
+          <h3 data-i18n="ros_heme_h">Hematologic / Lymphatic</h3>
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_heme_bruising">Easy bruising</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_heme_bleeding">Bleeding tendency</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_heme_lymph">Swollen lymph nodes</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_heme_anemia">Anemia</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="ros_none">None</span></label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-secondary">&larr; <span data-i18n="back">Back</span></button>
+          <button class="btn btn-primary"><span data-i18n="continue">Continue</span> &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN 6: STEP 3 — INSURANCE / CLAIM / ACKS ============ -->
     <section id="screen-step3" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 3 <span data-i18n="of">of</span> 4</span>
-        <div class="bar"><span style="width: 75%"></span></div>
+        <span><span data-i18n="step">Step</span> 4 <span data-i18n="of">of</span> 5</span>
+        <div class="bar"><span style="width: 80%"></span></div>
       </div>
 
       <div class="branch-picker">
@@ -1042,47 +1303,6 @@
           </div>
         </div>
 
-        <h2 data-i18n="ros_h">Review of systems</h2>
-        <p class="muted" data-i18n="ros_lead">A short health screening. Mark "yes" for anything you're currently experiencing.</p>
-        <div class="ros-preview">
-          <div class="ros-row">
-            <span class="system" data-i18n="ros_pain">Persistent pain (back, neck, joints)</span>
-            <div class="toggle">
-              <button class="no" data-i18n="ros_no">No</button>
-              <button class="yes" data-i18n="ros_yes">Yes</button>
-            </div>
-          </div>
-          <div class="ros-row">
-            <span class="system" data-i18n="ros_numbness">Numbness or tingling</span>
-            <div class="toggle">
-              <button class="no" data-i18n="ros_no">No</button>
-              <button class="yes" data-i18n="ros_yes">Yes</button>
-            </div>
-          </div>
-          <div class="ros-row">
-            <span class="system" data-i18n="ros_weakness">Weakness in arms or legs</span>
-            <div class="toggle">
-              <button class="no" data-i18n="ros_no">No</button>
-              <button class="yes" data-i18n="ros_yes">Yes</button>
-            </div>
-          </div>
-          <div class="ros-row">
-            <span class="system" data-i18n="ros_sleep">Sleep affected by pain</span>
-            <div class="toggle">
-              <button class="no" data-i18n="ros_no">No</button>
-              <button class="yes" data-i18n="ros_yes">Yes</button>
-            </div>
-          </div>
-          <div class="ros-row">
-            <span class="system" data-i18n="ros_chest">Chest pain or shortness of breath</span>
-            <div class="toggle">
-              <button class="no" data-i18n="ros_no">No</button>
-              <button class="yes" data-i18n="ros_yes">Yes</button>
-            </div>
-          </div>
-          <p class="ros-note" data-i18n="ros_note">Preview only. The final list will cover the full body-system review from your paper PDF, pending NYBSJ confirmation that ROS belongs in the digital intake.</p>
-        </div>
-
         <h2 data-i18n="acks_h">Acknowledgments &amp; signatures</h2>
         <p class="muted" data-i18n="acks_lead">Tap each item to read the policy and sign. The Consent for Treatment is on the next step.</p>
 
@@ -1188,7 +1408,7 @@
     <!-- ============ SCREEN 6: CONSENT FOR TREATMENT ============ -->
     <section id="screen-consent" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 4 <span data-i18n="of">of</span> 4</span>
+        <span><span data-i18n="step">Step</span> 5 <span data-i18n="of">of</span> 5</span>
         <div class="bar"><span style="width: 100%"></span></div>
       </div>
 
@@ -1491,16 +1711,106 @@
       ref_doc_fax: "Referring physician fax",
       pcp: "Primary care provider",
       pcp_fax: "Primary care provider fax",
+      // Screen 5: Patient Info
+      patinfo_h1: "Patient information",
+      patinfo_lead: "A few quick health details so your provider has the right context for your visit.",
+      height: "Height",
+      height_ft: "ft",
+      height_in: "in",
+      weight: "Weight",
+      weight_lbs: "lbs",
+      smoking_h: "Smoking status",
+      smoking_never: "Never",
+      smoking_former: "Former",
+      smoking_current_every: "Current — every day",
+      smoking_current_some: "Current — some days",
+      smoking_unknown: "Unknown",
+      pacemaker_q: "Do you have a pacemaker or defibrillator?",
+      pacemaker_mfr_placeholder: "If yes, manufacturer",
+      devices_q: "Do you have any other implanted medical devices?",
+      devices_list_placeholder: "If yes, please list",
+      allergies_q: "Do you have any allergies?",
+      allergies_list_placeholder: "If yes, list allergies and reactions",
+      // ROS — full 11 systems per NYBSJ paper intake page 3
       ros_h: "Review of systems",
-      ros_lead: "A short health screening. Mark \"yes\" for anything you're currently experiencing.",
-      ros_pain: "Persistent pain (back, neck, joints)",
-      ros_numbness: "Numbness or tingling",
-      ros_weakness: "Weakness in arms or legs",
-      ros_sleep: "Sleep affected by pain",
-      ros_chest: "Chest pain or shortness of breath",
+      ros_lead2: "Please check all that apply. If none, select \"None\" for that section.",
       ros_yes: "Yes",
       ros_no: "No",
-      ros_note: "Preview only. The final list will cover the full body-system review from your paper PDF, pending NYBSJ confirmation that ROS belongs in the digital intake.",
+      ros_none: "None",
+      ros_const_h: "Constitutional",
+      ros_const_fever: "Fever",
+      ros_const_chills: "Chills",
+      ros_const_weightloss: "Weight loss",
+      ros_const_fatigue: "Fatigue",
+      ros_const_nightsweats: "Night sweats",
+      ros_const_malaise: "Malaise",
+      ros_const_weakness: "Weakness",
+      ros_heent_h: "HEENT",
+      ros_heent_headache: "Headache",
+      ros_heent_vision: "Vision changes",
+      ros_heent_double: "Double vision",
+      ros_heent_hearing: "Hearing loss",
+      ros_heent_tinnitus: "Tinnitus",
+      ros_heent_nasal: "Nasal congestion",
+      ros_heent_throat: "Sore throat",
+      ros_resp_h: "Respiratory",
+      ros_resp_sob: "Shortness of breath",
+      ros_resp_cough: "Cough",
+      ros_resp_wheezing: "Wheezing",
+      ros_resp_tightness: "Chest tightness",
+      ros_resp_apnea: "Sleep apnea",
+      ros_cv_h: "Cardiovascular",
+      ros_cv_chestpain: "Chest pain",
+      ros_cv_palpitations: "Palpitations",
+      ros_cv_legswelling: "Leg swelling",
+      ros_cv_htn: "Hypertension",
+      ros_cv_orthopnea: "Orthopnea",
+      ros_gi_h: "Gastrointestinal",
+      ros_gi_nausea: "Nausea",
+      ros_gi_vomiting: "Vomiting",
+      ros_gi_diarrhea: "Diarrhea",
+      ros_gi_constipation: "Constipation",
+      ros_gi_reflux: "Acid reflux",
+      ros_gi_abdpain: "Abdominal pain",
+      ros_gu_h: "Genitourinary",
+      ros_gu_freq: "Urinary frequency",
+      ros_gu_urgency: "Urgency",
+      ros_gu_incontinence: "Incontinence",
+      ros_gu_painful: "Painful urination",
+      ros_gu_ed: "Erectile dysfunction",
+      ros_msk_h: "Musculoskeletal",
+      ros_msk_jointpain: "Joint pain",
+      ros_msk_muscleaches: "Muscle aches",
+      ros_msk_stiffness: "Stiffness",
+      ros_msk_backpain: "Back pain",
+      ros_msk_neckpain: "Neck pain",
+      ros_msk_swelling: "Swelling",
+      ros_neuro_h: "Neurological",
+      ros_neuro_numbness: "Numbness",
+      ros_neuro_tingling: "Tingling",
+      ros_neuro_weakness: "Weakness",
+      ros_neuro_dizziness: "Dizziness",
+      ros_neuro_seizures: "Seizures",
+      ros_neuro_memory: "Memory loss",
+      ros_neuro_balance: "Balance issues",
+      ros_neuro_headaches: "Headaches",
+      ros_psych_h: "Psychiatric",
+      ros_psych_depression: "Depression",
+      ros_psych_anxiety: "Anxiety",
+      ros_psych_mood: "Mood swings",
+      ros_psych_sleep: "Sleep disturbances",
+      ros_psych_suicidal: "Suicidal ideation",
+      ros_endo_h: "Endocrine",
+      ros_endo_thirst: "Excessive thirst",
+      ros_endo_urination: "Frequent urination",
+      ros_endo_heat: "Heat intolerance",
+      ros_endo_cold: "Cold intolerance",
+      ros_endo_weight: "Weight changes",
+      ros_heme_h: "Hematologic / Lymphatic",
+      ros_heme_bruising: "Easy bruising",
+      ros_heme_bleeding: "Bleeding tendency",
+      ros_heme_lymph: "Swollen lymph nodes",
+      ros_heme_anemia: "Anemia",
       acks_h: "Acknowledgments & signatures",
       acks_lead: "Tap each item to read the policy and sign. The Consent for Treatment is on the next step.",
       ack_pending: "Content pending NYBSJ",
@@ -1707,16 +2017,106 @@
       ref_doc_fax: "Fax del médico que refiere",
       pcp: "Médico de atención primaria",
       pcp_fax: "Fax del médico de atención primaria",
+      // Screen 5: Patient Info
+      patinfo_h1: "Información del paciente",
+      patinfo_lead: "Algunos datos rápidos de salud para que su proveedor tenga el contexto correcto para su visita.",
+      height: "Estatura",
+      height_ft: "pies",
+      height_in: "pulg.",
+      weight: "Peso",
+      weight_lbs: "lbs",
+      smoking_h: "Estado de tabaquismo",
+      smoking_never: "Nunca",
+      smoking_former: "Antes",
+      smoking_current_every: "Actual — todos los días",
+      smoking_current_some: "Actual — algunos días",
+      smoking_unknown: "Desconocido",
+      pacemaker_q: "¿Tiene marcapasos o desfibrilador?",
+      pacemaker_mfr_placeholder: "Si sí, fabricante",
+      devices_q: "¿Tiene otros dispositivos médicos implantados?",
+      devices_list_placeholder: "Si sí, indique cuáles",
+      allergies_q: "¿Tiene alergias?",
+      allergies_list_placeholder: "Si sí, indique alergias y reacciones",
+      // ROS — 11 sistemas completos (página 3 del paquete NYBSJ)
       ros_h: "Revisión de sistemas",
-      ros_lead: "Una breve evaluación de salud. Marque \"Sí\" para cualquier síntoma que tenga actualmente.",
-      ros_pain: "Dolor persistente (espalda, cuello, articulaciones)",
-      ros_numbness: "Entumecimiento u hormigueo",
-      ros_weakness: "Debilidad en brazos o piernas",
-      ros_sleep: "Sueño afectado por el dolor",
-      ros_chest: "Dolor de pecho o falta de aire",
+      ros_lead2: "Marque todo lo que aplique. Si ninguno, seleccione \"Ninguno\" para esa sección.",
       ros_yes: "Sí",
       ros_no: "No",
-      ros_note: "Vista previa únicamente. La lista final cubrirá la revisión completa por sistemas del PDF en papel, pendiente de confirmación por parte de NYBSJ.",
+      ros_none: "Ninguno",
+      ros_const_h: "Constitucional",
+      ros_const_fever: "Fiebre",
+      ros_const_chills: "Escalofríos",
+      ros_const_weightloss: "Pérdida de peso",
+      ros_const_fatigue: "Fatiga",
+      ros_const_nightsweats: "Sudoración nocturna",
+      ros_const_malaise: "Malestar general",
+      ros_const_weakness: "Debilidad",
+      ros_heent_h: "Cabeza, ojos, oídos, nariz y garganta",
+      ros_heent_headache: "Dolor de cabeza",
+      ros_heent_vision: "Cambios en la visión",
+      ros_heent_double: "Visión doble",
+      ros_heent_hearing: "Pérdida auditiva",
+      ros_heent_tinnitus: "Tinnitus (zumbido)",
+      ros_heent_nasal: "Congestión nasal",
+      ros_heent_throat: "Dolor de garganta",
+      ros_resp_h: "Respiratorio",
+      ros_resp_sob: "Falta de aire",
+      ros_resp_cough: "Tos",
+      ros_resp_wheezing: "Sibilancias",
+      ros_resp_tightness: "Opresión en el pecho",
+      ros_resp_apnea: "Apnea del sueño",
+      ros_cv_h: "Cardiovascular",
+      ros_cv_chestpain: "Dolor de pecho",
+      ros_cv_palpitations: "Palpitaciones",
+      ros_cv_legswelling: "Hinchazón en piernas",
+      ros_cv_htn: "Hipertensión",
+      ros_cv_orthopnea: "Ortopnea",
+      ros_gi_h: "Gastrointestinal",
+      ros_gi_nausea: "Náuseas",
+      ros_gi_vomiting: "Vómitos",
+      ros_gi_diarrhea: "Diarrea",
+      ros_gi_constipation: "Estreñimiento",
+      ros_gi_reflux: "Reflujo ácido",
+      ros_gi_abdpain: "Dolor abdominal",
+      ros_gu_h: "Genitourinario",
+      ros_gu_freq: "Frecuencia urinaria",
+      ros_gu_urgency: "Urgencia urinaria",
+      ros_gu_incontinence: "Incontinencia",
+      ros_gu_painful: "Dolor al orinar",
+      ros_gu_ed: "Disfunción eréctil",
+      ros_msk_h: "Musculoesquelético",
+      ros_msk_jointpain: "Dolor articular",
+      ros_msk_muscleaches: "Dolores musculares",
+      ros_msk_stiffness: "Rigidez",
+      ros_msk_backpain: "Dolor de espalda",
+      ros_msk_neckpain: "Dolor de cuello",
+      ros_msk_swelling: "Hinchazón",
+      ros_neuro_h: "Neurológico",
+      ros_neuro_numbness: "Entumecimiento",
+      ros_neuro_tingling: "Hormigueo",
+      ros_neuro_weakness: "Debilidad",
+      ros_neuro_dizziness: "Mareos",
+      ros_neuro_seizures: "Convulsiones",
+      ros_neuro_memory: "Pérdida de memoria",
+      ros_neuro_balance: "Problemas de equilibrio",
+      ros_neuro_headaches: "Dolores de cabeza",
+      ros_psych_h: "Psiquiátrico",
+      ros_psych_depression: "Depresión",
+      ros_psych_anxiety: "Ansiedad",
+      ros_psych_mood: "Cambios de humor",
+      ros_psych_sleep: "Trastornos del sueño",
+      ros_psych_suicidal: "Pensamientos suicidas",
+      ros_endo_h: "Endocrino",
+      ros_endo_thirst: "Sed excesiva",
+      ros_endo_urination: "Orinar con frecuencia",
+      ros_endo_heat: "Intolerancia al calor",
+      ros_endo_cold: "Intolerancia al frío",
+      ros_endo_weight: "Cambios de peso",
+      ros_heme_h: "Hematológico / Linfático",
+      ros_heme_bruising: "Hematomas con facilidad",
+      ros_heme_bleeding: "Tendencia al sangrado",
+      ros_heme_lymph: "Ganglios linfáticos inflamados",
+      ros_heme_anemia: "Anemia",
       acks_h: "Reconocimientos y firmas",
       acks_lead: "Toque cada elemento para leer la política y firmar. El Consentimiento para Tratamiento está en el siguiente paso.",
       ack_pending: "Contenido pendiente de NYBSJ",
