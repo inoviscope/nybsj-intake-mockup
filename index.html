@@ -869,6 +869,51 @@
           </div>
         </div>
 
+        <h2 data-i18n="resp_party_h">Responsible party (if patient is a minor)</h2>
+        <p class="lead" data-i18n="resp_party_lead">Complete this section only if the patient is under 18.</p>
+        <div class="row">
+          <div class="field">
+            <label data-i18n="resp_party_name">Parent or legal guardian name</label>
+            <input type="text" />
+          </div>
+          <div class="field">
+            <label data-i18n="resp_party_ssn">SSN</label>
+            <input type="text" placeholder="XXX-XX-XXXX" />
+          </div>
+        </div>
+        <div class="row-3">
+          <div class="field">
+            <label data-i18n="resp_party_cell">Cell phone</label>
+            <input type="tel" placeholder="(555) 123-4567" />
+          </div>
+          <div class="field">
+            <label data-i18n="resp_party_home">Home phone</label>
+            <input type="tel" placeholder="(555) 123-4567" />
+          </div>
+          <div class="field">
+            <label data-i18n="resp_party_rel">Relationship to patient</label>
+            <input type="text" data-i18n-placeholder="resp_party_rel_placeholder" placeholder="e.g., Parent, Legal Guardian" />
+          </div>
+        </div>
+        <div class="field">
+          <label data-i18n="resp_party_addr">Address (if different from patient)</label>
+          <input type="text" />
+        </div>
+        <div class="row-3">
+          <div class="field">
+            <label data-i18n="city">City</label>
+            <input type="text" />
+          </div>
+          <div class="field">
+            <label data-i18n="state">State</label>
+            <input type="text" placeholder="NY" />
+          </div>
+          <div class="field">
+            <label data-i18n="zip">ZIP</label>
+            <input type="text" />
+          </div>
+        </div>
+
         <div class="actions">
           <button class="btn btn-secondary">&larr; <span data-i18n="back">Back</span></button>
           <button class="btn btn-primary"><span data-i18n="continue">Continue</span> &rarr;</button>
@@ -1534,11 +1579,46 @@
                 <p>I understand that this document may not be rescinded and that my attorney shall not honor any such rescission. I hereby instruct that in the event another attorney is substituted in my case, I direct the substituted attorney to provide the incoming attorney with a copy of this lien and that I direct any incoming attorney to honor this lien as inherent to the settlement, judgment, verdict, or other disposition of any litigation filed or contemplated on my behalf and enforceable upon the case as if it were executed by him/her. I hereby direct and authorize my attorney, on demand, to provide the status of such litigation to the provider or his attorney engaged in any collection efforts. Furthermore, I direct my attorney to contact the provider or the attorney representing the provider prior to disbursement of any funds to ascertain any outstanding balances due to Provider.</p>
               </div>
               <div class="ack-doc" data-lang-only="es">
-                <p class="muted"><em>Spanish version available at sign-off — full translation to be transcribed from <code>Lien_Assignment_Agreement_Electronic.pdf</code> Spanish version pending Malese review.</em></p>
+                <p class="muted"><em>Spanish version available at sign-off — full translation pending.</em></p>
               </div>
               <div class="ack-checkbox">
                 <input type="checkbox" id="ack-lien" />
                 <label for="ack-lien" data-i18n="ack_lien_check">I have read and agree to the Lien Assignment Agreement.</label>
+              </div>
+              <div class="ack-sign">
+                <input type="text" class="ack-sig-input" data-i18n-placeholder="signature_placeholder" placeholder="Type to sign" />
+                <input type="date" />
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ ACK: NYS Motor Vehicle No-Fault AOB (NF-only, v4 page 11) ============ -->
+          <div class="ack-card">
+            <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
+              <div>
+                <div class="ack-title" data-i18n="ack_nfaob_title">NYS Motor Vehicle No-Fault AOB</div>
+                <div class="ack-status">
+                  <span class="pending-pill" data-i18n="ack_lien_branch">Required for No-Fault claims</span>
+                </div>
+              </div>
+              <span class="muted">▾</span>
+            </div>
+            <div class="ack-body">
+              <div class="ack-doc" data-lang-only="en">
+                <p class="muted"><strong>NEW YORK MOTOR VEHICLE NO-FAULT INSURANCE LAW &mdash; ASSIGNMENT OF BENEFITS FORM</strong><br />
+                  (For accidents occurring on and after 3/1/02)</p>
+                <p>I, <em>(print patient's name)</em>, ("Assignor") hereby assign to <strong>Nitin Mariwalla MD PLLC</strong>, ("Assignee") all rights, privileges and remedies to payment for health care services provided by assignee to which I am entitled under Article 51 (the No-Fault statute) of the Insurance Law.</p>
+                <p>The Assignee hereby certifies that they have not received any payment from or on behalf of the Assignor and shall not pursue payment directly from the Assignor for services provided by said Assignee for injuries sustained due to the motor vehicle accident which occurred on <em>(print accident date)</em>, not withstanding any other agreement to the contrary.</p>
+                <p>This agreement may be revoked by the assignee when benefits are not payable based upon the assignor's lack of coverage and/or violation of a policy condition due to the actions or conduct of the assignor.</p>
+                <p><strong>ANY PERSON WHO KNOWINGLY AND WITH INTENT TO DEFRAUD ANY INSURANCE COMPANY OR OTHER PERSON FILES AN APPLICATION FOR COMMERCIAL INSURANCE OR A STATEMENT OF CLAIM FOR ANY COMMERCIAL OR PERSONAL INSURANCE BENEFITS CONTAINING ANY MATERIALLY FALSE INFORMATION, OR CONCEALS FOR THE PURPOSE OF MISLEADING, INFORMATION CONCERNING ANY FACT MATERIAL THERETO, AND ANY PERSON WHO, IN CONNECTION WITH SUCH APPLICATION OR CLAIM, KNOWINGLY MAKES OR KNOWINGLY ASSISTS, ABETS, SOLICITS OR CONSPIRES WITH ANOTHER TO MAKE A FALSE REPORT OF THE THEFT, DESTRUCTION, DAMAGE OR CONVERSION OF ANY MOTOR VEHICLE TO A LAW ENFORCEMENT AGENCY, THE DEPARTMENT OF MOTOR VEHICLES OR AN INSURANCE COMPANY, COMMITS A FRAUDULENT INSURANCE ACT, WHICH IS A CRIME, AND SHALL ALSO BE SUBJECT TO A CIVIL PENALTY NOT TO EXCEED FIVE THOUSAND DOLLARS AND THE VALUE OF THE SUBJECT MOTOR VEHICLE OR STATED CLAIM FOR EACH VIOLATION.</strong></p>
+                <p class="muted">NYS FORM NF-AOB (Rev 1/2004)</p>
+              </div>
+              <div class="ack-doc" data-lang-only="es">
+                <p class="muted"><em>Traducción oficial al español por NYS pendiente.</em></p>
+              </div>
+              <div class="ack-checkbox">
+                <input type="checkbox" id="ack-nfaob" />
+                <label for="ack-nfaob" data-i18n="ack_nfaob_check">I have read and agree to the NYS No-Fault Assignment of Benefits.</label>
               </div>
               <div class="ack-sign">
                 <input type="text" class="ack-sig-input" data-i18n-placeholder="signature_placeholder" placeholder="Type to sign" />
@@ -1580,22 +1660,31 @@
           </div>
         </div>
 
-        <!-- ============ ACK 5: No-Show / Cancellation (pending Malese decision) ============ -->
+        <!-- ============ ACK 5: No-Show / Surgery Cancellation Policy (v4 page 9) ============ -->
         <div class="ack-card">
           <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
             <div>
-              <div class="ack-title" data-i18n="ack_noshow_title">No-Show / Cancellation Policy</div>
-              <div class="ack-status">
-                <span class="pending-pill" data-i18n="ack_pending_malese">Pending Malese — version TBD</span>
-              </div>
+              <div class="ack-title" data-i18n="ack_noshow_title">No-Show and Surgery Cancellation Policy</div>
             </div>
             <span class="muted">▾</span>
           </div>
           <div class="ack-body">
-            <div class="ack-doc placeholder" data-i18n="ack_noshow_body">[Cancellation policy text TBD. Two coexisting versions in NYBSJ paper forms (main packet pg 8 vs standalone Cancellation_and_No_Show_Policy.pdf) — flagged in 2026-05-04 decisions email; awaiting Malese's confirmation of which applies.]</div>
+            <div class="ack-doc" data-lang-only="en">
+              <p><strong><u>Appointments</u></strong></p>
+              <p>When we schedule appointments, we set aside time and professional resources to meet the individual needs of our patients, including time for a one-on-one consultation. When a patient fails to show up for an appointment or to cancel within 24 hours of the appointment, our valuable resources are idle. More importantly, a patient care opportunity is missed.</p>
+              <p>We understand that there are occasions when a patient must miss an appointment due to unforeseen circumstances or a scheduling conflict beyond his or her control. In this event, we ask that you <strong>call our office and cancel your appointment no less than 24 hours after the scheduled visit</strong>. This courtesy allows my office staff to schedule another patient who is also in need of medical care.</p>
+              <p>Office appointments which are <strong>CANCELLED WITH LESS THAN 24 HOURS</strong> notification will be subject to <strong>$25.00</strong> cancellation fee. Cancellation of less than 24 hours will be reviewed on a case-by-case basis. Patients who do not show up for their appointment without a call to cancel an office appointment will be considered a <strong>NO SHOW</strong>.</p>
+              <p><strong><u>Surgery</u></strong></p>
+              <p>We also understand the financial stress surrounding medical care and we aim to work with every patient no matter what the circumstances may be. Given the sensitive nature of surgical scheduling and the resources that are expended to reserve Operating Room time and staff, there is a <strong>$1,500.00 fee</strong> for all canceled surgeries once the date of surgery has been confirmed and a <strong>$3,000 fee</strong> for cancellation within 2 weeks of the stated date.</p>
+              <p><strong>Your signature acknowledges that you understand that failure to cancel an appointment or a surgery once a date is selected may result in additional fees that are not covered by health insurance and reflect the cost of such cancellation to New York Brain, Spine &amp; Joint.</strong></p>
+              <p><em>Our practice firmly believes that good physician/patient relationships are based upon understanding and good communication. Your health is important to us.</em></p>
+            </div>
+            <div class="ack-doc" data-lang-only="es">
+              <p><em>Traducción al español pendiente. Mientras tanto, esta política aplica conforme al texto en inglés: <strong>$25</strong> por cancelaciones de consulta con menos de 24 horas de aviso o no presentarse, <strong>$1,500</strong> por cancelación de cirugía una vez confirmada la fecha, y <strong>$3,000</strong> por cancelación dentro de las 2 semanas previas a la fecha programada.</em></p>
+            </div>
             <div class="ack-checkbox">
               <input type="checkbox" id="ack-noshow" />
-              <label for="ack-noshow" data-i18n="ack_noshow_check">I have read and agree to the No-Show / Cancellation Policy.</label>
+              <label for="ack-noshow" data-i18n="ack_noshow_check">I have read and agree to the No-Show and Surgery Cancellation Policy.</label>
             </div>
             <div class="ack-sign">
               <input type="text" class="ack-sig-input" data-i18n-placeholder="signature_placeholder" placeholder="Type to sign" />
@@ -1604,19 +1693,19 @@
           </div>
         </div>
 
-        <!-- ============ ACK 6: Notice of Privacy Practices (pending Malese) ============ -->
+        <!-- ============ ACK 6: Notice of Privacy Practices (separate from Auth Disclosure — Malese 2026-05-05) ============ -->
         <div class="ack-card">
           <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
             <div>
               <div class="ack-title" data-i18n="ack_npp_title">Notice of Privacy Practices (HIPAA)</div>
               <div class="ack-status">
-                <span class="pending-pill" data-i18n="ack_pending_malese">Pending Malese — content TBD</span>
+                <span class="pending-pill" data-i18n="ack_pending_malese">Pending</span>
               </div>
             </div>
             <span class="muted">▾</span>
           </div>
           <div class="ack-body">
-            <div class="ack-doc placeholder" data-i18n="ack_npp_body">[Notice of Privacy Practices (English &amp; Spanish) pending from Malese. Acknowledges that you have been offered a copy of the practice's HIPAA Notice.]</div>
+            <div class="ack-doc placeholder" data-i18n="ack_npp_body">[Notice of Privacy Practices — content pending. This ack will display the practice's NPP and acknowledge that you have been offered a copy.]</div>
             <div class="ack-checkbox">
               <input type="checkbox" id="ack-npp" />
               <label for="ack-npp" data-i18n="ack_npp_check">I acknowledge receipt of the Notice of Privacy Practices.</label>
@@ -1882,6 +1971,16 @@
       emerg_phone: "Phone",
       emerg_lang: "Preferred language",
 
+      resp_party_h: "Responsible party (if patient is a minor)",
+      resp_party_lead: "Complete this section only if the patient is under 18.",
+      resp_party_name: "Parent or legal guardian name",
+      resp_party_ssn: "SSN",
+      resp_party_cell: "Cell phone",
+      resp_party_home: "Home phone",
+      resp_party_rel: "Relationship to patient",
+      resp_party_rel_placeholder: "e.g., Parent, Legal Guardian",
+      resp_party_addr: "Address (if different from patient)",
+
       // Screen 5 (NEW): Step 3
       branch_picker_label: "Demo: view as",
       branch_picker_desc: "Real patients see only what matches their selection on Step 1.",
@@ -2044,25 +2143,26 @@
       ros_heme_anemia: "Anemia",
       acks_h: "Acknowledgments & signatures",
       acks_lead: "Tap each item to read the policy and sign. The Consent for Treatment is on the next step.",
-      ack_pending_malese: "Pending Malese",
+      ack_pending_malese: "Pending",
       bor_title: "Patients' Bill of Rights",
       bor_info: "Information only — no signature required",
       bor_foot: "By signing the Assignment of Benefits below, you confirm you have been issued and explained this Patients' Bill of Rights in your preferred language.",
       ack_hipaa_disc_title: "Authorization to Disclose Protected Health Information",
       ack_hipaa_disc_check: "I authorize the disclosure as described above.",
+      ack_npp_title: "Notice of Privacy Practices (HIPAA)",
+      ack_npp_body: "[Notice of Privacy Practices — content pending. This ack will display the practice's NPP and acknowledge that you have been offered a copy.]",
+      ack_npp_check: "I acknowledge receipt of the Notice of Privacy Practices.",
       ack_aob_title: "Assignment of Benefits",
       ack_aob_check: "I have read and agree to the Assignment of Benefits.",
       ack_lien_title: "Lien Assignment Agreement",
       ack_lien_branch: "Required for No-Fault claims",
       ack_lien_check: "I have read and agree to the Lien Assignment Agreement.",
+      ack_nfaob_title: "NYS Motor Vehicle No-Fault AOB",
+      ack_nfaob_check: "I have read and agree to the NYS No-Fault Assignment of Benefits.",
       ack_gop_title: "Guarantee of Payment",
       ack_gop_check: "I have read and agree to the Guarantee of Payment.",
-      ack_noshow_title: "No-Show / Cancellation Policy",
-      ack_noshow_body: "[Cancellation policy text TBD. Two coexisting versions in NYBSJ paper forms (main packet pg 8 vs standalone Cancellation_and_No_Show_Policy.pdf) — flagged in 2026-05-04 decisions email; awaiting Malese's confirmation of which applies.]",
-      ack_noshow_check: "I have read and agree to the No-Show / Cancellation Policy.",
-      ack_npp_title: "Notice of Privacy Practices (HIPAA)",
-      ack_npp_body: "[Notice of Privacy Practices (English & Spanish) pending from Malese. Acknowledges that you have been offered a copy of the practice's HIPAA Notice.]",
-      ack_npp_check: "I acknowledge receipt of the Notice of Privacy Practices.",
+      ack_noshow_title: "No-Show and Surgery Cancellation Policy",
+      ack_noshow_check: "I have read and agree to the No-Show and Surgery Cancellation Policy.",
 
       // Screen 6: consent
       consent_h1: "Consent for Treatment",
@@ -2193,6 +2293,16 @@
       emerg_rel_placeholder: "p. ej., Cónyuge, Padre/Madre, Amigo(a)",
       emerg_phone: "Teléfono",
       emerg_lang: "Idioma preferido",
+
+      resp_party_h: "Parte responsable (si el paciente es menor de edad)",
+      resp_party_lead: "Complete esta sección solo si el paciente es menor de 18 años.",
+      resp_party_name: "Nombre del padre/madre o tutor legal",
+      resp_party_ssn: "SSN",
+      resp_party_cell: "Teléfono celular",
+      resp_party_home: "Teléfono de casa",
+      resp_party_rel: "Relación con el paciente",
+      resp_party_rel_placeholder: "p. ej., Padre/Madre, Tutor legal",
+      resp_party_addr: "Dirección (si es distinta a la del paciente)",
 
       // Screen 5 (NEW): Step 3
       branch_picker_label: "Demo: ver como",
@@ -2356,25 +2466,26 @@
       ros_heme_anemia: "Anemia",
       acks_h: "Reconocimientos y firmas",
       acks_lead: "Toque cada elemento para leer la política y firmar. El Consentimiento para Tratamiento está en el siguiente paso.",
-      ack_pending_malese: "Pendiente — Malese",
+      ack_pending_malese: "Pendiente",
       bor_title: "Declaración de Derechos del Paciente",
       bor_info: "Solo informativo — no requiere firma",
       bor_foot: "Al firmar la Asignación de Beneficios a continuación, usted confirma que se le ha entregado y explicado esta Declaración de Derechos del Paciente en su idioma preferido.",
       ack_hipaa_disc_title: "Autorización de Divulgación de Información Protegida",
       ack_hipaa_disc_check: "Autorizo la divulgación tal como se describe arriba.",
+      ack_npp_title: "Aviso de Prácticas de Privacidad (HIPAA)",
+      ack_npp_body: "[Aviso de Prácticas de Privacidad — contenido pendiente. Este reconocimiento mostrará el NPP del consultorio y confirmará que se le ofreció una copia.]",
+      ack_npp_check: "Reconozco que recibí el Aviso de Prácticas de Privacidad.",
       ack_aob_title: "Asignación de Beneficios",
       ack_aob_check: "He leído y acepto la Asignación de Beneficios.",
       ack_lien_title: "Acuerdo de Asignación de Gravamen",
       ack_lien_branch: "Requerido para reclamos Sin Culpa",
       ack_lien_check: "He leído y acepto el Acuerdo de Asignación de Gravamen.",
+      ack_nfaob_title: "AOB Sin Culpa de Vehículo Motorizado de NYS",
+      ack_nfaob_check: "He leído y acepto la Asignación de Beneficios Sin Culpa de NYS.",
       ack_gop_title: "Garantía de Pago",
       ack_gop_check: "He leído y acepto la Garantía de Pago.",
-      ack_noshow_title: "Política de No Presentarse / Cancelación",
-      ack_noshow_body: "[Texto de política de cancelación pendiente. Existen dos versiones coexistentes en los formularios en papel de NYBSJ (paquete principal pg. 8 vs Cancellation_and_No_Show_Policy.pdf independiente) — señalado en el correo de decisiones del 2026-05-04; pendiente confirmación de Malese sobre cuál aplica.]",
-      ack_noshow_check: "He leído y acepto la Política de No Presentarse / Cancelación.",
-      ack_npp_title: "Aviso de Prácticas de Privacidad (HIPAA)",
-      ack_npp_body: "[Aviso de Prácticas de Privacidad (Inglés y Español) pendiente de Malese. Reconoce que se le ha ofrecido una copia del Aviso HIPAA de la práctica.]",
-      ack_npp_check: "Reconozco que recibí el Aviso de Prácticas de Privacidad.",
+      ack_noshow_title: "Política de No Presentarse y Cancelación de Cirugía",
+      ack_noshow_check: "He leído y acepto la Política de No Presentarse y Cancelación de Cirugía.",
 
       // Screen 6: consent
       consent_h1: "Consentimiento para Tratamiento",
