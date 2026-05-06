@@ -505,6 +505,92 @@
     [data-lang-only="es"] { display: none; }
     [lang="es"] [data-lang-only="en"] { display: none; }
     [lang="es"] [data-lang-only="es"] { display: block; }
+
+    /* === Validation states === */
+    .field.error > input,
+    .field.error > select,
+    .field.error > textarea,
+    .field.error .height-row > input {
+      border-color: var(--danger);
+      background-color: #fffafa;
+    }
+    .field.error > input:focus,
+    .field.error > select:focus,
+    .field.error > textarea:focus,
+    .field.error .height-row > input:focus {
+      border-color: var(--danger);
+      box-shadow: 0 0 0 3px rgba(192, 64, 48, 0.15);
+    }
+    .field-error {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-top: 6px;
+      color: var(--danger);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .field-error::before {
+      content: "";
+      flex-shrink: 0;
+      margin-top: 2px;
+      width: 14px; height: 14px;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23c04030'><path d='M8 1.5a6.5 6.5 0 100 13A6.5 6.5 0 008 1.5zm.85 9.85h-1.7v-1.7h1.7v1.7zm0-3.4h-1.7V4.55h1.7v3.4z'/></svg>");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    /* Refined keyboard focus (skip mouse-clicks) */
+    *:focus { outline: none; }
+    button:focus-visible,
+    a:focus-visible,
+    input[type="checkbox"]:focus-visible,
+    input[type="radio"]:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    /* Disabled / busy primary button */
+    .btn-primary[aria-busy="true"] {
+      opacity: 0.7;
+      cursor: progress;
+      pointer-events: none;
+    }
+    .btn-primary[disabled],
+    .btn-secondary[disabled] {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    /* Form-level error summary */
+    .error-summary {
+      background: #fdf2f0;
+      border: 1px solid #e9b4ad;
+      border-left: 3px solid var(--danger);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px 12px 16px;
+      margin: 0 0 20px;
+      color: #6b2010;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .error-summary strong { color: var(--danger); display: block; margin-bottom: 4px; font-weight: 600; }
+    .error-summary ul { margin: 4px 0 0; padding-left: 18px; }
+    .error-summary li { margin-bottom: 2px; }
+    .error-summary a {
+      color: var(--danger);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* sr-only — used for accessible labels that shouldn't be visible */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
   </style>
   <link rel="stylesheet" href="nybsj-intake.css" />
 </head>
@@ -1956,6 +2042,15 @@
       email_hint: "We'll send you a one-time link to start the form. No password required.",
       continue: "Continue",
       hipaa_note: "Your information is private and securely transmitted under HIPAA.",
+      err_required: "This field is required.",
+      err_email: "Please enter a valid email address.",
+      err_phone: "Please enter a complete 10-digit phone number.",
+      err_zip: "Please enter a valid ZIP code (5 digits or 5-4 format).",
+      err_pattern: "Please use the requested format.",
+      err_dob_future: "Date of birth cannot be in the future.",
+      err_dob_invalid: "Please enter a valid date of birth.",
+      err_check_required: "Please acknowledge to continue.",
+      err_summary_title: "Please correct the highlighted fields:",
 
       // Screen 2: inbox
       inbox_h1: "Check your email",
@@ -2279,6 +2374,15 @@
       email_hint: "Le enviaremos un enlace de un solo uso para iniciar el formulario. No se requiere contraseña.",
       continue: "Continuar",
       hipaa_note: "Su información es privada y se transmite de forma segura conforme a HIPAA.",
+      err_required: "Este campo es obligatorio.",
+      err_email: "Ingrese un correo electrónico válido.",
+      err_phone: "Ingrese un número de teléfono completo de 10 dígitos.",
+      err_zip: "Ingrese un código postal válido (5 dígitos o formato 5-4).",
+      err_pattern: "Use el formato solicitado.",
+      err_dob_future: "La fecha de nacimiento no puede ser futura.",
+      err_dob_invalid: "Ingrese una fecha de nacimiento válida.",
+      err_check_required: "Marque esta casilla para continuar.",
+      err_summary_title: "Corrija los campos resaltados:",
 
       // Screen 2: inbox
       inbox_h1: "Revise su correo",
@@ -2691,15 +2795,212 @@
     });
   }
 
-  // Continue / Back / Submit buttons — walk through the screen order
+  // === Validation engine ===
+  // Real email regex (browsers only validate type=email loosely).
+  var EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  var PHONE_RE = /^\(\d{3}\) \d{3}-\d{4}$/;
+  var ZIP_RE = /^\d{5}(-\d{4})?$/;
+
+  function getDict() {
+    var lang = document.documentElement.lang || 'en';
+    return I18N[lang] || I18N.en;
+  }
+  function tr(key, fallback) {
+    var d = getDict();
+    return (d && d[key] != null) ? d[key] : fallback;
+  }
+
+  // Mark required fields based on the visual <span class="req">*</span> already in markup.
+  document.querySelectorAll('.field').forEach(function (field) {
+    if (!field.querySelector('.req')) return;
+    var input = field.querySelector('input:not([type="checkbox"]):not([type="radio"]), select, textarea');
+    if (!input) return;
+    input.required = true;
+    input.setAttribute('aria-required', 'true');
+  });
+
+  // Tag inputs for type-specific validation + browser autofill.
+  document.querySelectorAll('label').forEach(function (label) {
+    var t = (label.textContent || '').toLowerCase().trim();
+    var input = label.parentElement && label.parentElement.querySelector('input');
+    if (!input) return;
+    if (/\bzip\b|código postal/.test(t) && input.type === 'text') {
+      input.dataset.validate = 'zip';
+      input.setAttribute('inputmode', 'numeric');
+      input.setAttribute('autocomplete', 'postal-code');
+      input.setAttribute('maxlength', '10');
+    }
+    if (/date of birth|fecha de nacimiento/.test(t) && input.type === 'date') {
+      input.dataset.validate = 'dob';
+      input.setAttribute('autocomplete', 'bday');
+    }
+    if (/first name|nombre/.test(t) && input.type === 'text' && !input.autocomplete)
+      input.setAttribute('autocomplete', 'given-name');
+    if (/last name|apellido/.test(t) && input.type === 'text')
+      input.setAttribute('autocomplete', 'family-name');
+    if (/middle/.test(t) && input.type === 'text')
+      input.setAttribute('autocomplete', 'additional-name');
+    if (input.type === 'email')
+      input.setAttribute('autocomplete', 'email');
+    if (/cell|mobile|móvil/.test(t) && input.type === 'tel')
+      input.setAttribute('autocomplete', 'tel');
+    if (/street|dirección/.test(t) && input.type === 'text')
+      input.setAttribute('autocomplete', 'street-address');
+    if (/^city|^ciudad/.test(t) && input.type === 'text')
+      input.setAttribute('autocomplete', 'address-level2');
+    if (/^state\b|^estado/.test(t) && input.type === 'text')
+      input.setAttribute('autocomplete', 'address-level1');
+  });
+
+  function getField(input) {
+    return input.closest('.field') || input.parentElement;
+  }
+  function clearFieldError(input) {
+    var field = getField(input);
+    if (field) {
+      field.classList.remove('error');
+      var err = field.querySelector(':scope > .field-error');
+      if (err) err.remove();
+    }
+    input.removeAttribute('aria-invalid');
+  }
+  function showFieldError(input, msg) {
+    var field = getField(input);
+    if (!field) return;
+    field.classList.add('error');
+    input.setAttribute('aria-invalid', 'true');
+    var err = field.querySelector(':scope > .field-error');
+    if (!err) {
+      err = document.createElement('div');
+      err.className = 'field-error';
+      err.setAttribute('role', 'alert');
+      field.appendChild(err);
+    }
+    err.textContent = msg;
+  }
+  function describeField(input) {
+    var field = getField(input);
+    var label = field && field.querySelector('label');
+    if (label) {
+      var labelText = (label.textContent || '').replace(/\*/g, '').trim();
+      if (labelText) return labelText;
+    }
+    if (input.placeholder) return input.placeholder;
+    return tr('err_required', 'This field is required.');
+  }
+
+  function validateInput(input) {
+    var v = (input.value || '').trim();
+    if (input.required && !v) return tr('err_required', 'This field is required.');
+    if (!v) return null; // optional + empty is fine
+    if (input.type === 'email' && !EMAIL_RE.test(v))
+      return tr('err_email', 'Please enter a valid email address.');
+    if (input.type === 'tel' && !PHONE_RE.test(v))
+      return tr('err_phone', 'Please enter a complete 10-digit phone number.');
+    if (input.dataset.validate === 'zip' && !ZIP_RE.test(v))
+      return tr('err_zip', 'Please enter a valid ZIP code (5 digits or 5-4 format).');
+    if (input.dataset.validate === 'dob') {
+      var d = new Date(v);
+      if (isNaN(d.getTime())) return tr('err_dob_invalid', 'Please enter a valid date of birth.');
+      if (d > new Date()) return tr('err_dob_future', 'Date of birth cannot be in the future.');
+    }
+    if (input.pattern) {
+      try {
+        var re = new RegExp('^(?:' + input.pattern + ')$');
+        if (!re.test(v)) return tr('err_pattern', 'Please use the requested format.');
+      } catch (e) { /* ignore bad pattern */ }
+    }
+    return null;
+  }
+
+  function isVisible(el) {
+    // Hidden via display:none on any ancestor (e.g. branch-section that's not active)
+    return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+  }
+
+  function validateScreen(screenEl) {
+    // Clear previous summary
+    var oldSummary = screenEl.querySelector('.error-summary');
+    if (oldSummary) oldSummary.remove();
+
+    var firstError = null;
+    var errorList = [];
+    var inputs = screenEl.querySelectorAll('input, select, textarea');
+    inputs.forEach(function (input) {
+      if (input.type === 'hidden' || input.disabled) return;
+      if (!isVisible(input)) { clearFieldError(input); return; } // skip hidden branches
+      var msg = validateInput(input);
+      if (msg) {
+        showFieldError(input, msg);
+        errorList.push({ input: input, label: describeField(input), msg: msg });
+        if (!firstError) firstError = input;
+      } else {
+        clearFieldError(input);
+      }
+    });
+    if (firstError) {
+      // Build top-of-screen error summary for context
+      var summary = document.createElement('div');
+      summary.className = 'error-summary';
+      summary.setAttribute('role', 'alert');
+      summary.setAttribute('aria-live', 'assertive');
+      var heading = document.createElement('strong');
+      heading.textContent = tr('err_summary_title', 'Please correct the highlighted fields:');
+      summary.appendChild(heading);
+      var ul = document.createElement('ul');
+      errorList.forEach(function (e) {
+        var li = document.createElement('li');
+        li.textContent = e.label;
+        ul.appendChild(li);
+      });
+      summary.appendChild(ul);
+      // Insert at top of the visible content (after any progress bar)
+      var insertTarget = screenEl.querySelector('.progress')
+        ? screenEl.querySelector('.progress').nextSibling
+        : screenEl.firstChild;
+      screenEl.insertBefore(summary, insertTarget);
+    }
+    return { ok: errorList.length === 0, firstError: firstError, errors: errorList };
+  }
+
+  // Clear field error live as the user fixes the input
+  document.addEventListener('input', function (e) {
+    var input = e.target;
+    if (!input || !input.matches || !input.matches('input, select, textarea')) return;
+    if (input.getAttribute('aria-invalid') === 'true') {
+      var msg = validateInput(input);
+      if (!msg) clearFieldError(input);
+    }
+  });
+  document.addEventListener('change', function (e) {
+    var input = e.target;
+    if (!input || !input.matches || !input.matches('input, select, textarea')) return;
+    if (input.getAttribute('aria-invalid') === 'true') {
+      var msg = validateInput(input);
+      if (!msg) clearFieldError(input);
+    }
+  });
+
+  // === Continue / Back / Submit buttons (validation-gated) ===
   var screenOrder = ['email','inbox','welcome','demographics','patient-info','step3','consent','done'];
   document.querySelectorAll('.screen .btn-primary, .screen .btn-secondary').forEach(function (btn) {
     var labelSpan = btn.querySelector('[data-i18n]');
     var key = labelSpan ? labelSpan.dataset.i18n : btn.dataset.i18n;
     if (key !== 'continue' && key !== 'back' && key !== 'submit') return;
-    btn.addEventListener('click', function () {
+    btn.addEventListener('click', function (e) {
       var current = document.querySelector('.screen.active');
       if (!current) return;
+      // Validate forward navigation; back is always allowed
+      if (key === 'continue' || key === 'submit') {
+        var result = validateScreen(current);
+        if (!result.ok) {
+          if (result.firstError) {
+            try { result.firstError.focus({ preventScroll: true }); } catch (e2) { result.firstError.focus(); }
+            result.firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+          return;
+        }
+      }
       var idx = screenOrder.indexOf(current.id.replace(/^screen-/, ''));
       if (idx === -1) return;
       var target;
@@ -2708,6 +3009,20 @@
       if (!target) return;
       var navBtn = document.querySelector('#mockup-nav button[data-screen="' + target + '"]');
       if (navBtn) navBtn.click();
+    });
+  });
+
+  // Block Enter inside text inputs from triggering accidental form-submit-like behavior
+  document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]').forEach(function (input) {
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        // If on the email screen, treat Enter as Continue
+        var screen = input.closest('.screen.active');
+        if (!screen) return;
+        var btn = screen.querySelector('.btn-primary');
+        if (btn) btn.click();
+      }
     });
   });
 
