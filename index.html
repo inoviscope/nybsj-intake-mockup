@@ -2196,6 +2196,26 @@
   </div>
 </main>
 
+<!-- ============ CAMERA MODAL ============ -->
+<div id="camera-modal" class="cam-modal" hidden>
+  <div class="cam-backdrop"></div>
+  <div class="cam-dialog">
+    <div class="cam-stage">
+      <video id="cam-video" autoplay playsinline muted></video>
+      <img id="cam-photo" alt="" hidden />
+    </div>
+    <canvas id="cam-canvas" hidden></canvas>
+    <div id="cam-error" class="cam-error" hidden></div>
+    <div class="cam-actions">
+      <button type="button" id="cam-cancel" class="cam-btn" data-i18n="cam_cancel">Cancel</button>
+      <button type="button" id="cam-flip" class="cam-btn" data-i18n="cam_flip">Flip</button>
+      <button type="button" id="cam-capture" class="cam-btn cam-btn-primary" data-i18n="cam_capture">Capture</button>
+      <button type="button" id="cam-retake" class="cam-btn" data-i18n="cam_retake" hidden>Retake</button>
+      <button type="button" id="cam-use" class="cam-btn cam-btn-primary" data-i18n="cam_use" hidden>Use photo</button>
+    </div>
+  </div>
+</div>
+
 <script>
   // ===== i18n strings =====
   const I18N = {
@@ -3520,26 +3540,6 @@
   applyLang('en');
   applyBranch('standard');
 </script>
-
-<!-- ============ CAMERA MODAL ============ -->
-<div id="camera-modal" class="cam-modal" hidden>
-  <div class="cam-backdrop"></div>
-  <div class="cam-dialog">
-    <div class="cam-stage">
-      <video id="cam-video" autoplay playsinline muted></video>
-      <img id="cam-photo" alt="" hidden />
-    </div>
-    <canvas id="cam-canvas" hidden></canvas>
-    <div id="cam-error" class="cam-error" hidden></div>
-    <div class="cam-actions">
-      <button type="button" id="cam-cancel" class="cam-btn" data-i18n="cam_cancel">Cancel</button>
-      <button type="button" id="cam-flip" class="cam-btn" data-i18n="cam_flip">Flip</button>
-      <button type="button" id="cam-capture" class="cam-btn cam-btn-primary" data-i18n="cam_capture">Capture</button>
-      <button type="button" id="cam-retake" class="cam-btn" data-i18n="cam_retake" hidden>Retake</button>
-      <button type="button" id="cam-use" class="cam-btn cam-btn-primary" data-i18n="cam_use" hidden>Use photo</button>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
