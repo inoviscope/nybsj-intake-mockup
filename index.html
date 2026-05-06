@@ -686,7 +686,7 @@
         <div class="row">
           <div class="field">
             <label data-i18n="phone_home">Home phone</label>
-            <input type="tel" placeholder="(555) 123-4567" maxlength="20" />
+            <input type="tel" placeholder="(555) 123-4567" maxlength="14" pattern="\(\d{3}\) \d{3}-\d{4}" />
             <label class="inline-check">
               <input type="checkbox" />
               <span data-i18n="ok_msg_home">OK to leave a message at home</span>
@@ -694,7 +694,7 @@
           </div>
           <div class="field">
             <label><span data-i18n="phone_cell">Cell phone</span> <span class="req">*</span></label>
-            <input type="tel" placeholder="(555) 123-4567" maxlength="20" />
+            <input type="tel" placeholder="(555) 123-4567" maxlength="14" pattern="\(\d{3}\) \d{3}-\d{4}" />
             <label class="inline-check">
               <input type="checkbox" />
               <span data-i18n="ok_msg_cell">OK to leave a message on cell</span>
@@ -858,7 +858,7 @@
         <div class="row">
           <div class="field">
             <label><span data-i18n="emerg_phone">Phone</span> <span class="req">*</span></label>
-            <input type="tel" placeholder="(555) 123-4567" maxlength="20" />
+            <input type="tel" placeholder="(555) 123-4567" maxlength="14" pattern="\(\d{3}\) \d{3}-\d{4}" />
           </div>
           <div class="field">
             <label data-i18n="emerg_lang">Preferred language</label>
@@ -885,11 +885,11 @@
         <div class="row-3">
           <div class="field">
             <label data-i18n="resp_party_cell">Cell phone</label>
-            <input type="tel" placeholder="(555) 123-4567" maxlength="20" />
+            <input type="tel" placeholder="(555) 123-4567" maxlength="14" pattern="\(\d{3}\) \d{3}-\d{4}" />
           </div>
           <div class="field">
             <label data-i18n="resp_party_home">Home phone</label>
-            <input type="tel" placeholder="(555) 123-4567" maxlength="20" />
+            <input type="tel" placeholder="(555) 123-4567" maxlength="14" pattern="\(\d{3}\) \d{3}-\d{4}" />
           </div>
           <div class="field">
             <label data-i18n="resp_party_rel">Relationship to patient</label>
@@ -1189,7 +1189,7 @@
         <div class="row">
           <div class="field">
             <label data-i18n="ins_phone">Insurance phone</label>
-            <input type="tel" placeholder="(555) 123-4567" maxlength="20" />
+            <input type="tel" placeholder="(555) 123-4567" maxlength="14" pattern="\(\d{3}\) \d{3}-\d{4}" />
           </div>
           <div class="field">
             <label data-i18n="ins_effective">Effective date</label>
@@ -1237,7 +1237,7 @@
         <div class="row">
           <div class="field">
             <label data-i18n="ins_phone">Insurance phone</label>
-            <input type="tel" placeholder="(555) 123-4567" maxlength="20" />
+            <input type="tel" placeholder="(555) 123-4567" maxlength="14" pattern="\(\d{3}\) \d{3}-\d{4}" />
           </div>
           <div class="field">
             <label data-i18n="ins_effective">Effective date</label>
@@ -1289,7 +1289,7 @@
             </div>
             <div class="field">
               <label data-i18n="wc_carrier_fax">Carrier fax</label>
-              <input type="tel" maxlength="20" />
+              <input type="tel" maxlength="14" pattern="\(\d{3}\) \d{3}-\d{4}" placeholder="(555) 123-4567" />
             </div>
           </div>
           <div class="field">
@@ -1303,7 +1303,7 @@
             </div>
             <div class="field">
               <label data-i18n="wc_adjuster_phone">Adjuster phone</label>
-              <input type="tel" maxlength="20" />
+              <input type="tel" maxlength="14" pattern="\(\d{3}\) \d{3}-\d{4}" placeholder="(555) 123-4567" />
             </div>
           </div>
           <div class="field">
@@ -1373,7 +1373,7 @@
           </div>
           <div class="field">
             <label data-i18n="ref_doc_fax">Referring physician fax</label>
-            <input type="tel" maxlength="20" />
+            <input type="tel" maxlength="14" pattern="\(\d{3}\) \d{3}-\d{4}" placeholder="(555) 123-4567" />
           </div>
         </div>
         <div class="row">
@@ -1383,7 +1383,7 @@
           </div>
           <div class="field">
             <label data-i18n="pcp_fax">Primary care provider fax</label>
-            <input type="tel" maxlength="20" />
+            <input type="tel" maxlength="14" pattern="\(\d{3}\) \d{3}-\d{4}" placeholder="(555) 123-4567" />
           </div>
         </div>
 
@@ -2664,6 +2664,18 @@
   document.querySelectorAll('.branch-picker button[data-branch]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       applyBranch(btn.dataset.branch);
+    });
+  });
+
+  // Phone-number live mask: format as (XXX) XXX-XXXX while typing
+  document.querySelectorAll('input[type="tel"]').forEach(function (input) {
+    input.addEventListener('input', function () {
+      var digits = input.value.replace(/\D/g, '').slice(0, 10);
+      var f = '';
+      if (digits.length > 0) f = '(' + digits.slice(0, 3);
+      if (digits.length >= 4) f += ') ' + digits.slice(3, 6);
+      if (digits.length >= 7) f += '-' + digits.slice(6, 10);
+      input.value = f;
     });
   });
 
