@@ -592,118 +592,143 @@
       clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
     }
 
-    /* === Insurance card capture === */
-    .card-scan-block {
-      background: linear-gradient(180deg, rgba(18, 101, 168, 0.04), rgba(18, 101, 168, 0));
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      margin: 8px 0 32px;
-    }
-    .card-scan-head .muted { font-size: 14px; margin: 0 0 16px; }
-    .card-scan-row {
+    /* === Insurance card upload + camera capture === */
+    .upload-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
     }
-    .card-scan-tile {
+    @media (max-width: 520px) { .upload-grid { grid-template-columns: 1fr; } }
+    .upload-card {
       position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 6px;
-      padding: 22px 16px;
-      min-height: 158px;
-      background: #fff;
-      border: 2px dashed var(--border);
+      border: 1.5px dashed var(--border);
       border-radius: var(--radius);
-      cursor: pointer;
-      overflow: hidden;
-      transition: border-color .15s ease, background .15s ease;
+      padding: 14px;
+      text-align: center;
+      background: var(--surface, #f7f9fb);
+      transition: border-color 0.15s ease, background 0.15s ease;
     }
-    .card-scan-tile:hover { border-color: var(--cyan); background: #fafdff; }
-    .card-scan-tile.dragover,
-    .card-scan-tile.uploading { border-color: var(--cyan); border-style: solid; }
-    .card-scan-tile.success { border-color: var(--success); border-style: solid; background: #f4fbf6; }
-    .card-scan-tile.error { border-color: var(--danger); border-style: solid; background: #fdf6f5; }
-    .card-scan-icon {
-      color: var(--cyan);
+    .upload-card:hover { border-color: var(--cyan); background: #fff; }
+    .upload-card .upload-icon {
+      font-size: 22px; line-height: 1; color: var(--text-muted, #6b7a89);
+      margin-bottom: 6px;
+    }
+    .upload-card .upload-title {
+      font-size: 14px; font-weight: 600; color: var(--navy);
+      margin-bottom: 2px;
+    }
+    .upload-card .upload-hint {
+      font-size: 12px; color: var(--text-muted, #6b7a89);
+      margin-bottom: 10px;
+    }
+    .upload-actions { display: flex; gap: 6px; justify-content: center; }
+    .upload-actions button {
+      font-size: 12px; padding: 6px 12px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: #fff; color: var(--navy); cursor: pointer; font-family: inherit;
+    }
+    .upload-actions button:hover {
+      background: #f4fbf6; border-color: var(--cyan); color: var(--cyan);
+    }
+    .upload-preview { display: none; }
+    .upload-card.has-preview {
+      padding: 0; border-style: solid; border-color: var(--cyan); background: #fff;
+    }
+    .upload-card.has-preview .upload-icon,
+    .upload-card.has-preview .upload-title,
+    .upload-card.has-preview .upload-hint,
+    .upload-card.has-preview .upload-actions { display: none; }
+    .upload-card.has-preview .upload-preview {
+      display: block; position: relative;
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .upload-card.has-preview .upload-preview img {
+      width: 100%; height: auto; max-height: 220px; object-fit: cover; display: block;
+    }
+    .upload-clear {
+      position: absolute; top: 8px; right: 8px;
+      width: 28px; height: 28px;
+      background: rgba(0,0,0,0.7); color: #fff;
+      border: none; border-radius: 50%;
+      cursor: pointer; font-size: 18px; line-height: 1;
       display: flex; align-items: center; justify-content: center;
     }
-    .card-scan-tile.success .card-scan-icon { color: var(--success); }
-    .card-scan-tile.error .card-scan-icon { color: var(--danger); }
-    .card-scan-label {
-      font-weight: 600; font-size: 15px; color: var(--navy);
-      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+    /* Processing state (simulated OCR) */
+    .upload-card .processing-msg { display: none; }
+    .upload-card.is-processing::after {
+      content: ""; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.85); border-radius: var(--radius);
     }
-    .card-scan-hint { font-size: 13px; }
-    .card-scan-preview {
-      position: absolute; inset: 0;
-      background-size: cover; background-position: center;
-      background-color: #f7f9fb;
-      display: none;
+    .upload-card.is-processing .processing-msg {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; position: absolute; inset: 0; z-index: 1;
+      font-size: 13px; font-weight: 600; color: var(--cyan); text-align: center;
     }
-    .card-scan-tile.uploading .card-scan-preview,
-    .card-scan-tile.success .card-scan-preview,
-    .card-scan-tile.error .card-scan-preview { display: block; }
-    /* Hide default content while preview shown */
-    .card-scan-tile.uploading .card-scan-icon,
-    .card-scan-tile.uploading .card-scan-label,
-    .card-scan-tile.uploading .card-scan-hint,
-    .card-scan-tile.success .card-scan-icon,
-    .card-scan-tile.success .card-scan-label,
-    .card-scan-tile.success .card-scan-hint,
-    .card-scan-tile.error .card-scan-icon,
-    .card-scan-tile.error .card-scan-label,
-    .card-scan-tile.error .card-scan-hint { visibility: hidden; }
-    .card-scan-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(15, 46, 74, 0) 35%, rgba(15, 46, 74, 0.78) 100%);
-      display: none; flex-direction: column; align-items: center; justify-content: flex-end;
-      padding: 14px;
-      color: #fff;
-    }
-    .card-scan-tile.uploading .card-scan-overlay,
-    .card-scan-tile.success .card-scan-overlay,
-    .card-scan-tile.error .card-scan-overlay { display: flex; }
-    .card-scan-tile.success .card-scan-overlay {
-      background: linear-gradient(180deg, rgba(42, 138, 74, 0) 35%, rgba(42, 138, 74, 0.85) 100%);
-    }
-    .card-scan-tile.error .card-scan-overlay {
-      background: linear-gradient(180deg, rgba(192, 64, 48, 0) 35%, rgba(192, 64, 48, 0.85) 100%);
-    }
-    .card-scan-overlay-text {
-      font-size: 13px; font-weight: 600;
-      display: inline-flex; align-items: center; gap: 8px;
-      letter-spacing: 0.01em;
-    }
-    .card-scan-spinner {
-      width: 14px; height: 14px;
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      border-top-color: #fff;
+    .upload-spinner {
+      width: 28px; height: 28px;
+      border: 3px solid #e8eef3;
+      border-top-color: var(--cyan);
       border-radius: 50%;
-      animation: card-scan-spin 0.7s linear infinite;
+      animation: upload-spin 0.7s linear infinite;
     }
-    @keyframes card-scan-spin { to { transform: rotate(360deg); } }
-    .card-scan-status {
-      margin-top: 14px;
-      padding: 10px 14px;
-      border-radius: var(--radius-sm);
-      font-size: 14px; font-weight: 500;
-      background: #f4fbf6; color: #1a4a2c;
-      border: 1px solid #c2e6cf;
-      display: flex; align-items: flex-start; gap: 8px;
-      line-height: 1.4;
+    @keyframes upload-spin { to { transform: rotate(360deg); } }
+    /* Auto-fill toast */
+    .autofill-toast {
+      margin-bottom: 14px; padding: 10px 14px;
+      background: #ecfaf6; border: 1px solid #76c8b0;
+      border-radius: var(--radius);
+      font-size: 13px; color: #146c52;
+      display: flex; align-items: center; gap: 8px;
     }
-    .card-scan-status .check {
-      flex-shrink: 0;
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 18px; height: 18px; margin-top: 1px;
-      border-radius: 50%; background: var(--success); color: #fff;
-      font-size: 11px; font-weight: 700;
+    .autofill-toast .check { font-size: 16px; }
+    /* Auto-filled field hint */
+    .field.auto-filled label { color: var(--cyan); }
+    .field.auto-filled label::after {
+      content: " (auto-filled)"; color: var(--cyan); font-weight: 500; font-size: 11px;
     }
+    .field.auto-filled input,
+    .field.auto-filled select { background: #f0fafd; }
+    /* Camera modal */
+    .cam-modal { position: fixed; inset: 0; z-index: 9999; }
+    .cam-modal[hidden] { display: none !important; }
+    .cam-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.78); }
+    .cam-dialog {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 20px; pointer-events: none;
+    }
+    .cam-dialog > * { pointer-events: auto; }
+    .cam-stage {
+      background: #000;
+      border-radius: var(--radius);
+      overflow: hidden;
+      max-width: 720px; width: 100%;
+      aspect-ratio: 4 / 3;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cam-stage video, .cam-stage img {
+      width: 100%; height: 100%; object-fit: contain; background: #000;
+    }
+    .cam-error {
+      color: #fff; background: var(--danger);
+      padding: 10px 14px; border-radius: var(--radius);
+      margin-top: 12px; max-width: 720px; width: 100%;
+      text-align: center; font-size: 14px;
+    }
+    .cam-actions {
+      display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; justify-content: center;
+    }
+    .cam-btn {
+      font-size: 14px; padding: 10px 18px;
+      border-radius: var(--radius);
+      cursor: pointer; font-family: inherit;
+      border: 1px solid rgba(255,255,255,0.4);
+      background: transparent; color: #fff; font-weight: 500;
+    }
+    .cam-btn-primary { background: var(--cyan); border-color: var(--cyan); }
+    .cam-btn:hover { background: rgba(255,255,255,0.1); }
+    .cam-btn-primary:hover { filter: brightness(1.1); }
   </style>
   <link rel="stylesheet" href="nybsj-intake.css" />
 </head>
@@ -1365,37 +1390,34 @@
         <h1 data-i18n="step3_h1">Insurance &amp; visit details</h1>
         <p class="lead" data-i18n="step3_lead">A few questions about your insurance and visit. Required fields adjust based on the type of visit you selected.</p>
 
-        <div class="card-scan-block" id="card-scan-block">
-          <div class="card-scan-head">
-            <h2 data-i18n="card_scan_h" style="margin-top: 0;">Snap your insurance card</h2>
-            <p class="muted" data-i18n="card_scan_lead">Use your camera or upload a photo. We will fill in your insurance details automatically. You can also skip this and type the details below.</p>
-          </div>
-          <div class="card-scan-row">
-            <label class="card-scan-tile empty" data-tile="front">
-              <input type="file" id="card-front-input" accept="image/*" capture="environment" hidden />
-              <div class="card-scan-preview"></div>
-              <div class="card-scan-icon" aria-hidden="true">
-                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-              </div>
-              <div class="card-scan-label" data-i18n="card_front">Front of card</div>
-              <div class="card-scan-hint muted" data-i18n="card_scan_tap">Tap to take a photo or upload</div>
-              <div class="card-scan-overlay" aria-live="polite"></div>
-            </label>
-            <label class="card-scan-tile empty" data-tile="back">
-              <input type="file" id="card-back-input" accept="image/*" capture="environment" hidden />
-              <div class="card-scan-preview"></div>
-              <div class="card-scan-icon" aria-hidden="true">
-                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-              </div>
-              <div class="card-scan-label" data-i18n="card_back">Back of card</div>
-              <div class="card-scan-hint muted" data-i18n="card_scan_tap">Tap to take a photo or upload</div>
-              <div class="card-scan-overlay" aria-live="polite"></div>
-            </label>
-          </div>
-          <div id="card-scan-status" class="card-scan-status" hidden></div>
-        </div>
-
         <h2 data-i18n="insurance_primary_h">Primary insurance</h2>
+        <h3 data-i18n="ins_card_upload_h" style="margin-top: 8px; margin-bottom: 4px; font-size: 15px; font-weight: 600;">Upload insurance card</h3>
+        <p class="muted" style="font-size: 13px; margin-top: 0;" data-i18n="ins_card_upload_lead">Snap a photo of the front and back of your card. We'll fill in the details below.</p>
+        <div class="upload-grid">
+          <div class="upload-card" data-upload data-target="primary" data-side="front">
+            <div class="upload-icon">📷</div>
+            <div class="upload-title" data-i18n="ins_card_front">Card (front)</div>
+            <div class="upload-hint" data-i18n="upload_hint_short">Photo or file</div>
+            <div class="upload-actions">
+              <button type="button" class="upload-cam-btn" data-i18n="upload_camera">📷 Camera</button>
+              <button type="button" class="upload-file-btn" data-i18n="upload_file">📁 File</button>
+            </div>
+            <input type="file" accept="image/*,application/pdf" hidden />
+            <div class="upload-preview"></div>
+            <div class="processing-msg"><div class="upload-spinner"></div><span data-i18n="upload_processing">Reading card...</span></div>
+          </div>
+          <div class="upload-card" data-upload data-target="primary" data-side="back">
+            <div class="upload-icon">📷</div>
+            <div class="upload-title" data-i18n="ins_card_back">Card (back)</div>
+            <div class="upload-hint" data-i18n="upload_hint_short">Photo or file</div>
+            <div class="upload-actions">
+              <button type="button" class="upload-cam-btn" data-i18n="upload_camera">📷 Camera</button>
+              <button type="button" class="upload-file-btn" data-i18n="upload_file">📁 File</button>
+            </div>
+            <input type="file" accept="image/*,application/pdf" hidden />
+            <div class="upload-preview"></div>
+          </div>
+        </div>
         <div class="row">
           <div class="field">
             <label><span data-i18n="ins_carrier">Insurance carrier</span> <span class="req">*</span></label>
@@ -3350,6 +3372,26 @@
   applyLang('en');
   applyBranch('standard');
 </script>
+
+<!-- ============ CAMERA MODAL ============ -->
+<div id="camera-modal" class="cam-modal" hidden>
+  <div class="cam-backdrop"></div>
+  <div class="cam-dialog">
+    <div class="cam-stage">
+      <video id="cam-video" autoplay playsinline muted></video>
+      <img id="cam-photo" alt="" hidden />
+    </div>
+    <canvas id="cam-canvas" hidden></canvas>
+    <div id="cam-error" class="cam-error" hidden></div>
+    <div class="cam-actions">
+      <button type="button" id="cam-cancel" class="cam-btn" data-i18n="cam_cancel">Cancel</button>
+      <button type="button" id="cam-flip" class="cam-btn" data-i18n="cam_flip">Flip</button>
+      <button type="button" id="cam-capture" class="cam-btn cam-btn-primary" data-i18n="cam_capture">Capture</button>
+      <button type="button" id="cam-retake" class="cam-btn" data-i18n="cam_retake" hidden>Retake</button>
+      <button type="button" id="cam-use" class="cam-btn cam-btn-primary" data-i18n="cam_use" hidden>Use photo</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
