@@ -776,6 +776,7 @@
           <a href="#" id="resend-link" style="color: var(--cyan);" data-i18n="inbox_resend">resend the link</a>.
         </p>
         <p class="muted" id="resend-confirm" style="display: none; color: var(--cyan);" data-i18n="inbox_resent">Link resent. Check your inbox again.</p>
+        <button id="inbox-demo-continue" class="btn btn-primary btn-block" style="margin-top: 18px;" data-i18n="inbox_demo_continue">Demo: continue as if link was clicked</button>
       </div>
     </section>
 
@@ -788,7 +789,7 @@
 
       <div class="card">
         <h1 data-i18n="welcome_h1">Let's get started</h1>
-        <p class="lead" data-i18n="welcome_lead">A few quick questions before your visit. This takes about 8&ndash;10 minutes. You can save your progress and return any time.</p>
+        <p class="lead" data-i18n="welcome_lead">A few quick questions before your visit. This takes about 15 minutes. You can save your progress and return any time.</p>
 
         <h2 data-i18n="welcome_loc_q">Which office will you be visiting?</h2>
         <div class="field">
@@ -922,7 +923,7 @@
 
         <div class="field">
           <label data-i18n="ssn_full">Social Security Number</label>
-          <input type="text" maxlength="11" placeholder="XXX-XX-XXXX" />
+          <input type="text" data-validate="ssn" inputmode="numeric" autocomplete="off" maxlength="11" placeholder="XXX-XX-XXXX" />
           <div class="hint" data-i18n="ssn_full_hint">Used only for insurance verification and billing.</div>
         </div>
 
@@ -1078,7 +1079,7 @@
           </div>
           <div class="field">
             <label data-i18n="resp_party_ssn">SSN</label>
-            <input type="text" placeholder="XXX-XX-XXXX" maxlength="200" />
+            <input type="text" data-validate="ssn" inputmode="numeric" autocomplete="off" placeholder="XXX-XX-XXXX" maxlength="11" />
           </div>
         </div>
         <div class="row-3">
@@ -1850,7 +1851,7 @@
             </div>
             <div class="ack-body">
               <div class="ack-doc" data-lang-only="en">
-                <p class="muted"><strong>NEW YORK MOTOR VEHICLE NO-FAULT INSURANCE LAW &mdash; ASSIGNMENT OF BENEFITS FORM</strong><br />
+                <p class="muted"><strong>NEW YORK MOTOR VEHICLE NO-FAULT INSURANCE LAW: ASSIGNMENT OF BENEFITS FORM</strong><br />
                   (For accidents occurring on and after 3/1/02)</p>
                 <p>I, <em>(print patient's name)</em>, ("Assignor") hereby assign to <strong>Nitin Mariwalla MD PLLC</strong>, ("Assignee") all rights, privileges and remedies to payment for health care services provided by assignee to which I am entitled under Article 51 (the No-Fault statute) of the Insurance Law.</p>
                 <p>The Assignee hereby certifies that they have not received any payment from or on behalf of the Assignor and shall not pursue payment directly from the Assignor for services provided by said Assignee for injuries sustained due to the motor vehicle accident which occurred on <em>(print accident date)</em>, not withstanding any other agreement to the contrary.</p>
@@ -2052,7 +2053,7 @@
         <p class="lead" data-i18n="consent_lead">Please read carefully. By signing, you confirm you've read and agree to the terms below.</p>
 
         <div class="draft-banner">
-          ⚠ Traducción al español preliminar &mdash; pendiente de aprobación oficial por parte de NYBSJ.
+          ⚠ Traducción al español preliminar. Pendiente de aprobación oficial por parte de NYBSJ.
         </div>
 
         <!-- ENGLISH consent body -->
@@ -2189,6 +2190,7 @@
       err_email: "Please enter a valid email address.",
       err_phone: "Please enter a complete 10-digit phone number.",
       err_zip: "Please enter a valid ZIP code (5 digits or 5-4 format).",
+      err_ssn: "Please enter a valid SSN in XXX-XX-XXXX format.",
       err_pattern: "Please use the requested format.",
       err_dob_future: "Date of birth cannot be in the future.",
       err_dob_invalid: "Please enter a valid date of birth.",
@@ -2202,6 +2204,7 @@
       inbox_didnt: "Didn't get it? Check your spam folder, or",
       inbox_resend: "resend the link",
       inbox_resent: "Link resent. Check your inbox again.",
+      inbox_demo_continue: "Demo: continue as if link was clicked",
 
       // Common
       step: "Step",
@@ -2210,7 +2213,7 @@
 
       // Screen 3: welcome
       welcome_h1: "Let's get started",
-      welcome_lead: "A few quick questions before your visit. This takes about 8–10 minutes. You can save your progress and return any time.",
+      welcome_lead: "A few quick questions before your visit. This takes about 15 minutes. You can save your progress and return any time.",
       welcome_loc_q: "Which office will you be visiting?",
       select_loc: "Select a location...",
       welcome_visit_q: "What brings you in?",
@@ -2531,6 +2534,7 @@
       err_email: "Ingrese un correo electrónico válido.",
       err_phone: "Ingrese un número de teléfono completo de 10 dígitos.",
       err_zip: "Ingrese un código postal válido (5 dígitos o formato 5-4).",
+      err_ssn: "Ingrese un SSN válido en formato XXX-XX-XXXX.",
       err_pattern: "Use el formato solicitado.",
       err_dob_future: "La fecha de nacimiento no puede ser futura.",
       err_dob_invalid: "Ingrese una fecha de nacimiento válida.",
@@ -2544,6 +2548,7 @@
       inbox_didnt: "¿No lo recibió? Revise su carpeta de spam, o",
       inbox_resend: "reenvíe el enlace",
       inbox_resent: "Enlace reenviado. Revise su bandeja de entrada nuevamente.",
+      inbox_demo_continue: "Demo: continuar como si hiciera clic en el enlace",
 
       // Common
       step: "Paso",
@@ -2552,7 +2557,7 @@
 
       // Screen 3: welcome
       welcome_h1: "Comencemos",
-      welcome_lead: "Algunas preguntas rápidas antes de su visita. Toma aproximadamente 8 a 10 minutos. Puede guardar su progreso y volver en cualquier momento.",
+      welcome_lead: "Algunas preguntas rápidas antes de su visita. Toma aproximadamente 15 minutos. Puede guardar su progreso y volver en cualquier momento.",
       welcome_loc_q: "¿A qué oficina visitará?",
       select_loc: "Seleccione una ubicación...",
       welcome_visit_q: "¿Qué le trae aquí?",
@@ -2909,9 +2914,19 @@
     }
   }
 
+  // Wipe all validation state on any screen change so stale errors
+  // from a prior visit don't follow the patient back.
+  function clearAllScreenErrors() {
+    document.querySelectorAll('.error-summary').forEach(function (el) { el.remove(); });
+    document.querySelectorAll('.field.error').forEach(function (f) { f.classList.remove('error'); });
+    document.querySelectorAll('.field-error').forEach(function (e) { e.remove(); });
+    document.querySelectorAll('[aria-invalid="true"]').forEach(function (i) { i.removeAttribute('aria-invalid'); });
+  }
+
   // Mockup screen nav
   document.querySelectorAll('#mockup-nav button').forEach(function (btn) {
     btn.addEventListener('click', function () {
+      clearAllScreenErrors();
       document.querySelectorAll('#mockup-nav button').forEach(function (b) { b.classList.remove('active'); });
       btn.classList.add('active');
       document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
@@ -2946,6 +2961,27 @@
     });
   });
 
+  // Inbox demo-continue: simulates the patient clicking the magic link
+  var inboxDemoBtn = document.getElementById('inbox-demo-continue');
+  if (inboxDemoBtn) {
+    inboxDemoBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var navBtn = document.querySelector('#mockup-nav button[data-screen="welcome"]');
+      if (navBtn) navBtn.click();
+    });
+  }
+
+  // SSN live mask: format as XXX-XX-XXXX while typing
+  document.querySelectorAll('input[data-validate="ssn"]').forEach(function (input) {
+    input.addEventListener('input', function () {
+      var digits = input.value.replace(/\D/g, '').slice(0, 9);
+      var f = digits.slice(0, 3);
+      if (digits.length >= 4) f += '-' + digits.slice(3, 5);
+      if (digits.length >= 6) f += '-' + digits.slice(5, 9);
+      input.value = f;
+    });
+  });
+
   // Resend-link confirmation on the inbox screen
   var resendLink = document.getElementById('resend-link');
   if (resendLink) {
@@ -2963,6 +2999,8 @@
   var EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   var PHONE_RE = /^\(\d{3}\) \d{3}-\d{4}$/;
   var ZIP_RE = /^\d{5}(-\d{4})?$/;
+  var SSN_RE = /^\d{3}-\d{2}-\d{4}$/;
+  var DOB_MIN = new Date('1900-01-01');
 
   function getDict() {
     var lang = document.documentElement.lang || 'en';
@@ -3062,10 +3100,13 @@
       return tr('err_phone', 'Please enter a complete 10-digit phone number.');
     if (input.dataset.validate === 'zip' && !ZIP_RE.test(v))
       return tr('err_zip', 'Please enter a valid ZIP code (5 digits or 5-4 format).');
+    if (input.dataset.validate === 'ssn' && !SSN_RE.test(v))
+      return tr('err_ssn', 'Please enter a valid SSN in XXX-XX-XXXX format.');
     if (input.dataset.validate === 'dob') {
-      var d = new Date(v);
+      var d = new Date(v + 'T00:00:00');
       if (isNaN(d.getTime())) return tr('err_dob_invalid', 'Please enter a valid date of birth.');
       if (d > new Date()) return tr('err_dob_future', 'Date of birth cannot be in the future.');
+      if (d < DOB_MIN) return tr('err_dob_invalid', 'Please enter a valid date of birth.');
     }
     if (input.pattern) {
       try {
@@ -3213,8 +3254,28 @@
       status.hidden = false;
       status.innerHTML = '<span class="check" aria-hidden="true">✓</span><span>' + msg + '</span>';
     }
+    // Walk only fields under "Primary insurance" (sibling-walk between
+    // the primary header and the secondary header). Re-uploads must
+    // never bleed into the secondary section.
+    function getPrimaryFields() {
+      var step3 = document.getElementById('screen-step3');
+      if (!step3) return [];
+      var primaryH = step3.querySelector('[data-i18n="insurance_primary_h"]');
+      var secondaryH = step3.querySelector('[data-i18n="insurance_secondary_h"]');
+      if (!primaryH) return Array.prototype.slice.call(step3.querySelectorAll('.field'));
+      var out = [];
+      var sib = primaryH.nextElementSibling;
+      while (sib && sib !== secondaryH) {
+        if (sib.matches && sib.matches('.field')) out.push(sib);
+        if (sib.querySelectorAll) {
+          sib.querySelectorAll('.field').forEach(function (f) { out.push(f); });
+        }
+        sib = sib.nextElementSibling;
+      }
+      return out;
+    }
     function fillField(kind, value) {
-      var fields = document.querySelectorAll('#screen-step3 .field');
+      var fields = getPrimaryFields();
       for (var i = 0; i < fields.length; i++) {
         var f = fields[i];
         var lbl = f.querySelector('label');
@@ -3222,12 +3283,12 @@
         var t = (lbl.textContent || '').toLowerCase().trim();
         var input = f.querySelector('input[type="text"], input[type="tel"]');
         if (!input || input.value) continue;
-        if (kind === 'carrier' && /carrier|aseguradora|compañía de seguros/.test(t) && !/wc|workers|auto|fax|carrier fax|policy/.test(t)) {
+        if (kind === 'carrier' && /carrier|aseguradora|compañía de seguros/.test(t) && !/wc|workers|auto|fax|policy/.test(t)) {
           input.value = value; clearFieldError(input); return true;
         }
-        if (kind === 'plan' && /plan/.test(t)) { input.value = value; clearFieldError(input); return true; }
+        if (kind === 'plan' && /plan/.test(t) && !/group|grupo/.test(t.replace(/.*plan/, ''))) { input.value = value; clearFieldError(input); return true; }
         if (kind === 'member' && /member id|número de miembro/.test(t)) { input.value = value; clearFieldError(input); return true; }
-        if (kind === 'group' && /^group|^grupo/.test(t)) { input.value = value; clearFieldError(input); return true; }
+        if (kind === 'group' && /(group|grupo)/.test(t) && !/^plan/.test(t)) { input.value = value; clearFieldError(input); return true; }
         if (kind === 'phone' && /insurance phone|teléfono.*seguro/.test(t)) { input.value = value; clearFieldError(input); return true; }
       }
       return false;
