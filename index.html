@@ -2342,16 +2342,24 @@
       step3_h1: "Insurance & visit details",
       step3_lead: "A few questions about your insurance and visit. Required fields adjust based on the type of visit you selected.",
       insurance_h: "Insurance",
-      card_scan_h: "Snap your insurance card",
-      card_scan_lead: "Use your camera or upload a photo. We will fill in your insurance details automatically. You can also skip this and type the details below.",
-      card_front: "Front of card",
-      card_back: "Back of card",
-      card_scan_tap: "Tap to take a photo or upload",
-      card_scan_reading: "Reading card…",
-      card_scan_detected: "Card detected",
-      card_scan_filled: "Insurance details filled from your card. Please verify before continuing.",
-      card_scan_err_type: "Please choose an image file.",
-      card_scan_err_unreadable: "Could not read this image. Please try again with better lighting.",
+      ins_card_upload_h: "Upload insurance card",
+      ins_card_upload_lead: "Snap a photo of the front and back of your card. We'll fill in the details below.",
+      ins_card_front: "Card (front)",
+      ins_card_back: "Card (back)",
+      upload_hint_short: "Photo or file",
+      upload_camera: "📷 Camera",
+      upload_file: "📁 File",
+      upload_processing: "Reading card...",
+      autofill_toast: "Filled from your insurance card. Please review.",
+      cam_cancel: "Cancel",
+      cam_flip: "Flip",
+      cam_capture: "Capture",
+      cam_retake: "Retake",
+      cam_use: "Use photo",
+      cam_err_unsupported: "Your browser does not support camera access. Please use the File option.",
+      cam_err_denied: "Camera access denied. Grant permission in your browser settings, or use the File option.",
+      cam_err_nocamera: "No camera detected on this device. Please use the File option.",
+      cam_err_generic: "Camera unavailable: ",
       insurance_primary_h: "Primary insurance",
       insurance_secondary_h: "Secondary insurance (if any)",
       insurance_secondary_lead: "Skip this section if you don't have a secondary plan.",
@@ -2686,14 +2694,24 @@
       step3_h1: "Detalles del seguro y la visita",
       step3_lead: "Algunas preguntas sobre su seguro y su visita. Los campos requeridos cambian según el tipo de visita que seleccionó.",
       insurance_h: "Seguro",
-      card_scan_h: "Tome una foto de su tarjeta de seguro",
-      card_scan_lead: "Use su cámara o suba una foto. Llenaremos sus datos de seguro automáticamente. También puede omitir y escribir los datos a continuación.",
-      card_front: "Frente de la tarjeta",
-      card_back: "Reverso de la tarjeta",
-      card_scan_tap: "Toque para tomar una foto o subirla",
-      card_scan_reading: "Leyendo tarjeta…",
-      card_scan_detected: "Tarjeta detectada",
-      card_scan_filled: "Datos de seguro completados desde su tarjeta. Verifique antes de continuar.",
+      ins_card_upload_h: "Subir tarjeta del seguro",
+      ins_card_upload_lead: "Tome una foto del frente y reverso de su tarjeta. Llenaremos los datos a continuación.",
+      ins_card_front: "Tarjeta (frente)",
+      ins_card_back: "Tarjeta (reverso)",
+      upload_hint_short: "Foto o archivo",
+      upload_camera: "📷 Cámara",
+      upload_file: "📁 Archivo",
+      upload_processing: "Leyendo la tarjeta...",
+      autofill_toast: "Datos completados desde su tarjeta del seguro. Por favor revise.",
+      cam_cancel: "Cancelar",
+      cam_flip: "Cambiar cámara",
+      cam_capture: "Capturar",
+      cam_retake: "Repetir",
+      cam_use: "Usar foto",
+      cam_err_unsupported: "Su navegador no admite el acceso a la cámara. Use la opción Archivo.",
+      cam_err_denied: "Acceso a la cámara denegado. Conceda permiso en la configuración de su navegador, o use la opción Archivo.",
+      cam_err_nocamera: "No se detectó cámara en este dispositivo. Use la opción Archivo.",
+      cam_err_generic: "Cámara no disponible: ",
       card_scan_err_type: "Elija un archivo de imagen.",
       card_scan_err_unreadable: "No se pudo leer esta imagen. Intente de nuevo con mejor iluminación.",
       insurance_primary_h: "Seguro primario",
@@ -3252,121 +3270,251 @@
     });
   });
 
-  // === Insurance card capture (stubbed OCR for the mockup) ===
-  // Real implementation will route the image to Vertex/Gemini for
-  // classify-then-extract per nybsj_ocr_card_validation.md. This stub
-  // demonstrates the patient-facing UX only.
-  (function () {
-    var FRONT_OCR = { carrier: 'Empire BCBS', plan: 'PPO 4000', memberId: 'YJK123456789', group: '100247' };
-    var BACK_OCR = { phone: '(800) 342-2222' };
-    var tiles = document.querySelectorAll('.card-scan-tile');
-    if (!tiles.length) return;
+  // ===== Upload + Camera =====
+  var CAM = {
+    modal: null, video: null, photoImg: null, errorEl: null, canvas: null,
+    stream: null, currentCard: null, facingMode: 'environment',
+    btnCapture: null, btnRetake: null, btnUse: null, btnFlip: null, btnCancel: null
+  };
 
-    function setState(tile, state) {
-      tile.classList.remove('empty','dragover','uploading','success','error');
-      tile.classList.add(state);
+  function camInit() {
+    CAM.modal = document.getElementById('camera-modal');
+    if (!CAM.modal) return;
+    CAM.video = document.getElementById('cam-video');
+    CAM.photoImg = document.getElementById('cam-photo');
+    CAM.errorEl = document.getElementById('cam-error');
+    CAM.canvas = document.getElementById('cam-canvas');
+    CAM.btnCapture = document.getElementById('cam-capture');
+    CAM.btnRetake = document.getElementById('cam-retake');
+    CAM.btnUse = document.getElementById('cam-use');
+    CAM.btnFlip = document.getElementById('cam-flip');
+    CAM.btnCancel = document.getElementById('cam-cancel');
+
+    CAM.btnCancel.addEventListener('click', camClose);
+    CAM.btnFlip.addEventListener('click', camFlip);
+    CAM.btnCapture.addEventListener('click', camCapture);
+    CAM.btnRetake.addEventListener('click', camRetake);
+    CAM.btnUse.addEventListener('click', camUse);
+    CAM.modal.querySelector('.cam-backdrop').addEventListener('click', camClose);
+  }
+
+  function camOpen(card) {
+    CAM.currentCard = card;
+    CAM.modal.hidden = false;
+    CAM.errorEl.hidden = true;
+    CAM.photoImg.hidden = true;
+    CAM.video.hidden = false;
+    CAM.btnCapture.hidden = false;
+    CAM.btnRetake.hidden = true;
+    CAM.btnUse.hidden = true;
+    CAM.btnFlip.hidden = false;
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      camShowError(tr('cam_err_unsupported', 'Your browser does not support camera access. Please use the File option.'));
+      CAM.btnCapture.hidden = true;
+      CAM.btnFlip.hidden = true;
+      return;
     }
-    function setOverlay(tile, html) {
-      var overlay = tile.querySelector('.card-scan-overlay');
-      if (overlay) overlay.innerHTML = html;
-    }
-    function showStatus(msg) {
-      var status = document.getElementById('card-scan-status');
-      if (!status) return;
-      status.hidden = false;
-      status.innerHTML = '<span class="check" aria-hidden="true">✓</span><span>' + msg + '</span>';
-    }
-    // Walk only fields under "Primary insurance" (sibling-walk between
-    // the primary header and the secondary header). Re-uploads must
-    // never bleed into the secondary section.
-    function getPrimaryFields() {
-      var step3 = document.getElementById('screen-step3');
-      if (!step3) return [];
-      var primaryH = step3.querySelector('[data-i18n="insurance_primary_h"]');
-      var secondaryH = step3.querySelector('[data-i18n="insurance_secondary_h"]');
-      if (!primaryH) return Array.prototype.slice.call(step3.querySelectorAll('.field'));
-      var out = [];
-      var sib = primaryH.nextElementSibling;
-      while (sib && sib !== secondaryH) {
-        if (sib.matches && sib.matches('.field')) out.push(sib);
-        if (sib.querySelectorAll) {
-          sib.querySelectorAll('.field').forEach(function (f) { out.push(f); });
-        }
-        sib = sib.nextElementSibling;
+
+    navigator.mediaDevices.getUserMedia({
+      video: { facingMode: CAM.facingMode },
+      audio: false
+    }).then(function (stream) {
+      CAM.stream = stream;
+      CAM.video.srcObject = stream;
+    }).catch(function (e) {
+      var msg = tr('cam_err_generic', 'Camera unavailable: ') + (e.message || e.name);
+      if (e.name === 'NotAllowedError' || e.name === 'PermissionDeniedError') {
+        msg = tr('cam_err_denied', 'Camera access denied. Grant permission in your browser settings, or use the File option.');
+      } else if (e.name === 'NotFoundError' || e.name === 'DevicesNotFoundError') {
+        msg = tr('cam_err_nocamera', 'No camera detected on this device. Please use the File option.');
       }
-      return out;
+      camShowError(msg);
+      CAM.btnCapture.hidden = true;
+      CAM.btnFlip.hidden = true;
+    });
+  }
+
+  function camShowError(msg) {
+    CAM.errorEl.textContent = msg;
+    CAM.errorEl.hidden = false;
+  }
+
+  function camStop() {
+    if (CAM.stream) {
+      CAM.stream.getTracks().forEach(function (t) { t.stop(); });
+      CAM.stream = null;
     }
-    function fillField(kind, value) {
-      var fields = getPrimaryFields();
-      for (var i = 0; i < fields.length; i++) {
-        var f = fields[i];
-        var lbl = f.querySelector('label');
-        if (!lbl) continue;
-        var t = (lbl.textContent || '').toLowerCase().trim();
-        var input = f.querySelector('input[type="text"], input[type="tel"]');
-        if (!input || input.value) continue;
-        if (kind === 'carrier' && /carrier|aseguradora|compañía de seguros/.test(t) && !/wc|workers|auto|fax|policy/.test(t)) {
-          input.value = value; clearFieldError(input); return true;
+  }
+
+  function camClose() {
+    camStop();
+    CAM.modal.hidden = true;
+    CAM.currentCard = null;
+  }
+
+  function camFlip() {
+    CAM.facingMode = CAM.facingMode === 'environment' ? 'user' : 'environment';
+    camStop();
+    camOpen(CAM.currentCard);
+  }
+
+  function camCapture() {
+    var v = CAM.video, c = CAM.canvas;
+    c.width = v.videoWidth; c.height = v.videoHeight;
+    c.getContext('2d').drawImage(v, 0, 0);
+    CAM.photoImg.src = c.toDataURL('image/jpeg', 0.92);
+    CAM.video.hidden = true;
+    CAM.photoImg.hidden = false;
+    CAM.btnCapture.hidden = true;
+    CAM.btnRetake.hidden = false;
+    CAM.btnUse.hidden = false;
+    CAM.btnFlip.hidden = true;
+  }
+
+  function camRetake() {
+    CAM.photoImg.hidden = true;
+    CAM.video.hidden = false;
+    CAM.btnCapture.hidden = false;
+    CAM.btnRetake.hidden = true;
+    CAM.btnUse.hidden = true;
+    CAM.btnFlip.hidden = false;
+  }
+
+  function camUse() {
+    var card = CAM.currentCard;
+    setUploadPreview(card, CAM.photoImg.src);
+    camClose();
+    maybeAutofill(card);
+  }
+
+  function setUploadPreview(card, dataUrl) {
+    var preview = card.querySelector('.upload-preview');
+    if (!preview) return;
+    preview.innerHTML = '<img src="' + dataUrl + '" alt="" />' +
+      '<button type="button" class="upload-clear" aria-label="Remove">×</button>';
+    card.classList.add('has-preview');
+    preview.querySelector('.upload-clear').addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      preview.innerHTML = '';
+      card.classList.remove('has-preview');
+    });
+  }
+
+  function pdfPlaceholder() {
+    var c = document.createElement('canvas');
+    c.width = 320; c.height = 220;
+    var ctx = c.getContext('2d');
+    ctx.fillStyle = '#eef2f6'; ctx.fillRect(0, 0, c.width, c.height);
+    ctx.fillStyle = '#7a8a9a'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('PDF uploaded', c.width / 2, c.height / 2);
+    return c.toDataURL();
+  }
+
+  function wireUploadCards() {
+    document.querySelectorAll('[data-upload]').forEach(function (card) {
+      var camBtn = card.querySelector('.upload-cam-btn');
+      var fileBtn = card.querySelector('.upload-file-btn');
+      var fileInput = card.querySelector('input[type=file]');
+
+      if (camBtn) camBtn.addEventListener('click', function (e) { e.preventDefault(); camOpen(card); });
+      if (fileBtn) fileBtn.addEventListener('click', function (e) { e.preventDefault(); if (fileInput) fileInput.click(); });
+      if (fileInput) fileInput.addEventListener('change', function () {
+        var f = fileInput.files && fileInput.files[0];
+        if (!f) return;
+        if (f.type.indexOf('image/') === 0) {
+          var reader = new FileReader();
+          reader.onload = function () {
+            setUploadPreview(card, reader.result);
+            maybeAutofill(card);
+          };
+          reader.readAsDataURL(f);
+        } else {
+          setUploadPreview(card, pdfPlaceholder());
+          maybeAutofill(card);
         }
-        if (kind === 'plan' && /plan/.test(t) && !/group|grupo/.test(t.replace(/.*plan/, ''))) { input.value = value; clearFieldError(input); return true; }
-        if (kind === 'member' && /member id|número de miembro/.test(t)) { input.value = value; clearFieldError(input); return true; }
-        if (kind === 'group' && /(group|grupo)/.test(t) && !/^plan/.test(t)) { input.value = value; clearFieldError(input); return true; }
-        if (kind === 'phone' && /insurance phone|teléfono.*seguro/.test(t)) { input.value = value; clearFieldError(input); return true; }
-      }
-      return false;
+      });
+    });
+  }
+
+  // ===== Auto-fill simulation (mockup only — Vertex/Gemini OCR will replace this) =====
+  var SAMPLE_INSURANCE = {
+    primary: {
+      ins_carrier: 'Empire BlueCross BlueShield',
+      ins_plan: 'PPO',
+      ins_member: 'XJL784512309',
+      ins_group: 'GRP-44820',
+      ins_phone: '(800) 553-9355'
+    },
+    secondary: {
+      ins_carrier: 'Aetna',
+      ins_plan: 'POS',
+      ins_member: 'W123456789',
+      ins_group: '0123456',
+      ins_phone: '(800) 872-3862'
+    }
+  };
+
+  function maybeAutofill(card) {
+    var target = card.dataset.target;
+    if (!target || target === 'guardian') return;
+    if (card.dataset.side !== 'front') return;
+    if (document.querySelector('[data-autofill-section="' + target + '"]')) return;
+
+    card.classList.add('is-processing');
+    setTimeout(function () {
+      card.classList.remove('is-processing');
+      autofillFields(target);
+      showAutofillToast(target);
+    }, 1500);
+  }
+
+  function autofillFields(target) {
+    var data = SAMPLE_INSURANCE[target];
+    if (!data) return;
+    var heading = target === 'primary'
+      ? document.querySelector('h2[data-i18n="insurance_primary_h"]')
+      : document.querySelector('h2[data-i18n="insurance_secondary_h"]');
+    if (!heading) return;
+
+    var fields = [];
+    var node = heading.nextElementSibling;
+    while (node && !node.matches('h2, .branch-section')) {
+      Array.prototype.push.apply(fields, node.querySelectorAll('.field'));
+      node = node.nextElementSibling;
     }
 
-    tiles.forEach(function (tile) {
-      var fileInput = tile.querySelector('input[type="file"]');
-      if (!fileInput) return;
-      var side = tile.dataset.tile;
-
-      ['dragover','dragenter'].forEach(function (ev) {
-        tile.addEventListener(ev, function (e) { e.preventDefault(); tile.classList.add('dragover'); });
-      });
-      ['dragleave'].forEach(function (ev) {
-        tile.addEventListener(ev, function (e) { e.preventDefault(); tile.classList.remove('dragover'); });
-      });
-      tile.addEventListener('drop', function (e) {
-        e.preventDefault();
-        tile.classList.remove('dragover');
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
-      });
-      fileInput.addEventListener('change', function () {
-        if (fileInput.files && fileInput.files[0]) handleFile(fileInput.files[0]);
-      });
-
-      function handleFile(file) {
-        if (!file.type || file.type.indexOf('image/') !== 0) {
-          setState(tile, 'error');
-          setOverlay(tile, '<div class="card-scan-overlay-text">' + tr('card_scan_err_type', 'Please choose an image file.') + '</div>');
-          return;
-        }
-        var reader = new FileReader();
-        reader.onload = function (ev) {
-          var preview = tile.querySelector('.card-scan-preview');
-          if (preview) preview.style.backgroundImage = "url('" + ev.target.result + "')";
-          setState(tile, 'uploading');
-          setOverlay(tile, '<div class="card-scan-overlay-text"><span class="card-scan-spinner" aria-hidden="true"></span>' + tr('card_scan_reading', 'Reading card…') + '</div>');
-          var delay = side === 'front' ? 1600 : 1100;
-          setTimeout(function () {
-            setState(tile, 'success');
-            setOverlay(tile, '<div class="card-scan-overlay-text">' + tr('card_scan_detected', 'Card detected') + '</div>');
-            if (side === 'front') {
-              fillField('carrier', FRONT_OCR.carrier);
-              fillField('plan', FRONT_OCR.plan);
-              fillField('member', FRONT_OCR.memberId);
-              fillField('group', FRONT_OCR.group);
-              showStatus(tr('card_scan_filled', 'Insurance details filled from your card. Please verify before continuing.'));
-            } else {
-              fillField('phone', BACK_OCR.phone);
-            }
-          }, delay);
-        };
-        reader.readAsDataURL(file);
+    fields.forEach(function (field) {
+      var lbl = field.querySelector('label');
+      if (!lbl) return;
+      var inner = lbl.querySelector('[data-i18n]');
+      var key = (inner && inner.getAttribute('data-i18n')) || lbl.getAttribute('data-i18n');
+      if (!key) return;
+      var input = field.querySelector('input, select');
+      if (!input) return;
+      if (data[key] && !input.value) {
+        input.value = data[key];
+        clearFieldError(input);
+        field.classList.add('auto-filled');
       }
     });
-  })();
+  }
+
+  function showAutofillToast(target) {
+    var heading = target === 'primary'
+      ? document.querySelector('h2[data-i18n="insurance_primary_h"]')
+      : document.querySelector('h2[data-i18n="insurance_secondary_h"]');
+    if (!heading) return;
+    var msg = tr('autofill_toast', 'Filled from your insurance card. Please review.');
+    var toast = document.createElement('div');
+    toast.className = 'autofill-toast';
+    toast.dataset.autofillSection = target;
+    toast.innerHTML = '<span class="check">✓</span><span>' + msg + '</span>';
+    heading.parentNode.insertBefore(toast, heading.nextSibling);
+  }
+
+  camInit();
+  wireUploadCards();
 
   // Init
   applyLang('en');
