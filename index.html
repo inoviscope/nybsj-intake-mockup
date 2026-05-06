@@ -742,9 +742,10 @@
   <button data-screen="welcome">3. Welcome</button>
   <button data-screen="demographics">4. Demographics</button>
   <button data-screen="patient-info">5. Patient Info</button>
-  <button data-screen="step3">6. Insurance / Claim / Acks</button>
-  <button data-screen="consent">7. Consent</button>
-  <button data-screen="done">8. Submitted</button>
+  <button data-screen="patient-info-2">6. Patient Info (cont.)</button>
+  <button data-screen="step3">7. Insurance / Claim / Acks</button>
+  <button data-screen="consent">8. Consent</button>
+  <button data-screen="done">9. Submitted</button>
 </nav>
 
 <header class="app-header">
@@ -808,8 +809,8 @@
     <!-- ============ SCREEN 3: WELCOME / LOCATION ============ -->
     <section id="screen-welcome" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 1 <span data-i18n="of">of</span> 5</span>
-        <div class="bar"><span style="width: 20%"></span></div>
+        <span><span data-i18n="step">Step</span> 1 <span data-i18n="of">of</span> 6</span>
+        <div class="bar"><span style="width: 17%"></span></div>
       </div>
 
       <div class="card">
@@ -869,8 +870,8 @@
     <!-- ============ SCREEN 4: DEMOGRAPHICS ============ -->
     <section id="screen-demographics" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 2 <span data-i18n="of">of</span> 5</span>
-        <div class="bar"><span style="width: 40%"></span></div>
+        <span><span data-i18n="step">Step</span> 2 <span data-i18n="of">of</span> 6</span>
+        <div class="bar"><span style="width: 33%"></span></div>
       </div>
 
       <div class="card">
@@ -1150,8 +1151,8 @@
     <!-- ============ SCREEN 5: PATIENT INFO (height, weight, smoking, devices, allergies, ROS) ============ -->
     <section id="screen-patient-info" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 3 <span data-i18n="of">of</span> 5</span>
-        <div class="bar"><span style="width: 60%"></span></div>
+        <span><span data-i18n="step">Step</span> 3 <span data-i18n="of">of</span> 6</span>
+        <div class="bar"><span style="width: 50%"></span></div>
       </div>
 
       <div class="card">
@@ -1214,6 +1215,24 @@
           </div>
           <input type="text" data-i18n-placeholder="allergies_list_placeholder" placeholder="If yes, list allergies and reactions" style="margin-top: 8px;" maxlength="200" />
         </div>
+
+        <div class="actions">
+          <button class="btn btn-secondary">&larr; <span data-i18n="back">Back</span></button>
+          <button class="btn btn-primary"><span data-i18n="continue">Continue</span> &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN 5b: PATIENT INFO (continued) — Review of Systems ============ -->
+    <section id="screen-patient-info-2" class="screen">
+      <div class="progress">
+        <span><span data-i18n="step">Step</span> 4 <span data-i18n="of">of</span> 6</span>
+        <div class="bar"><span style="width: 67%"></span></div>
+      </div>
+
+      <div class="card">
+        <h1 data-i18n="patinfo2_h1">Patient information (continued)</h1>
+        <p class="lead" data-i18n="patinfo2_lead">A quick symptom check so your provider knows what to focus on during your visit.</p>
 
         <h2 data-i18n="ros_h">Review of systems</h2>
         <p class="muted" data-i18n="ros_lead2">Please check all that apply. If none, select "None" for that section.</p>
@@ -1368,8 +1387,8 @@
     <!-- ============ SCREEN 6: STEP 3 — INSURANCE / CLAIM / ACKS ============ -->
     <section id="screen-step3" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 4 <span data-i18n="of">of</span> 5</span>
-        <div class="bar"><span style="width: 80%"></span></div>
+        <span><span data-i18n="step">Step</span> 5 <span data-i18n="of">of</span> 6</span>
+        <div class="bar"><span style="width: 83%"></span></div>
       </div>
 
       <div class="branch-picker">
@@ -2141,7 +2160,7 @@
     <!-- ============ SCREEN 6: CONSENT FOR TREATMENT ============ -->
     <section id="screen-consent" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 5 <span data-i18n="of">of</span> 5</span>
+        <span><span data-i18n="step">Step</span> 6 <span data-i18n="of">of</span> 6</span>
         <div class="bar"><span style="width: 100%"></span></div>
       </div>
 
@@ -2508,6 +2527,8 @@
       // Screen 5: Patient Info
       patinfo_h1: "Patient information",
       patinfo_lead: "A few quick health details so your provider has the right context for your visit.",
+      patinfo2_h1: "Patient information (continued)",
+      patinfo2_lead: "A quick symptom check so your provider knows what to focus on during your visit.",
       height: "Height",
       height_ft: "ft",
       height_in: "in",
@@ -2862,6 +2883,8 @@
       // Screen 5: Patient Info
       patinfo_h1: "Información del paciente",
       patinfo_lead: "Algunos datos rápidos de salud para que su proveedor tenga el contexto correcto para su visita.",
+      patinfo2_h1: "Información del paciente (continuación)",
+      patinfo2_lead: "Una revisión rápida de síntomas para que su proveedor sepa en qué enfocarse durante su visita.",
       height: "Estatura",
       height_ft: "pies",
       height_in: "pulg.",
@@ -3321,7 +3344,7 @@
   });
 
   // === Continue / Back / Submit buttons (validation-gated) ===
-  var screenOrder = ['email','inbox','welcome','demographics','patient-info','step3','consent','done'];
+  var screenOrder = ['email','inbox','welcome','demographics','patient-info','patient-info-2','step3','consent','done'];
   document.querySelectorAll('.screen .btn-primary, .screen .btn-secondary').forEach(function (btn) {
     var labelSpan = btn.querySelector('[data-i18n]');
     var key = labelSpan ? labelSpan.dataset.i18n : btn.dataset.i18n;
