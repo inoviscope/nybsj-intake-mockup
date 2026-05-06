@@ -591,6 +591,119 @@
       padding: 0; margin: -1px; overflow: hidden;
       clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
     }
+
+    /* === Insurance card capture === */
+    .card-scan-block {
+      background: linear-gradient(180deg, rgba(18, 101, 168, 0.04), rgba(18, 101, 168, 0));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin: 8px 0 32px;
+    }
+    .card-scan-head .muted { font-size: 14px; margin: 0 0 16px; }
+    .card-scan-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .card-scan-tile {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 6px;
+      padding: 22px 16px;
+      min-height: 158px;
+      background: #fff;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color .15s ease, background .15s ease;
+    }
+    .card-scan-tile:hover { border-color: var(--cyan); background: #fafdff; }
+    .card-scan-tile.dragover,
+    .card-scan-tile.uploading { border-color: var(--cyan); border-style: solid; }
+    .card-scan-tile.success { border-color: var(--success); border-style: solid; background: #f4fbf6; }
+    .card-scan-tile.error { border-color: var(--danger); border-style: solid; background: #fdf6f5; }
+    .card-scan-icon {
+      color: var(--cyan);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-scan-tile.success .card-scan-icon { color: var(--success); }
+    .card-scan-tile.error .card-scan-icon { color: var(--danger); }
+    .card-scan-label {
+      font-weight: 600; font-size: 15px; color: var(--navy);
+      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+    }
+    .card-scan-hint { font-size: 13px; }
+    .card-scan-preview {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      background-color: #f7f9fb;
+      display: none;
+    }
+    .card-scan-tile.uploading .card-scan-preview,
+    .card-scan-tile.success .card-scan-preview,
+    .card-scan-tile.error .card-scan-preview { display: block; }
+    /* Hide default content while preview shown */
+    .card-scan-tile.uploading .card-scan-icon,
+    .card-scan-tile.uploading .card-scan-label,
+    .card-scan-tile.uploading .card-scan-hint,
+    .card-scan-tile.success .card-scan-icon,
+    .card-scan-tile.success .card-scan-label,
+    .card-scan-tile.success .card-scan-hint,
+    .card-scan-tile.error .card-scan-icon,
+    .card-scan-tile.error .card-scan-label,
+    .card-scan-tile.error .card-scan-hint { visibility: hidden; }
+    .card-scan-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(15, 46, 74, 0) 35%, rgba(15, 46, 74, 0.78) 100%);
+      display: none; flex-direction: column; align-items: center; justify-content: flex-end;
+      padding: 14px;
+      color: #fff;
+    }
+    .card-scan-tile.uploading .card-scan-overlay,
+    .card-scan-tile.success .card-scan-overlay,
+    .card-scan-tile.error .card-scan-overlay { display: flex; }
+    .card-scan-tile.success .card-scan-overlay {
+      background: linear-gradient(180deg, rgba(42, 138, 74, 0) 35%, rgba(42, 138, 74, 0.85) 100%);
+    }
+    .card-scan-tile.error .card-scan-overlay {
+      background: linear-gradient(180deg, rgba(192, 64, 48, 0) 35%, rgba(192, 64, 48, 0.85) 100%);
+    }
+    .card-scan-overlay-text {
+      font-size: 13px; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 8px;
+      letter-spacing: 0.01em;
+    }
+    .card-scan-spinner {
+      width: 14px; height: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: card-scan-spin 0.7s linear infinite;
+    }
+    @keyframes card-scan-spin { to { transform: rotate(360deg); } }
+    .card-scan-status {
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 500;
+      background: #f4fbf6; color: #1a4a2c;
+      border: 1px solid #c2e6cf;
+      display: flex; align-items: flex-start; gap: 8px;
+      line-height: 1.4;
+    }
+    .card-scan-status .check {
+      flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; margin-top: 1px;
+      border-radius: 50%; background: var(--success); color: #fff;
+      font-size: 11px; font-weight: 700;
+    }
   </style>
   <link rel="stylesheet" href="nybsj-intake.css" />
 </head>
@@ -1250,6 +1363,36 @@
       <div class="card">
         <h1 data-i18n="step3_h1">Insurance &amp; visit details</h1>
         <p class="lead" data-i18n="step3_lead">A few questions about your insurance and visit. Required fields adjust based on the type of visit you selected.</p>
+
+        <div class="card-scan-block" id="card-scan-block">
+          <div class="card-scan-head">
+            <h2 data-i18n="card_scan_h" style="margin-top: 0;">Snap your insurance card</h2>
+            <p class="muted" data-i18n="card_scan_lead">Use your camera or upload a photo. We will fill in your insurance details automatically. You can also skip this and type the details below.</p>
+          </div>
+          <div class="card-scan-row">
+            <label class="card-scan-tile empty" data-tile="front">
+              <input type="file" id="card-front-input" accept="image/*" capture="environment" hidden />
+              <div class="card-scan-preview"></div>
+              <div class="card-scan-icon" aria-hidden="true">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              </div>
+              <div class="card-scan-label" data-i18n="card_front">Front of card</div>
+              <div class="card-scan-hint muted" data-i18n="card_scan_tap">Tap to take a photo or upload</div>
+              <div class="card-scan-overlay" aria-live="polite"></div>
+            </label>
+            <label class="card-scan-tile empty" data-tile="back">
+              <input type="file" id="card-back-input" accept="image/*" capture="environment" hidden />
+              <div class="card-scan-preview"></div>
+              <div class="card-scan-icon" aria-hidden="true">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              </div>
+              <div class="card-scan-label" data-i18n="card_back">Back of card</div>
+              <div class="card-scan-hint muted" data-i18n="card_scan_tap">Tap to take a photo or upload</div>
+              <div class="card-scan-overlay" aria-live="polite"></div>
+            </label>
+          </div>
+          <div id="card-scan-status" class="card-scan-status" hidden></div>
+        </div>
 
         <h2 data-i18n="insurance_primary_h">Primary insurance</h2>
         <div class="row">
@@ -2174,6 +2317,16 @@
       step3_h1: "Insurance & visit details",
       step3_lead: "A few questions about your insurance and visit. Required fields adjust based on the type of visit you selected.",
       insurance_h: "Insurance",
+      card_scan_h: "Snap your insurance card",
+      card_scan_lead: "Use your camera or upload a photo. We will fill in your insurance details automatically. You can also skip this and type the details below.",
+      card_front: "Front of card",
+      card_back: "Back of card",
+      card_scan_tap: "Tap to take a photo or upload",
+      card_scan_reading: "Reading card…",
+      card_scan_detected: "Card detected",
+      card_scan_filled: "Insurance details filled from your card. Please verify before continuing.",
+      card_scan_err_type: "Please choose an image file.",
+      card_scan_err_unreadable: "Could not read this image. Please try again with better lighting.",
       insurance_primary_h: "Primary insurance",
       insurance_secondary_h: "Secondary insurance (if any)",
       insurance_secondary_lead: "Skip this section if you don't have a secondary plan.",
@@ -2506,6 +2659,16 @@
       step3_h1: "Detalles del seguro y la visita",
       step3_lead: "Algunas preguntas sobre su seguro y su visita. Los campos requeridos cambian según el tipo de visita que seleccionó.",
       insurance_h: "Seguro",
+      card_scan_h: "Tome una foto de su tarjeta de seguro",
+      card_scan_lead: "Use su cámara o suba una foto. Llenaremos sus datos de seguro automáticamente. También puede omitir y escribir los datos a continuación.",
+      card_front: "Frente de la tarjeta",
+      card_back: "Reverso de la tarjeta",
+      card_scan_tap: "Toque para tomar una foto o subirla",
+      card_scan_reading: "Leyendo tarjeta…",
+      card_scan_detected: "Tarjeta detectada",
+      card_scan_filled: "Datos de seguro completados desde su tarjeta. Verifique antes de continuar.",
+      card_scan_err_type: "Elija un archivo de imagen.",
+      card_scan_err_unreadable: "No se pudo leer esta imagen. Intente de nuevo con mejor iluminación.",
       insurance_primary_h: "Seguro primario",
       insurance_secondary_h: "Seguro secundario (si aplica)",
       insurance_secondary_lead: "Omita esta sección si no tiene un plan secundario.",
@@ -3025,6 +3188,102 @@
       }
     });
   });
+
+  // === Insurance card capture (stubbed OCR for the mockup) ===
+  // Real implementation will route the image to Vertex/Gemini for
+  // classify-then-extract per nybsj_ocr_card_validation.md. This stub
+  // demonstrates the patient-facing UX only.
+  (function () {
+    var FRONT_OCR = { carrier: 'Empire BCBS', plan: 'PPO 4000', memberId: 'YJK123456789', group: '100247' };
+    var BACK_OCR = { phone: '(800) 342-2222' };
+    var tiles = document.querySelectorAll('.card-scan-tile');
+    if (!tiles.length) return;
+
+    function setState(tile, state) {
+      tile.classList.remove('empty','dragover','uploading','success','error');
+      tile.classList.add(state);
+    }
+    function setOverlay(tile, html) {
+      var overlay = tile.querySelector('.card-scan-overlay');
+      if (overlay) overlay.innerHTML = html;
+    }
+    function showStatus(msg) {
+      var status = document.getElementById('card-scan-status');
+      if (!status) return;
+      status.hidden = false;
+      status.innerHTML = '<span class="check" aria-hidden="true">✓</span><span>' + msg + '</span>';
+    }
+    function fillField(kind, value) {
+      var fields = document.querySelectorAll('#screen-step3 .field');
+      for (var i = 0; i < fields.length; i++) {
+        var f = fields[i];
+        var lbl = f.querySelector('label');
+        if (!lbl) continue;
+        var t = (lbl.textContent || '').toLowerCase().trim();
+        var input = f.querySelector('input[type="text"], input[type="tel"]');
+        if (!input || input.value) continue;
+        if (kind === 'carrier' && /carrier|aseguradora|compañía de seguros/.test(t) && !/wc|workers|auto|fax|carrier fax|policy/.test(t)) {
+          input.value = value; clearFieldError(input); return true;
+        }
+        if (kind === 'plan' && /plan/.test(t)) { input.value = value; clearFieldError(input); return true; }
+        if (kind === 'member' && /member id|número de miembro/.test(t)) { input.value = value; clearFieldError(input); return true; }
+        if (kind === 'group' && /^group|^grupo/.test(t)) { input.value = value; clearFieldError(input); return true; }
+        if (kind === 'phone' && /insurance phone|teléfono.*seguro/.test(t)) { input.value = value; clearFieldError(input); return true; }
+      }
+      return false;
+    }
+
+    tiles.forEach(function (tile) {
+      var fileInput = tile.querySelector('input[type="file"]');
+      if (!fileInput) return;
+      var side = tile.dataset.tile;
+
+      ['dragover','dragenter'].forEach(function (ev) {
+        tile.addEventListener(ev, function (e) { e.preventDefault(); tile.classList.add('dragover'); });
+      });
+      ['dragleave'].forEach(function (ev) {
+        tile.addEventListener(ev, function (e) { e.preventDefault(); tile.classList.remove('dragover'); });
+      });
+      tile.addEventListener('drop', function (e) {
+        e.preventDefault();
+        tile.classList.remove('dragover');
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+      });
+      fileInput.addEventListener('change', function () {
+        if (fileInput.files && fileInput.files[0]) handleFile(fileInput.files[0]);
+      });
+
+      function handleFile(file) {
+        if (!file.type || file.type.indexOf('image/') !== 0) {
+          setState(tile, 'error');
+          setOverlay(tile, '<div class="card-scan-overlay-text">' + tr('card_scan_err_type', 'Please choose an image file.') + '</div>');
+          return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (ev) {
+          var preview = tile.querySelector('.card-scan-preview');
+          if (preview) preview.style.backgroundImage = "url('" + ev.target.result + "')";
+          setState(tile, 'uploading');
+          setOverlay(tile, '<div class="card-scan-overlay-text"><span class="card-scan-spinner" aria-hidden="true"></span>' + tr('card_scan_reading', 'Reading card…') + '</div>');
+          var delay = side === 'front' ? 1600 : 1100;
+          setTimeout(function () {
+            setState(tile, 'success');
+            setOverlay(tile, '<div class="card-scan-overlay-text">' + tr('card_scan_detected', 'Card detected') + '</div>');
+            if (side === 'front') {
+              fillField('carrier', FRONT_OCR.carrier);
+              fillField('plan', FRONT_OCR.plan);
+              fillField('member', FRONT_OCR.memberId);
+              fillField('group', FRONT_OCR.group);
+              showStatus(tr('card_scan_filled', 'Insurance details filled from your card. Please verify before continuing.'));
+            } else {
+              fillField('phone', BACK_OCR.phone);
+            }
+          }, delay);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  })();
 
   // Init
   applyLang('en');
