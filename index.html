@@ -1710,7 +1710,7 @@
           </div>
         </div>
 
-        <!-- ============ ACK 1: Authorization Disclosure of Protected Information (Disclosure of PHI v1, 2026-05-06) ============ -->
+        <!-- ============ ACK 1: Authorization Disclosure of Protected Information (Disclosure of PHI v2, 2026-05-06) ============ -->
         <div class="ack-card">
           <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
             <div>
@@ -1731,27 +1731,6 @@
                 <input type="text" placeholder="Specify other" maxlength="200" />
               </div>
 
-              <p><strong>Direction of Disclosure</strong> (check one):</p>
-              <div class="ack-subform">
-                <label class="inline-check"><input type="radio" name="phi-direction" value="request" /> <strong>REQUEST:</strong> Please obtain my records FROM the entity listed below and send them TO NY Brain Spine &amp; Joint.</label>
-                <label class="inline-check"><input type="radio" name="phi-direction" value="release" /> <strong>RELEASE:</strong> Please send my NY Brain Spine &amp; Joint records TO the recipient listed below.</label>
-              </div>
-
-              <p><strong>Recipient/Entity Information:</strong></p>
-              <div class="ack-subform">
-                <input type="text" placeholder="Name" maxlength="200" />
-                <input type="text" placeholder="Address / Fax / Email" maxlength="200" />
-              </div>
-
-              <p><strong>Purpose of Disclosure:</strong></p>
-              <div class="ack-subform">
-                <label class="inline-check"><input type="radio" name="phi-purpose" value="individual" /> At the request of the individual</label>
-                <label class="inline-check"><input type="radio" name="phi-purpose" value="legal" /> Legal</label>
-                <label class="inline-check"><input type="radio" name="phi-purpose" value="insurance" /> Insurance</label>
-                <label class="inline-check"><input type="radio" name="phi-purpose" value="other" /> Other:</label>
-                <input type="text" placeholder="Specify other purpose" maxlength="200" />
-              </div>
-
               <p><strong>These records may be obtained from:</strong></p>
               <p class="muted">Please Mail/Fax or Email to New York Brain Spine &amp; Joint:<br />
                 1175 Montauk Highway Suite 3, West Islip, NY 11795<br />
@@ -1770,7 +1749,33 @@
               <input type="text" placeholder="Date or Event" maxlength="200" />
             </div>
             <div class="ack-doc" data-lang-only="es">
-              <p class="muted"><em>Traducción al español pendiente. Mientras tanto, esta autorización aplica conforme al texto en inglés. Una copia traducida estará disponible al firmar.</em></p>
+              <p>Por la presente autorizo al centro médico mencionado anteriormente a utilizar, divulgar u obtener la siguiente información protegida:</p>
+              <div class="ack-subform">
+                <label class="inline-check"><input type="checkbox" /> Todos los expedientes médicos</label>
+                <label class="inline-check"><input type="checkbox" /> Expedientes médicos específicos, especificar:</label>
+                <input type="text" placeholder="Especificar expedientes" maxlength="200" />
+                <label class="inline-check"><input type="checkbox" /> Imágenes médicas (CD), especificar:</label>
+                <input type="text" placeholder="Especificar imágenes" maxlength="200" />
+                <label class="inline-check"><input type="checkbox" /> Otros, especificar:</label>
+                <input type="text" placeholder="Especificar otros" maxlength="200" />
+              </div>
+
+              <p><strong>Estos registros se pueden obtener a:</strong></p>
+              <p class="muted">Por favor, envíe por correo postal, fax o correo electrónico a New York Brain Spine &amp; Joint:<br />
+                1175 Montauk Highway, Suite 3, West Islip, NY 11795<br />
+                Fax: 631-500-9444<br />
+                Correo electrónico: medicalrecords@mneurosurgery.com</p>
+
+              <ul>
+                <li><strong>Derecho de revocación:</strong> Usted tiene derecho a revocar esta autorización por escrito, mediante su firma. Sin embargo, dicha revocación no afectará a ninguna difusión que ya hayamos realizado basándonos en su autorización previa.</li>
+                <li><strong>Cumplimiento de la HIPAA:</strong> La clínica proporciona este formulario para cumplir con la Ley de Portabilidad y Responsabilidad de Seguros Médicos de 1996 (HIPAA). Entiendo que los usos y divulgaciones ya realizados en base a mi permiso original no pueden ser revocados.</li>
+                <li><strong>Redifusión:</strong> Entiendo que es posible que la información utilizada o divulgada con mi permiso pueda ser compartida nuevamente por el destinatario y ya no esté protegida por las Normas de Privacidad de la HIPAA.</li>
+                <li><strong>Firma voluntaria:</strong> Entiendo que el tratamiento por parte de cualquier entidad no puede estar condicionado a mi firma de esta autorización (a menos que el tratamiento se solicite únicamente para crear información médica para un tercero o para participar en un estudio de investigación) y que puedo tener el derecho de negarme a firmar esta autorización.</li>
+                <li><strong>Copias:</strong> Recibiré una copia de esta autorización después de haberla firmado. Una copia de esta autorización es tan válida como el original.</li>
+              </ul>
+
+              <p><strong>Vigencia:</strong> La presente autorización tendrá una vigencia de <strong>un año</strong> a partir de la fecha de la firma, salvo que se especifique lo contrario a continuación:</p>
+              <input type="text" placeholder="Fecha o acontecimiento" maxlength="200" />
             </div>
             <div class="ack-checkbox">
               <input type="checkbox" id="ack-hipaa-disc" />
@@ -1961,7 +1966,7 @@
           </div>
         </div>
 
-        <!-- ============ ACK 6: Notice of Privacy Practices (NPP-EN body wired in 2026-05-06) ============ -->
+        <!-- ============ ACK 6: Notice of Privacy Practices (EN + ES bodies wired 2026-05-06) ============ -->
         <div class="ack-card">
           <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
             <div>
@@ -2043,7 +2048,77 @@
                 Toll-free: 1-800-368-1019, TTD: 1-800-537-7697</p>
             </div>
             <div class="ack-doc" data-lang-only="es">
-              <p class="muted"><em>Traducción al español pendiente. Mientras tanto, este Aviso aplica conforme al texto en inglés. Una copia traducida estará disponible al firmar.</em></p>
+              <p class="muted">Fecha de entrada en vigor: 5 de mayo de 2026</p>
+              <p>ESTE AVISO DESCRIBE CÓMO SE PUEDE UTILIZAR Y DIFUNDIR SU INFORMACIÓN MÉDICA, ASÍ COMO LA FORMA EN QUE USTED PUEDE ACCEDER A DICHA INFORMACIÓN. LÉALO CON ATENCIÓN.</p>
+
+              <p><strong>1. Nuestra obligación legal</strong></p>
+              <p>La ley nos exige mantener la privacidad de su información médica protegida (PHI), proporcionarle este Aviso sobre nuestras obligaciones legales y prácticas de privacidad, y cumplir con los términos actualmente vigentes.</p>
+
+              <p><strong>2. Cómo podemos utilizar y difundir su información</strong></p>
+              <p>Podemos utilizar y divulgar su PHI sin su autorización por escrito para los siguientes fines:</p>
+              <p><strong>Tratamiento:</strong> Para proporcionar, coordinar o gestionar su atención médica y los servicios relacionados en New York Brain, Spine &amp; Joint. Esto incluye la comunicación entre los proveedores de nuestra clínica multidisciplinaria (por ejemplo, médicos, terapeutas, especialistas).</p>
+              <p><strong>Pago:</strong> Para facturar y cobrar el pago de los servicios que se le prestan, incluyendo el intercambio de información con las compañías de seguros.</p>
+              <p><strong>Operaciones de atención médica:</strong> Para operar nuestra clínica, incluyendo la evaluación de la calidad, la capacitación del personal, la concesión de licencias y las funciones administrativas.</p>
+
+              <p><strong>3. Otros usos y divulgaciones permitidos</strong></p>
+              <p>También podemos usar o difundir su PHI sin su autorización cuando lo exija o lo permita la ley, incluyendo:</p>
+              <ul>
+                <li>Actividades de salud pública (por ejemplo, notificación de enfermedades)</li>
+                <li>Actividades de supervisión sanitaria (p. ej., auditorías, inspecciones)</li>
+                <li>Procedimientos legales (órdenes judiciales, citaciones)</li>
+                <li>Fines de aplicación de la ley</li>
+                <li>Para evitar una amenaza grave para la salud o la seguridad</li>
+                <li>Reclamaciones de indemnización laboral</li>
+              </ul>
+              <p>Una vez que la información se divulga a un tercero (con su autorización), dicho destinatario puede volver a difundirla y es posible que ya no esté protegida por las leyes federales de privacidad.</p>
+
+              <p><strong>4. Usos que requieren su autorización</strong></p>
+              <p>Obtendremos su autorización por escrito antes de:</p>
+              <ul>
+                <li>Utilizar o divulgar notas de psicoterapia (si corresponde)</li>
+                <li>Comunicaciones de marketing (cuando sea necesario)</li>
+                <li>Venta de su información de salud: No vendemos su información de salud. Sin embargo, si alguna vez tuviéramos la intención de hacerlo, la ley nos exige obtener primero su autorización por escrito.</li>
+              </ul>
+              <p>Usted puede revocar su autorización en cualquier momento por escrito.</p>
+
+              <p><strong>5. Protecciones adicionales bajo la ley de Nueva York</strong></p>
+              <p>Ciertos tipos de información cuentan con protección adicional bajo la ley del estado de Nueva York y la ley federal, incluyendo:</p>
+              <ul>
+                <li>Registros de salud mental</li>
+                <li>Información relacionada con el VIH/SIDA</li>
+                <li>Registros de tratamiento de trastornos por consumo de sustancias: Los registros de SUD tienen protecciones más estrictas que los registros médicos estándar y, por lo general, no pueden compartirse para fines de tratamiento, pago u operaciones sin un consentimiento específico por separado.</li>
+                <li>Información de pruebas genéticas</li>
+              </ul>
+              <p>No divulgaremos esta información sin su consentimiento específico por escrito, a menos que la ley lo permita.</p>
+
+              <p><strong>6. Sus derechos</strong></p>
+              <p>Usted tiene los siguientes derechos con respecto a su información de salud:</p>
+              <ul>
+                <li><strong>Derecho de acceso:</strong> Puede solicitar copias de sus registros médicos.</li>
+                <li><strong>Derecho de enmienda:</strong> Puede solicitar correcciones a sus registros si cree que son incorrectos.</li>
+                <li><strong>Derecho a un informe de divulgaciones:</strong> Puede solicitar una lista de ciertas divulgaciones que hayamos realizado.</li>
+                <li><strong>Derecho a solicitar restricciones:</strong> Puede solicitar límites sobre cómo usamos o difundimos su información (no siempre estamos obligados a aceptar).</li>
+                <li><strong>Derecho a comunicaciones confidenciales:</strong> Puede solicitar que nos comuniquemos con usted de una manera específica (por ejemplo, solo por correo).</li>
+                <li><strong>Derecho a una copia impresa:</strong> Puede solicitar una copia impresa de este Aviso en cualquier momento.</li>
+              </ul>
+              <p>Si paga un servicio íntegramente de su bolsillo, tiene derecho a solicitar que no compartamos esa información con su plan de salud para fines de pago u operaciones, y debemos aceptar esta solicitud.</p>
+
+              <p><strong>7. Notificación de violaciones</strong></p>
+              <p>Tenemos la obligación legal de notificar a las personas afectadas tras una violación de la información médica protegida no segura. Se le notificará si ocurre una violación que pueda haber comprometido la privacidad o la seguridad de su información.</p>
+
+              <p><strong>8. Cambios a este Aviso</strong></p>
+              <p>Nos reservamos el derecho de modificar este Aviso en cualquier momento. Cualquier cambio se aplicará a toda la información que mantenemos y se publicará en nuestra clínica y en nuestro sitio web (si corresponde).</p>
+
+              <p><strong>9. Información de contacto</strong></p>
+              <p>Si tiene preguntas, inquietudes o desea ejercer sus derechos, comuníquese con el Oficial de Privacidad de New York Brain, Spine &amp; Joint, 1175 Montauk Highway Suite 3, West Islip, NY 11795. Teléfono: (631) 600-9400.</p>
+
+              <p><strong>10. Reclamos</strong></p>
+              <p>Si cree que se han violado sus derechos de privacidad, puede presentar una queja ante New York Brain, Spine &amp; Joint o ante el Departamento de Salud y Servicios Humanos de los Estados Unidos. No se le penalizará por presentar una queja.<br />
+                Oficina de Derechos Civiles<br />
+                Departamento de Salud y Servicios Humanos de los Estados Unidos<br />
+                200 Independence Avenue, S.W., Sala 509F, Edificio HHH, Washington, D.C. 20201<br />
+                Correo electrónico: OCRMail@hhs.gov<br />
+                Línea gratuita: 1-800-368-1019, TTD: 1-800-537-7697</p>
             </div>
             <div class="ack-checkbox">
               <input type="checkbox" id="ack-npp" />
