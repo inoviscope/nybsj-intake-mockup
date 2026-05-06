@@ -572,10 +572,11 @@
           <strong>you@example.com</strong>.
           <span data-i18n="inbox_click">Click the link in your inbox to continue.</span>
         </p>
-        <p class="muted">
+        <p class="muted" id="resend-line">
           <span data-i18n="inbox_didnt">Didn't get it? Check your spam folder, or</span>
-          <a href="#" style="color: var(--cyan);" data-i18n="inbox_resend">resend the link</a>.
+          <a href="#" id="resend-link" style="color: var(--cyan);" data-i18n="inbox_resend">resend the link</a>.
         </p>
+        <p class="muted" id="resend-confirm" style="display: none; color: var(--cyan);" data-i18n="inbox_resent">Link resent. Check your inbox again.</p>
       </div>
     </section>
 
@@ -1962,6 +1963,7 @@
       inbox_click: "Click the link in your inbox to continue.",
       inbox_didnt: "Didn't get it? Check your spam folder, or",
       inbox_resend: "resend the link",
+      inbox_resent: "Link resent. Check your inbox again.",
 
       // Common
       step: "Step",
@@ -2284,6 +2286,7 @@
       inbox_click: "Haga clic en el enlace en su bandeja de entrada para continuar.",
       inbox_didnt: "¿No lo recibió? Revise su carpeta de spam, o",
       inbox_resend: "reenvíe el enlace",
+      inbox_resent: "Enlace reenviado. Revise su bandeja de entrada nuevamente.",
 
       // Common
       step: "Paso",
@@ -2663,6 +2666,18 @@
       applyBranch(btn.dataset.branch);
     });
   });
+
+  // Resend-link confirmation on the inbox screen
+  var resendLink = document.getElementById('resend-link');
+  if (resendLink) {
+    resendLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      var line = document.getElementById('resend-line');
+      var confirm = document.getElementById('resend-confirm');
+      if (line) line.style.display = 'none';
+      if (confirm) confirm.style.display = 'block';
+    });
+  }
 
   // Continue / Back / Submit buttons — walk through the screen order
   var screenOrder = ['email','inbox','welcome','demographics','patient-info','step3','consent','done'];
