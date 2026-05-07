@@ -743,9 +743,10 @@
   <button data-screen="demographics">4. Demographics</button>
   <button data-screen="patient-info">5. Patient Info</button>
   <button data-screen="patient-info-2">6. Patient Info (cont.)</button>
-  <button data-screen="step3">7. Insurance / Claim / Acks</button>
-  <button data-screen="consent">8. Consent</button>
-  <button data-screen="done">9. Submitted</button>
+  <button data-screen="step3">7. Insurance &amp; Visit</button>
+  <button data-screen="acks">8. Acknowledgments</button>
+  <button data-screen="consent">9. Consent</button>
+  <button data-screen="done">10. Submitted</button>
 </nav>
 
 <header class="app-header">
@@ -809,8 +810,8 @@
     <!-- ============ SCREEN 3: WELCOME / LOCATION ============ -->
     <section id="screen-welcome" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 1 <span data-i18n="of">of</span> 6</span>
-        <div class="bar"><span style="width: 17%"></span></div>
+        <span><span data-i18n="step">Step</span> 1 <span data-i18n="of">of</span> 7</span>
+        <div class="bar"><span style="width: 14%"></span></div>
       </div>
 
       <div class="card">
@@ -870,8 +871,8 @@
     <!-- ============ SCREEN 4: DEMOGRAPHICS ============ -->
     <section id="screen-demographics" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 2 <span data-i18n="of">of</span> 6</span>
-        <div class="bar"><span style="width: 33%"></span></div>
+        <span><span data-i18n="step">Step</span> 2 <span data-i18n="of">of</span> 7</span>
+        <div class="bar"><span style="width: 29%"></span></div>
       </div>
 
       <div class="card">
@@ -1151,8 +1152,8 @@
     <!-- ============ SCREEN 5: PATIENT INFO (height, weight, smoking, devices, allergies, ROS) ============ -->
     <section id="screen-patient-info" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 3 <span data-i18n="of">of</span> 6</span>
-        <div class="bar"><span style="width: 50%"></span></div>
+        <span><span data-i18n="step">Step</span> 3 <span data-i18n="of">of</span> 7</span>
+        <div class="bar"><span style="width: 43%"></span></div>
       </div>
 
       <div class="card">
@@ -1226,8 +1227,8 @@
     <!-- ============ SCREEN 5b: PATIENT INFO (continued) — Review of Systems ============ -->
     <section id="screen-patient-info-2" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 4 <span data-i18n="of">of</span> 6</span>
-        <div class="bar"><span style="width: 67%"></span></div>
+        <span><span data-i18n="step">Step</span> 4 <span data-i18n="of">of</span> 7</span>
+        <div class="bar"><span style="width: 57%"></span></div>
       </div>
 
       <div class="card">
@@ -1384,11 +1385,11 @@
       </div>
     </section>
 
-    <!-- ============ SCREEN 6: STEP 3 — INSURANCE / CLAIM / ACKS ============ -->
+    <!-- ============ SCREEN 5: INSURANCE & VISIT DETAILS ============ -->
     <section id="screen-step3" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 5 <span data-i18n="of">of</span> 6</span>
-        <div class="bar"><span style="width: 83%"></span></div>
+        <span><span data-i18n="step">Step</span> 5 <span data-i18n="of">of</span> 7</span>
+        <div class="bar"><span style="width: 71%"></span></div>
       </div>
 
       <div class="branch-picker">
@@ -1658,8 +1659,23 @@
           </div>
         </div>
 
-        <h2 data-i18n="acks_h">Acknowledgments &amp; signatures</h2>
-        <p class="muted" data-i18n="acks_lead">Tap each item to read the policy and sign. The Consent for Treatment is on the next step.</p>
+        <div class="actions">
+          <button class="btn btn-secondary">&larr; <span data-i18n="back">Back</span></button>
+          <button class="btn btn-primary"><span data-i18n="continue">Continue</span> &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN 6: ACKNOWLEDGMENTS & SIGNATURES ============ -->
+    <section id="screen-acks" class="screen">
+      <div class="progress">
+        <span><span data-i18n="step">Step</span> 6 <span data-i18n="of">of</span> 7</span>
+        <div class="bar"><span style="width: 86%"></span></div>
+      </div>
+
+      <div class="card">
+        <h1 data-i18n="acks_h">Acknowledgments &amp; signatures</h1>
+        <p class="lead" data-i18n="acks_lead">Tap each item to read the policy and sign. The Consent for Treatment is on the next step.</p>
 
         <!-- ============ INFO: Patients' Bill of Rights (display-only, NYSDOH statutory) ============ -->
         <div class="ack-card info-only open">
@@ -2171,10 +2187,10 @@
       </div>
     </section>
 
-    <!-- ============ SCREEN 6: CONSENT FOR TREATMENT ============ -->
+    <!-- ============ SCREEN 7: CONSENT FOR TREATMENT ============ -->
     <section id="screen-consent" class="screen">
       <div class="progress">
-        <span><span data-i18n="step">Step</span> 6 <span data-i18n="of">of</span> 6</span>
+        <span><span data-i18n="step">Step</span> 7 <span data-i18n="of">of</span> 7</span>
         <div class="bar"><span style="width: 100%"></span></div>
       </div>
 
@@ -3358,7 +3374,7 @@
   });
 
   // === Continue / Back / Submit buttons (validation-gated) ===
-  var screenOrder = ['email','inbox','welcome','demographics','patient-info','patient-info-2','step3','consent','done'];
+  var screenOrder = ['email','inbox','welcome','demographics','patient-info','patient-info-2','step3','acks','consent','done'];
   document.querySelectorAll('.screen .btn-primary, .screen .btn-secondary').forEach(function (btn) {
     var labelSpan = btn.querySelector('[data-i18n]');
     var key = labelSpan ? labelSpan.dataset.i18n : btn.dataset.i18n;
