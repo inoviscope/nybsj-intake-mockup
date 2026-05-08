@@ -1079,7 +1079,17 @@
           </div>
           <div class="field">
             <label data-i18n="emerg_rel">Relationship</label>
-            <input type="text" data-i18n-placeholder="emerg_rel_placeholder" placeholder="e.g., Spouse, Parent, Friend" maxlength="200" />
+            <select id="emerg-rel-select" onchange="document.getElementById('emerg-rel-other-wrap').style.display = this.value === 'other' ? 'block' : 'none'">
+              <option value="" data-i18n="emerg_rel_choose">Select...</option>
+              <option value="spouse" data-i18n="emerg_rel_spouse">Spouse</option>
+              <option value="parent" data-i18n="emerg_rel_parent">Parent</option>
+              <option value="sibling" data-i18n="emerg_rel_sibling">Sibling</option>
+              <option value="child" data-i18n="emerg_rel_child">Child</option>
+              <option value="other" data-i18n="emerg_rel_other">Other (specify)</option>
+            </select>
+            <div id="emerg-rel-other-wrap" style="display: none; margin-top: 8px;">
+              <input type="text" id="emerg-rel-other" data-i18n-placeholder="emerg_rel_other_placeholder" placeholder="Specify relationship" maxlength="200" />
+            </div>
           </div>
         </div>
         <div class="row">
@@ -1158,7 +1168,7 @@
 
       <div class="card">
         <h1 data-i18n="patinfo_h1">Patient information</h1>
-        <p class="lead" data-i18n="patinfo_lead">A few quick health details so your provider has the right context for your visit.</p>
+        <p class="lead" data-i18n="patinfo_lead">Your health background and history so your provider has the right context for your visit.</p>
 
         <div class="row">
           <div class="field">
@@ -1217,6 +1227,66 @@
           <input type="text" data-i18n-placeholder="allergies_list_placeholder" placeholder="If yes, list allergies and reactions" style="margin-top: 8px;" maxlength="200" />
         </div>
 
+        <h2 data-i18n="pmh_h">Past medical history</h2>
+        <p class="muted" data-i18n="pmh_lead">Check any conditions you currently have or have had in the past.</p>
+
+        <div class="ros-system">
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_htn">High blood pressure</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_diabetes">Diabetes</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_heart">Heart disease</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_stroke">Stroke / TIA</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_cancer">Cancer</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_lung">Asthma / COPD / Lung disease</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_thyroid">Thyroid disease</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_kidney">Kidney disease</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_liver">Liver disease</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_mood">Depression / Anxiety</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_seizures">Seizures / Epilepsy</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_bleed">Bleeding or clotting disorder</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="pmh_none">None of the above</span></label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label data-i18n="pmh_other">Other conditions or details</label>
+            <textarea rows="2" maxlength="1000" data-i18n-placeholder="pmh_other_placeholder" placeholder="List any other conditions or relevant details"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label data-i18n="pmh_surgeries">Past surgeries or hospitalizations</label>
+            <textarea rows="2" maxlength="1000" data-i18n-placeholder="pmh_surgeries_placeholder" placeholder="Type and approximate year (e.g., appendectomy 2015)"></textarea>
+          </div>
+        </div>
+
+        <h2 data-i18n="fmh_h">Family medical history</h2>
+        <p class="muted" data-i18n="fmh_lead">Check any condition that runs in your immediate family (parents, siblings, children, grandparents).</p>
+
+        <div class="ros-system">
+          <div class="ros-symptoms">
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="fmh_htn">High blood pressure</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="fmh_diabetes">Diabetes</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="fmh_heart">Heart disease</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="fmh_stroke">Stroke / TIA</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="fmh_cancer">Cancer</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="fmh_lung">Asthma / COPD / Lung disease</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="fmh_thyroid">Thyroid disease</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="fmh_kidney">Kidney disease</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="fmh_neuro">Neurological / spine condition</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="fmh_genetic">Genetic / inherited condition</span></label>
+            <label class="inline-check"><input type="checkbox" /> <span data-i18n="fmh_none">None known</span></label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label data-i18n="fmh_details">Details (which condition, which family member)</label>
+            <textarea rows="2" maxlength="1000" data-i18n-placeholder="fmh_details_placeholder" placeholder="e.g., Father had heart attack at 55; sister with breast cancer"></textarea>
+          </div>
+        </div>
+
         <div class="actions">
           <button class="btn btn-secondary">&larr; <span data-i18n="back">Back</span></button>
           <button class="btn btn-primary"><span data-i18n="continue">Continue</span> &rarr;</button>
@@ -1233,7 +1303,7 @@
 
       <div class="card">
         <h1 data-i18n="patinfo2_h1">Patient information (continued)</h1>
-        <p class="lead" data-i18n="patinfo2_lead">A quick symptom check so your provider knows what to focus on during your visit.</p>
+        <p class="lead" data-i18n="patinfo2_lead">A quick symptom check so your provider has the full picture before your visit.</p>
 
         <h2 data-i18n="ros_h">Review of systems</h2>
         <p class="muted" data-i18n="ros_lead2">Please check all that apply. If none, select "None" for that section.</p>
@@ -1767,7 +1837,7 @@
               </div>
 
               <p><strong>These records may be obtained from:</strong></p>
-              <p class="muted">Please Mail/Fax or Email to New York Brain Spine &amp; Joint:<br />
+              <p class="muted">Please Mail/Fax or Email to New York Brain, Spine &amp; Joint/Link Medical Services:<br />
                 1175 Montauk Highway Suite 3, West Islip, NY 11795<br />
                 Fax: 631-500-9444<br />
                 Email: medicalrecords@mneurosurgery.com</p>
@@ -1784,6 +1854,9 @@
               <input type="text" placeholder="Date or Event" maxlength="200" />
             </div>
             <div class="ack-doc" data-lang-only="es">
+              <div class="draft-banner">
+                ⚠ UNOFFICIAL TRANSLATION. Traducción al español preliminar. Pendiente de aprobación oficial por parte de NYBSJ.
+              </div>
               <p>Por la presente autorizo al centro médico mencionado anteriormente a utilizar, divulgar u obtener la siguiente información protegida:</p>
               <div class="ack-subform">
                 <label class="inline-check"><input type="checkbox" /> Todos los expedientes médicos</label>
@@ -1796,7 +1869,7 @@
               </div>
 
               <p><strong>Estos registros se pueden obtener a:</strong></p>
-              <p class="muted">Por favor, envíe por correo postal, fax o correo electrónico a New York Brain Spine &amp; Joint:<br />
+              <p class="muted">Por favor, envíe por correo postal, fax o correo electrónico a New York Brain, Spine &amp; Joint/Link Medical Services:<br />
                 1175 Montauk Highway, Suite 3, West Islip, NY 11795<br />
                 Fax: 631-500-9444<br />
                 Correo electrónico: medicalrecords@mneurosurgery.com</p>
@@ -1843,6 +1916,9 @@
               <p><strong>The patient was issued and explained the NYSDOH Patients' Bill of Rights for Diagnostic and Treatment Centers (Clinics) in their preferred language.</strong></p>
             </div>
             <div class="ack-doc" data-lang-only="es">
+              <div class="draft-banner">
+                ⚠ UNOFFICIAL TRANSLATION. Traducción al español preliminar. Pendiente de aprobación oficial por parte de NYBSJ.
+              </div>
               <ol>
                 <li>Solicito que el pago de los beneficios del seguro autorizado, incluido Medicare si soy beneficiario de Medicare, se realice en mi nombre al proveedor que se encuentra a continuación, para cualquier servicio que me brinde el proveedor mencionado debajo.</li>
                 <li>Autorizo el acceso a cualquier información médica de otro tipo necesaria para determinar estos beneficios o los beneficios pagaderos por servicios relacionados por el proveedor, CMS, mi compañía de seguros u otra entidad si así lo solicita. El proveedor mantendrá en sus archivos la autorización original.</li>
@@ -1877,7 +1953,7 @@
             </div>
             <div class="ack-body">
               <div class="ack-doc" data-lang-only="en">
-                <p>I hereby enter into the following agreement with New York Brain, Spine &amp; Joint, hereinafter known as "the provider", in order to guarantee payment for services rendered by the provider to me, incidental to the accident.</p>
+                <p>I hereby enter into the following agreement with New York Brain, Spine &amp; Joint/Link Medical Services, hereinafter known as "the provider", in order to guarantee payment for services rendered by the provider to me, incidental to the accident.</p>
                 <p><strong>Non-No Fault Claims:</strong> I understand that I am directly and fully responsible to the provider for all medical bills for services rendered to me. I understand that I am directly and fully responsible to the provider for any remaining balance on all medical bills for services rendered to me that were submitted on my behalf to the responsible insurance carrier as applicable. This document further serves to acknowledge my responsibility to repay <strong>all</strong> remaining balances subsequent to all applicable insurance payments. I agree to make myself available to appear or correspond with the provider as often as may be necessary for any collections effort that is undertaken. I have been made aware of the charges for the services rendered under this lien assignment and acknowledge responsibility for the repayment of all outstanding balances. I further direct that my attorney shall not subsequently dispute these amounts and, at my direction, will contact this office to arrange for full payment at the time a settlement, trial or motion proceed becomes ready for disbursement.</p>
                 <p><strong>No Fault Claims:</strong> Provider acknowledges that he may not pursue any balances after partial payments are received from the appropriate No-Fault Carrier pursuant to the statutory language contained in the assignment of benefits form. To the extent applicable, patient agrees to comply with all Insurance Company regulations including, but not limited to examinations under oath and independent medical examinations. I understand that any failure on my part to comply with any condition precedent to insurance coverage, may, at the election of the medical provider, serve to revoke any assignment of No-Fault benefits. The patient herein further acknowledges their responsibility to file a timely notice of claim to the applicable insurance carrier and that any subsequent No-Fault claim denied based on the failure to provide a timely notice, at the election of the provider, may result in recovery efforts in reliance of this lien.</p>
                 <p>The Provider agrees to seek compensation from the appropriate insurance carrier prior to invoking the terms of this lien based on the accuracy of the information the patient has provided and to the extent the information is made available prior to the date of service. The patient shall provide all necessary insurance information, police reports, and any additional documentation or information deemed necessary by the provider for the submission of the aforementioned insurance claim as applicable. Failure to provide accurate insurance information leading to a viable source of coverage may serve to invalidate any executed assignment of No-Fault benefits and result in the reliance on this lien for reimbursement purposes. I am aware that No-Fault coverage is premised on a viable policy that is not exhausted. If a policy exhausts prior to collection by Provider, I acknowledge that this Lien may be invoked as a primary payment method.</p>
@@ -1887,7 +1963,10 @@
                 <p>I understand that this document may not be rescinded and that my attorney shall not honor any such rescission. I hereby instruct that in the event another attorney is substituted in my case, I direct the substituted attorney to provide the incoming attorney with a copy of this lien and that I direct any incoming attorney to honor this lien as inherent to the settlement, judgment, verdict, or other disposition of any litigation filed or contemplated on my behalf and enforceable upon the case as if it were executed by him/her. I hereby direct and authorize my attorney, on demand, to provide the status of such litigation to the provider or his attorney engaged in any collection efforts. Furthermore, I direct my attorney to contact the provider or the attorney representing the provider prior to disbursement of any funds to ascertain any outstanding balances due to Provider.</p>
               </div>
               <div class="ack-doc" data-lang-only="es">
-                <p>Por la presente celebro el siguiente acuerdo con New York Brain, Spine &amp; Joint, en adelante conocido como "el proveedor", para garantizar el pago de los servicios prestados por el proveedor a mí, incidentales al accidente.</p>
+                <div class="draft-banner">
+                  ⚠ UNOFFICIAL TRANSLATION. Traducción al español preliminar. Pendiente de aprobación oficial por parte de NYBSJ.
+                </div>
+                <p>Por la presente celebro el siguiente acuerdo con New York Brain, Spine &amp; Joint/Link Medical Services, en adelante conocido como "el proveedor", para garantizar el pago de los servicios prestados por el proveedor a mí, incidentales al accidente.</p>
                 <p><strong>Reclamaciones que no son sin culpa:</strong> Entiendo que soy directa y completamente responsable ante el proveedor de todas las facturas médicas por los servicios que me haya prestado. Entiendo que soy directa y completamente responsable ante el proveedor de cualquier saldo restante en todas las facturas médicas por servicios que me haya prestado, presentadas en mi nombre a la aseguradora responsable, según corresponda. Este documento también sirve para reconocer mi responsabilidad de reembolsar <strong>todos</strong> los saldos restantes después de todos los pagos de seguro aplicables. Acepto estar disponible para comparecer o mantener correspondencia con el proveedor con la frecuencia que sea necesaria para cualquier gestión de cobro que se realice. He sido informado de los cargos por los servicios prestados bajo esta cesión de gravamen y acepto la responsabilidad del reembolso de todos los saldos pendientes. Además, ordeno que mi abogado no impugne posteriormente estos montos y, bajo mi dirección, se comunicará con esta oficina para coordinar el pago total en el momento en que un acuerdo, juicio o procedimiento de moción esté listo para su desembolso.</p>
                 <p><strong>Reclamaciones sin culpa:</strong> El proveedor reconoce que no podrá reclamar ningún saldo después de recibir pagos parciales de la aseguradora sin culpa correspondiente, de conformidad con la normativa legal contenida en el formulario de cesión de beneficios. En la medida que corresponda, el paciente se compromete a cumplir con todas las regulaciones de la compañía de seguros, incluyendo, entre otras, los exámenes bajo juramento y los exámenes médicos independientes. Entiendo que cualquier incumplimiento por mi parte de cualquier condición precedente a la cobertura del seguro, a elección del proveedor médico, podrá dar lugar a la revocación de cualquier cesión de beneficios sin culpa. El paciente reconoce además su responsabilidad de presentar una notificación oportuna de reclamación a la aseguradora correspondiente y que cualquier reclamación posterior sin culpa denegada por no proporcionar una notificación oportuna, a elección del proveedor, podrá dar lugar a esfuerzos de recuperación en virtud de este gravamen.</p>
                 <p>El Proveedor se compromete a solicitar una compensación a la aseguradora correspondiente antes de invocar los términos de este gravamen, basándose en la exactitud de la información proporcionada por el paciente y en la medida en que dicha información esté disponible antes de la fecha del servicio. El paciente deberá proporcionar toda la información necesaria sobre el seguro, los informes policiales y cualquier documentación o información adicional que el proveedor considere necesaria para la presentación de la reclamación de seguro mencionada, según corresponda. La falta de información precisa sobre el seguro que conduzca a una fuente viable de cobertura podría invalidar cualquier cesión ejecutada de los beneficios sin culpa y dar lugar a la dependencia de este gravamen para fines de reembolso. Soy consciente de que la cobertura sin culpa se basa en una póliza viable que no se ha agotado. Si una póliza se agota antes del cobro por parte del Proveedor, reconozco que este gravamen puede invocarse como método de pago principal.</p>
@@ -1919,17 +1998,17 @@
               <span class="muted">▾</span>
             </div>
             <div class="ack-body">
-              <div class="ack-doc" data-lang-only="en">
+              <div class="ack-doc" data-lang-only="es">
+                <p class="muted"><em>No hay traducción oficial al español disponible. Se aplica la versión en inglés que se muestra a continuación.</em></p>
+              </div>
+              <div class="ack-doc">
                 <p class="muted"><strong>NEW YORK MOTOR VEHICLE NO-FAULT INSURANCE LAW: ASSIGNMENT OF BENEFITS FORM</strong><br />
                   (For accidents occurring on and after 3/1/02)</p>
-                <p>I, <em>(print patient's name)</em>, ("Assignor") hereby assign to <strong>Nitin Mariwalla MD PLLC</strong>, ("Assignee") all rights, privileges and remedies to payment for health care services provided by assignee to which I am entitled under Article 51 (the No-Fault statute) of the Insurance Law.</p>
+                <p>I, <em>(print patient's name)</em>, ("Assignor") hereby assign to <strong>New York Brain, Spine &amp; Joint/Link Medical Services</strong>, ("Assignee") all rights, privileges and remedies to payment for health care services provided by assignee to which I am entitled under Article 51 (the No-Fault statute) of the Insurance Law.</p>
                 <p>The Assignee hereby certifies that they have not received any payment from or on behalf of the Assignor and shall not pursue payment directly from the Assignor for services provided by said Assignee for injuries sustained due to the motor vehicle accident which occurred on <em>(print accident date)</em>, not withstanding any other agreement to the contrary.</p>
                 <p>This agreement may be revoked by the assignee when benefits are not payable based upon the assignor's lack of coverage and/or violation of a policy condition due to the actions or conduct of the assignor.</p>
                 <p><strong>ANY PERSON WHO KNOWINGLY AND WITH INTENT TO DEFRAUD ANY INSURANCE COMPANY OR OTHER PERSON FILES AN APPLICATION FOR COMMERCIAL INSURANCE OR A STATEMENT OF CLAIM FOR ANY COMMERCIAL OR PERSONAL INSURANCE BENEFITS CONTAINING ANY MATERIALLY FALSE INFORMATION, OR CONCEALS FOR THE PURPOSE OF MISLEADING, INFORMATION CONCERNING ANY FACT MATERIAL THERETO, AND ANY PERSON WHO, IN CONNECTION WITH SUCH APPLICATION OR CLAIM, KNOWINGLY MAKES OR KNOWINGLY ASSISTS, ABETS, SOLICITS OR CONSPIRES WITH ANOTHER TO MAKE A FALSE REPORT OF THE THEFT, DESTRUCTION, DAMAGE OR CONVERSION OF ANY MOTOR VEHICLE TO A LAW ENFORCEMENT AGENCY, THE DEPARTMENT OF MOTOR VEHICLES OR AN INSURANCE COMPANY, COMMITS A FRAUDULENT INSURANCE ACT, WHICH IS A CRIME, AND SHALL ALSO BE SUBJECT TO A CIVIL PENALTY NOT TO EXCEED FIVE THOUSAND DOLLARS AND THE VALUE OF THE SUBJECT MOTOR VEHICLE OR STATED CLAIM FOR EACH VIOLATION.</strong></p>
                 <p class="muted">NYS FORM NF-AOB (Rev 1/2004)</p>
-              </div>
-              <div class="ack-doc" data-lang-only="es">
-                <p class="muted"><em>Traducción oficial al español por NYS pendiente.</em></p>
               </div>
               <div class="ack-checkbox">
                 <input type="checkbox" id="ack-nfaob" />
@@ -1959,6 +2038,9 @@
               <p>I understand that failure to pay a bill in a timely manner (after 3 bills have been sent) may result in a further review by a collection agency and I understand that I will be further responsible for any additional fees or legal fees associated with the collection of any balance of the visit and any related procedures will be collected at the time of the services rendered based upon the best information available to the practice.</p>
             </div>
             <div class="ack-doc" data-lang-only="es">
+              <div class="draft-banner">
+                ⚠ UNOFFICIAL TRANSLATION. Traducción al español preliminar. Pendiente de aprobación oficial por parte de NYBSJ.
+              </div>
               <p>Muchas compañías de seguros, incluidas las autorizaciones de atención administrada, exigen una autorización por escrito para tratamiento y visitas de seguimiento. Es su responsabilidad como paciente obtener todo lo necesario como autorizaciones de su compañía de seguros antes de recibir servicios médicos.</p>
               <p>Si no ha recibido aprobación previa para el servicio o se le ha negado la autorización, o si no tiene <strong>beneficios fuera de la red</strong>, usted es totalmente responsable de todos los cargos. Además, usted será responsable de todos los deducibles, coseguros, copagos, cualquier servicio que no esté cubierto por su plan de seguro y cualquier servicio que tenga su compañía de seguros determinada no ser "clínicamente necesaria".</p>
               <p>Los copagos se cobran en el momento del servicio cuando pueden ser anticipados. Todos los cheques devueltos incurrirán en un cargo de servicio de $50 además de cualquier cargo cobrado por nuestra institución bancaria.</p>
@@ -1991,17 +2073,20 @@
               <p>Office appointments which are <strong>CANCELLED WITH LESS THAN 24 HOURS</strong> notification will be subject to <strong>$25.00</strong> cancellation fee. Cancellation of less than 24 hours will be reviewed on a case-by-case basis. Patients who do not show up for their appointment without a call to cancel an office appointment will be considered a <strong>NO SHOW</strong>.</p>
               <p><strong><u>Surgery</u></strong></p>
               <p>We also understand the financial stress surrounding medical care and we aim to work with every patient no matter what the circumstances may be. Given the sensitive nature of surgical scheduling and the resources that are expended to reserve Operating Room time and staff, there is a <strong>$1,500.00 fee</strong> for all canceled surgeries once the date of surgery has been confirmed and a <strong>$3,000 fee</strong> for cancellation within 2 weeks of the stated date.</p>
-              <p><strong>Your signature acknowledges that you understand that failure to cancel an appointment or a surgery once a date is selected may result in additional fees that are not covered by health insurance and reflect the cost of such cancellation to New York Brain, Spine &amp; Joint.</strong></p>
+              <p><strong>Your signature acknowledges that you understand that failure to cancel an appointment or a surgery once a date is selected may result in additional fees that are not covered by health insurance and reflect the cost of such cancellation to New York Brain, Spine &amp; Joint/Link Medical Services.</strong></p>
               <p><em>Our practice firmly believes that good physician/patient relationships are based upon understanding and good communication. Your health is important to us.</em></p>
             </div>
             <div class="ack-doc" data-lang-only="es">
+              <div class="draft-banner">
+                ⚠ UNOFFICIAL TRANSLATION. Traducción al español preliminar. Pendiente de aprobación oficial por parte de NYBSJ.
+              </div>
               <h4 style="margin-top: 0;">Citas</h4>
               <p>Cuando programamos citas, reservamos tiempo y recursos profesionales para atender las necesidades individuales de nuestros pacientes, incluyendo tiempo para una consulta personalizada. Cuando un paciente no se presenta a una cita o no la cancela con al menos 24 horas de antelación, nuestros valiosos recursos quedan inactivos. Y lo que es más importante, se pierde una oportunidad de atender al paciente.</p>
               <p>Entendemos que hay ocasiones en las que un paciente debe faltar a una cita debido a circunstancias imprevistas o a un conflicto de horarios fuera de su control. En tal caso, le pedimos que <strong>llame a nuestra oficina y cancele su cita al menos 24 horas antes de la visita programada</strong>. Esta cortesía permite al personal de nuestras oficinas programar la visita de otros pacientes que también necesite atención médica.</p>
               <p>Las citas en el consultorio que se <strong>CANCELEN CON MENOS DE 24 HORAS</strong> de antelación estarán sujetas a un cargo por cancelación de <strong>$25.00</strong>. Las cancelaciones con menos de 24 horas de anticipación se evaluarán caso por caso. Los pacientes que no se presenten a su cita sin haber llamado para cancelarla serán considerados como <strong>NO PRESENTES</strong>.</p>
               <h4>Cirugía</h4>
               <p>También comprendemos el estrés financiero que rodea a la atención médica y nuestro objetivo es trabajar con cada paciente sin importar cuáles sean las circunstancias. Dada la naturaleza delicada de la programación quirúrgica y los recursos que se invierten para reservar el tiempo del quirófano y el personal, se aplica un cargo de <strong>$1,500.00</strong> por todas las cirugías canceladas una vez que se ha confirmado la fecha de la cirugía y un cargo de <strong>$3,000</strong> por cancelación dentro de 2 semanas de la fecha indicada.</p>
-              <p><strong>Con su firma, usted reconoce que comprende que no cancelar una cita o una cirugía una vez seleccionada la fecha puede dar lugar a cargos adicionales que no están cubiertos por el seguro médico y reflejan el costo de dicha cancelación para New York Brain, Spine &amp; Joint.</strong></p>
+              <p><strong>Con su firma, usted reconoce que comprende que no cancelar una cita o una cirugía una vez seleccionada la fecha puede dar lugar a cargos adicionales que no están cubiertos por el seguro médico y reflejan el costo de dicha cancelación para New York Brain, Spine &amp; Joint/Link Medical Services.</strong></p>
               <p><em>Nuestra clínica cree firmemente que las buenas relaciones entre médico y paciente se basan en la comprensión y la buena comunicación. Su salud es importante para nosotros.</em></p>
             </div>
             <div class="ack-checkbox">
@@ -2034,7 +2119,7 @@
               <p><strong>2. How We May Use and Disclose Your Information</strong></p>
               <p>We may use and disclose your PHI without your written authorization for the following purposes:</p>
               <ul>
-                <li><strong>Treatment:</strong> To provide, coordinate, or manage your healthcare and related services at New York Brain, Spine &amp; Joint. This includes communication among providers in our multidisciplinary clinic (e.g., physicians, therapists, specialists).</li>
+                <li><strong>Treatment:</strong> To provide, coordinate, or manage your healthcare and related services at New York Brain, Spine &amp; Joint/Link Medical Services. This includes communication among providers in our multidisciplinary clinic (e.g., physicians, therapists, specialists).</li>
                 <li><strong>Payment:</strong> To bill and collect payment for services provided to you, including sharing information with insurance companies.</li>
                 <li><strong>Healthcare Operations:</strong> To operate our clinic, including quality assessment, staff training, licensing, and administrative functions.</li>
               </ul>
@@ -2089,14 +2174,17 @@
               <p>We reserve the right to change this Notice at any time. Any changes will apply to all information we maintain and will be posted in our clinic and on our website (if applicable).</p>
 
               <p><strong>9. Contact Information</strong></p>
-              <p>If you have questions, concerns, or wish to exercise your rights, please contact our Privacy Officer at New York Brain, Spine &amp; Joint, 1175 Montauk Highway Suite 3, West Islip, NY 11795. Phone: (631) 600-9400.</p>
+              <p>If you have questions, concerns, or wish to exercise your rights, please contact our Privacy Officer at New York Brain, Spine &amp; Joint/Link Medical Services, 1175 Montauk Highway Suite 3, West Islip, NY 11795. Phone: (631) 600-9400.</p>
 
               <p><strong>10. Complaints</strong></p>
-              <p>If you believe your privacy rights have been violated, you may file a complaint with New York Brain, Spine &amp; Joint or with the U.S. Department of Health and Human Services. You will not be penalized for filing a complaint.<br />
+              <p>If you believe your privacy rights have been violated, you may file a complaint with New York Brain, Spine &amp; Joint/Link Medical Services or with the U.S. Department of Health and Human Services. You will not be penalized for filing a complaint.<br />
                 Email: OCRMail@hhs.gov<br />
                 Toll-free: 1-800-368-1019, TTD: 1-800-537-7697</p>
             </div>
             <div class="ack-doc" data-lang-only="es">
+              <div class="draft-banner">
+                ⚠ UNOFFICIAL TRANSLATION. Traducción al español preliminar. Pendiente de aprobación oficial por parte de NYBSJ.
+              </div>
               <p class="muted">Fecha de entrada en vigor: 5 de mayo de 2026</p>
               <p>ESTE AVISO DESCRIBE CÓMO SE PUEDE UTILIZAR Y DIFUNDIR SU INFORMACIÓN MÉDICA, ASÍ COMO LA FORMA EN QUE USTED PUEDE ACCEDER A DICHA INFORMACIÓN. LÉALO CON ATENCIÓN.</p>
 
@@ -2105,7 +2193,7 @@
 
               <p><strong>2. Cómo podemos utilizar y difundir su información</strong></p>
               <p>Podemos utilizar y divulgar su PHI sin su autorización por escrito para los siguientes fines:</p>
-              <p><strong>Tratamiento:</strong> Para proporcionar, coordinar o gestionar su atención médica y los servicios relacionados en New York Brain, Spine &amp; Joint. Esto incluye la comunicación entre los proveedores de nuestra clínica multidisciplinaria (por ejemplo, médicos, terapeutas, especialistas).</p>
+              <p><strong>Tratamiento:</strong> Para proporcionar, coordinar o gestionar su atención médica y los servicios relacionados en New York Brain, Spine &amp; Joint/Link Medical Services. Esto incluye la comunicación entre los proveedores de nuestra clínica multidisciplinaria (por ejemplo, médicos, terapeutas, especialistas).</p>
               <p><strong>Pago:</strong> Para facturar y cobrar el pago de los servicios que se le prestan, incluyendo el intercambio de información con las compañías de seguros.</p>
               <p><strong>Operaciones de atención médica:</strong> Para operar nuestra clínica, incluyendo la evaluación de la calidad, la capacitación del personal, la concesión de licencias y las funciones administrativas.</p>
 
@@ -2159,10 +2247,10 @@
               <p>Nos reservamos el derecho de modificar este Aviso en cualquier momento. Cualquier cambio se aplicará a toda la información que mantenemos y se publicará en nuestra clínica y en nuestro sitio web (si corresponde).</p>
 
               <p><strong>9. Información de contacto</strong></p>
-              <p>Si tiene preguntas, inquietudes o desea ejercer sus derechos, comuníquese con el Oficial de Privacidad de New York Brain, Spine &amp; Joint, 1175 Montauk Highway Suite 3, West Islip, NY 11795. Teléfono: (631) 600-9400.</p>
+              <p>Si tiene preguntas, inquietudes o desea ejercer sus derechos, comuníquese con el Oficial de Privacidad de New York Brain, Spine &amp; Joint/Link Medical Services, 1175 Montauk Highway Suite 3, West Islip, NY 11795. Teléfono: (631) 600-9400.</p>
 
               <p><strong>10. Reclamos</strong></p>
-              <p>Si cree que se han violado sus derechos de privacidad, puede presentar una queja ante New York Brain, Spine &amp; Joint o ante el Departamento de Salud y Servicios Humanos de los Estados Unidos. No se le penalizará por presentar una queja.<br />
+              <p>Si cree que se han violado sus derechos de privacidad, puede presentar una queja ante New York Brain, Spine &amp; Joint/Link Medical Services o ante el Departamento de Salud y Servicios Humanos de los Estados Unidos. No se le penalizará por presentar una queja.<br />
                 Oficina de Derechos Civiles<br />
                 Departamento de Salud y Servicios Humanos de los Estados Unidos<br />
                 200 Independence Avenue, S.W., Sala 509F, Edificio HHH, Washington, D.C. 20201<br />
@@ -2172,6 +2260,36 @@
             <div class="ack-checkbox">
               <input type="checkbox" id="ack-npp" />
               <label for="ack-npp" data-i18n="ack_npp_check">I acknowledge receipt of the Notice of Privacy Practices.</label>
+            </div>
+            <div class="ack-sign">
+              <input type="text" class="ack-sig-input" data-i18n-placeholder="signature_placeholder" placeholder="Type to sign" maxlength="200" />
+              <input type="date" />
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ ACK 7: PHL Self-Referral Disclosure (universal, all patients per Malese 2026-05-07) ============ -->
+        <div class="ack-card">
+          <div class="ack-head" onclick="this.parentElement.classList.toggle('open')">
+            <div>
+              <div class="ack-title" data-i18n="ack_phl_title">PHL Self-Referral Disclosure</div>
+            </div>
+            <span class="muted">▾</span>
+          </div>
+          <div class="ack-body">
+            <div class="ack-doc" data-lang-only="es">
+              <p class="muted"><em>No hay traducción oficial al español disponible. Se aplica la versión en inglés que se muestra a continuación.</em></p>
+            </div>
+            <div class="ack-doc">
+              <p><strong>NOTICE TO PATIENTS:</strong> Because of concerns that there may be a conflict of interest when a physician refers a patient to a health care facility in which the physician has a financial interest, New York State passed a law. The law prohibits me, with certain exceptions, from referring you for clinical laboratory services, pharmacy services, radiation therapy services, or x-ray or imaging services to a facility in which I or any of my immediate family members have a financial interest. If certain exceptions in the law apply, or if I am referring you for other than clinical laboratory, pharmacy, radiation therapy, or x-ray or imaging services, I can make the referral under one condition. The condition is that I disclose this financial interest and tell you about alternative providers where you may go to obtain these services. This disclosure is intended to help you make a fully informed decision about your health care.</p>
+              <p>I or my immediate family members have a financial relationship with the following providers:</p>
+              <p><strong>New York Brain, Spine &amp; Joint/Link Medical Services</strong></p>
+              <p>For more information about alternative providers, please ask me or my staff. We will provide you with names and addresses of providers best suited to your individual needs that are nearest to your home or place of work.</p>
+              <p>Sincerely,<br />Dr Nitin Mariwalla</p>
+            </div>
+            <div class="ack-checkbox">
+              <input type="checkbox" id="ack-phl" />
+              <label for="ack-phl" data-i18n="ack_phl_check">I acknowledge that I have been notified of the financial relationship with New York Brain, Spine &amp; Joint/Link Medical Services.</label>
             </div>
             <div class="ack-sign">
               <input type="text" class="ack-sig-input" data-i18n-placeholder="signature_placeholder" placeholder="Type to sign" maxlength="200" />
@@ -2199,13 +2317,13 @@
         <p class="lead" data-i18n="consent_lead">Please read carefully. By signing, you confirm you've read and agree to the terms below.</p>
 
         <div class="draft-banner">
-          ⚠ Traducción al español preliminar. Pendiente de aprobación oficial por parte de NYBSJ.
+          ⚠ UNOFFICIAL TRANSLATION. Traducción al español preliminar. Pendiente de aprobación oficial por parte de NYBSJ.
         </div>
 
         <!-- ENGLISH consent body -->
         <div class="consent-body" data-lang-only="en" tabindex="0">
           <h3>1. Consent for Care and Treatment</h3>
-          <p>I hereby voluntarily consent to receive medical care, treatment, and services deemed necessary or advisable by the physicians, nurse practitioners, physician assistants, nurses, and other healthcare professionals affiliated with New York Brain, Spine &amp; Joint. This may include, but is not limited to:</p>
+          <p>I hereby voluntarily consent to receive medical care, treatment, and services deemed necessary or advisable by the physicians, nurse practitioners, physician assistants, nurses, and other healthcare professionals affiliated with New York Brain, Spine &amp; Joint/Link Medical Services. This may include, but is not limited to:</p>
           <ul>
             <li>Laboratory testing and imaging studies</li>
             <li>Administration of medications</li>
@@ -2217,13 +2335,13 @@
           <p>I understand that all medical treatments and procedures may involve risks, including but not limited to adverse reactions, complications, or unforeseen outcomes. I have the right to ask questions and receive additional information regarding any proposed treatment.</p>
 
           <h3>3. Financial Responsibility</h3>
-          <p>I agree to be financially responsible for all services rendered, whether or not they are covered by my insurance. I authorize New York Brain, Spine &amp; Joint to release information necessary to process insurance claims and request payment directly from my insurance carrier where applicable.</p>
+          <p>I agree to be financially responsible for all services rendered, whether or not they are covered by my insurance. I authorize New York Brain, Spine &amp; Joint/Link Medical Services to release information necessary to process insurance claims and request payment directly from my insurance carrier where applicable.</p>
 
           <h3>4. HIPAA &amp; Privacy Acknowledgement</h3>
-          <p>I acknowledge that I have been offered or received a copy of New York Brain, Spine &amp; Joint's Notice of Privacy Practices, which explains how my medical information may be used and disclosed in accordance with state and federal law, including the Health Insurance Portability and Accountability Act (HIPAA).</p>
+          <p>I acknowledge that I have been offered or received a copy of New York Brain, Spine &amp; Joint/Link Medical Services's Notice of Privacy Practices, which explains how my medical information may be used and disclosed in accordance with state and federal law, including the Health Insurance Portability and Accountability Act (HIPAA).</p>
 
           <h3>5. Consent for Communication</h3>
-          <p>I consent to New York Brain, Spine &amp; Joint contacting me via phone, voicemail, email, text message, or mail regarding appointments, test results, billing matters, and other healthcare-related communications, unless I provide written notice otherwise.</p>
+          <p>I consent to New York Brain, Spine &amp; Joint/Link Medical Services contacting me via phone, voicemail, email, text message, or mail regarding appointments, test results, billing matters, and other healthcare-related communications, unless I provide written notice otherwise.</p>
 
           <h3>6. Right to Refuse or Withdraw</h3>
           <p>I understand that I have the right to refuse any treatment or procedure and may withdraw this consent at any time in writing, except to the extent that action has already been taken in reliance on this consent.</p>
@@ -2236,7 +2354,7 @@
              (two heading-typos in the source — "CONSENTIMIENT", "RIESGOGS" — corrected) -->
         <div class="consent-body" data-lang-only="es" tabindex="0">
           <h3>1. Consentimiento para la Atención y el Tratamiento</h3>
-          <p>Por la presente, doy mi consentimiento voluntario para recibir la atención médica, el tratamiento y los servicios que los médicos, enfermeros practicantes, asistentes médicos, enfermeros y otros profesionales de la salud afiliados a New York Brain, Spine &amp; Joint consideren necesarios o recomendables. Esto puede incluir, entre otros:</p>
+          <p>Por la presente, doy mi consentimiento voluntario para recibir la atención médica, el tratamiento y los servicios que los médicos, enfermeros practicantes, asistentes médicos, enfermeros y otros profesionales de la salud afiliados a New York Brain, Spine &amp; Joint/Link Medical Services consideren necesarios o recomendables. Esto puede incluir, entre otros:</p>
           <ul>
             <li>Análisis de laboratorio y pruebas de diagnóstico por imágenes</li>
             <li>Administración de medicamentos</li>
@@ -2248,13 +2366,13 @@
           <p>Entiendo que todos los tratamientos y procedimientos médicos pueden conllevar riesgos, entre los que se incluyen, entre otros, reacciones adversas, complicaciones o resultados imprevistos. Tengo derecho a hacer preguntas y a recibir información adicional sobre cualquier tratamiento que se me proponga.</p>
 
           <h3>3. Responsabilidad Financiera</h3>
-          <p>Acepto asumir la responsabilidad financiera de todos los servicios prestados, independientemente de que estén cubiertos o no por mi seguro. Autorizo a New York Brain, Spine &amp; Joint a divulgar la información necesaria para tramitar las reclamaciones al seguro y a solicitar el pago directamente a mi compañía de seguros cuando corresponda.</p>
+          <p>Acepto asumir la responsabilidad financiera de todos los servicios prestados, independientemente de que estén cubiertos o no por mi seguro. Autorizo a New York Brain, Spine &amp; Joint/Link Medical Services a divulgar la información necesaria para tramitar las reclamaciones al seguro y a solicitar el pago directamente a mi compañía de seguros cuando corresponda.</p>
 
           <h3>4. Declaración de Aceptación de la HIPAA y la Política de Privacidad</h3>
-          <p>Confirmo que se me ha entregado o que he recibido una copia del Aviso de Prácticas de Privacidad de New York Brain, Spine &amp; Joint, en el que se explica cómo se puede utilizar y divulgar mi información médica de conformidad con la legislación estatal y federal, incluida la Ley de Portabilidad y Responsabilidad del Seguro Médico (HIPAA).</p>
+          <p>Confirmo que se me ha entregado o que he recibido una copia del Aviso de Prácticas de Privacidad de New York Brain, Spine &amp; Joint/Link Medical Services, en el que se explica cómo se puede utilizar y divulgar mi información médica de conformidad con la legislación estatal y federal, incluida la Ley de Portabilidad y Responsabilidad del Seguro Médico (HIPAA).</p>
 
           <h3>5. Consentimiento para la Comunicación</h3>
-          <p>Doy mi consentimiento para que New York Brain, Spine &amp; Joint se ponga en contacto conmigo por teléfono, mensaje de voz, correo electrónico, mensaje de texto o correo postal en relación con citas, resultados de pruebas, cuestiones de facturación y otras comunicaciones relacionadas con la atención médica, a menos que indique lo contrario por escrito.</p>
+          <p>Doy mi consentimiento para que New York Brain, Spine &amp; Joint/Link Medical Services se ponga en contacto conmigo por teléfono, mensaje de voz, correo electrónico, mensaje de texto o correo postal en relación con citas, resultados de pruebas, cuestiones de facturación y otras comunicaciones relacionadas con la atención médica, a menos que indique lo contrario por escrito.</p>
 
           <h3>6. Derecho a Negarse o a Retirar el Consentimiento</h3>
           <p>Entiendo que tengo derecho a negarme a cualquier tratamiento o procedimiento y que puedo retirar este consentimiento en cualquier momento por escrito, salvo en la medida en que ya se hayan tomado medidas basadas en este consentimiento.</p>
@@ -2463,6 +2581,13 @@
       emerg_name: "Name",
       emerg_rel: "Relationship",
       emerg_rel_placeholder: "e.g., Spouse, Parent, Friend",
+      emerg_rel_choose: "Select...",
+      emerg_rel_spouse: "Spouse",
+      emerg_rel_parent: "Parent",
+      emerg_rel_sibling: "Sibling",
+      emerg_rel_child: "Child",
+      emerg_rel_other: "Other (specify)",
+      emerg_rel_other_placeholder: "Specify relationship",
       emerg_phone: "Phone",
       emerg_lang: "Preferred language",
 
@@ -2556,9 +2681,43 @@
       pcp_fax: "Primary care provider fax",
       // Screen 5: Patient Info
       patinfo_h1: "Patient information",
-      patinfo_lead: "A few quick health details so your provider has the right context for your visit.",
+      patinfo_lead: "Your health background and history so your provider has the right context for your visit.",
       patinfo2_h1: "Patient information (continued)",
-      patinfo2_lead: "A quick symptom check so your provider knows what to focus on during your visit.",
+      patinfo2_lead: "A quick symptom check so your provider has the full picture before your visit.",
+      pmh_h: "Past medical history",
+      pmh_lead: "Check any conditions you currently have or have had in the past.",
+      pmh_htn: "High blood pressure",
+      pmh_diabetes: "Diabetes",
+      pmh_heart: "Heart disease",
+      pmh_stroke: "Stroke / TIA",
+      pmh_cancer: "Cancer",
+      pmh_lung: "Asthma / COPD / Lung disease",
+      pmh_thyroid: "Thyroid disease",
+      pmh_kidney: "Kidney disease",
+      pmh_liver: "Liver disease",
+      pmh_mood: "Depression / Anxiety",
+      pmh_seizures: "Seizures / Epilepsy",
+      pmh_bleed: "Bleeding or clotting disorder",
+      pmh_none: "None of the above",
+      pmh_other: "Other conditions or details",
+      pmh_other_placeholder: "List any other conditions or relevant details",
+      pmh_surgeries: "Past surgeries or hospitalizations",
+      pmh_surgeries_placeholder: "Type and approximate year (e.g., appendectomy 2015)",
+      fmh_h: "Family medical history",
+      fmh_lead: "Check any condition that runs in your immediate family (parents, siblings, children, grandparents).",
+      fmh_htn: "High blood pressure",
+      fmh_diabetes: "Diabetes",
+      fmh_heart: "Heart disease",
+      fmh_stroke: "Stroke / TIA",
+      fmh_cancer: "Cancer",
+      fmh_lung: "Asthma / COPD / Lung disease",
+      fmh_thyroid: "Thyroid disease",
+      fmh_kidney: "Kidney disease",
+      fmh_neuro: "Neurological / spine condition",
+      fmh_genetic: "Genetic / inherited condition",
+      fmh_none: "None known",
+      fmh_details: "Details (which condition, which family member)",
+      fmh_details_placeholder: "e.g., Father had heart attack at 55; sister with breast cancer",
       height: "Height",
       height_ft: "ft",
       height_in: "in",
@@ -2666,6 +2825,8 @@
       ack_hipaa_disc_check: "I authorize the disclosure as described above.",
       ack_npp_title: "Notice of Privacy Practices (HIPAA)",
       ack_npp_check: "I acknowledge receipt of the Notice of Privacy Practices.",
+      ack_phl_title: "PHL Self-Referral Disclosure",
+      ack_phl_check: "I acknowledge that I have been notified of the financial relationship with New York Brain, Spine & Joint/Link Medical Services.",
       ack_aob_title: "Assignment of Benefits",
       ack_aob_check: "I have read and agree to the Assignment of Benefits.",
       ack_lien_title: "Lien Assignment Agreement",
@@ -2817,6 +2978,13 @@
       emerg_name: "Nombre",
       emerg_rel: "Relación",
       emerg_rel_placeholder: "p. ej., Cónyuge, Padre/Madre, Amigo(a)",
+      emerg_rel_choose: "Seleccione...",
+      emerg_rel_spouse: "Cónyuge",
+      emerg_rel_parent: "Padre/Madre",
+      emerg_rel_sibling: "Hermano(a)",
+      emerg_rel_child: "Hijo(a)",
+      emerg_rel_other: "Otro (especifique)",
+      emerg_rel_other_placeholder: "Especifique la relación",
       emerg_phone: "Teléfono",
       emerg_lang: "Idioma preferido",
 
@@ -2912,9 +3080,43 @@
       pcp_fax: "Fax del médico de atención primaria",
       // Screen 5: Patient Info
       patinfo_h1: "Información del paciente",
-      patinfo_lead: "Algunos datos rápidos de salud para que su proveedor tenga el contexto correcto para su visita.",
+      patinfo_lead: "Sus antecedentes y su historial médico para que su proveedor tenga el contexto correcto para su visita.",
       patinfo2_h1: "Información del paciente (continuación)",
-      patinfo2_lead: "Una revisión rápida de síntomas para que su proveedor sepa en qué enfocarse durante su visita.",
+      patinfo2_lead: "Una revisión rápida de síntomas para que su proveedor tenga el panorama completo antes de su visita.",
+      pmh_h: "Antecedentes médicos personales",
+      pmh_lead: "Marque cualquier afección que tenga actualmente o haya tenido en el pasado.",
+      pmh_htn: "Presión arterial alta",
+      pmh_diabetes: "Diabetes",
+      pmh_heart: "Enfermedad cardíaca",
+      pmh_stroke: "Accidente cerebrovascular / AIT",
+      pmh_cancer: "Cáncer",
+      pmh_lung: "Asma / EPOC / Enfermedad pulmonar",
+      pmh_thyroid: "Enfermedad de la tiroides",
+      pmh_kidney: "Enfermedad renal",
+      pmh_liver: "Enfermedad hepática",
+      pmh_mood: "Depresión / Ansiedad",
+      pmh_seizures: "Convulsiones / Epilepsia",
+      pmh_bleed: "Trastorno de coagulación o sangrado",
+      pmh_none: "Ninguna de las anteriores",
+      pmh_other: "Otras afecciones o detalles",
+      pmh_other_placeholder: "Indique cualquier otra afección o detalle relevante",
+      pmh_surgeries: "Cirugías u hospitalizaciones previas",
+      pmh_surgeries_placeholder: "Tipo y año aproximado (p. ej., apendicectomía 2015)",
+      fmh_h: "Antecedentes médicos familiares",
+      fmh_lead: "Marque cualquier afección que se presente en su familia inmediata (padres, hermanos, hijos, abuelos).",
+      fmh_htn: "Presión arterial alta",
+      fmh_diabetes: "Diabetes",
+      fmh_heart: "Enfermedad cardíaca",
+      fmh_stroke: "Accidente cerebrovascular / AIT",
+      fmh_cancer: "Cáncer",
+      fmh_lung: "Asma / EPOC / Enfermedad pulmonar",
+      fmh_thyroid: "Enfermedad de la tiroides",
+      fmh_kidney: "Enfermedad renal",
+      fmh_neuro: "Afección neurológica o de la columna",
+      fmh_genetic: "Afección genética o hereditaria",
+      fmh_none: "Ninguna conocida",
+      fmh_details: "Detalles (qué afección, qué familiar)",
+      fmh_details_placeholder: "p. ej., Padre tuvo infarto a los 55; hermana con cáncer de mama",
       height: "Estatura",
       height_ft: "pies",
       height_in: "pulg.",
@@ -3022,6 +3224,8 @@
       ack_hipaa_disc_check: "Autorizo la divulgación tal como se describe arriba.",
       ack_npp_title: "Aviso de Prácticas de Privacidad (HIPAA)",
       ack_npp_check: "Reconozco que recibí el Aviso de Prácticas de Privacidad.",
+      ack_phl_title: "Divulgación de Auto-Referencia (PHL)",
+      ack_phl_check: "Reconozco que se me ha notificado la relación financiera con New York Brain, Spine & Joint/Link Medical Services.",
       ack_aob_title: "Asignación de Beneficios",
       ack_aob_check: "He leído y acepto la Asignación de Beneficios.",
       ack_lien_title: "Acuerdo de Asignación de Gravamen",
