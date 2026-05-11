@@ -70,7 +70,10 @@
     .app-header img { height: 56px; width: auto; }
 
     .lang-toggle {
-      display: flex; gap: 0;
+      /* Hidden 2026-05-11 per Malese: Spanish launch canceled, English-only day 1.
+         Re-enable by switching back to `display: flex`. ES bodies + i18n keys remain in code. */
+      display: none;
+      gap: 0;
       background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
